@@ -8,6 +8,7 @@ import Skills from './pages/Skills';
 import Contact from './pages/Contact';
 import CustomCursor from './components/CustomCursor';
 import Aboutme from "./pages/About"
+import Certificate from './pages/Certificate'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/skills" element={<Skills />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<Aboutme />} />
+            <Route path='/certificates' element={<Certificate />} />
           </Routes>
         </AnimatePresence>
       </div>

@@ -82,7 +82,7 @@ const skillsData = {
       name: "Postman",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
       description: "API platform for building and testing APIs."
-    },    
+    },
     {
       name: "C++",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
@@ -95,51 +95,51 @@ const Skills = () => {
   const navigate = useNavigate();
   return (
     <Pagetrasition>
-     <div className="absolute top-4 left-4">
-          <button
-            onClick={() => navigate("/")}
-            className="flex items-center gap-2 text-gray-400 hover:text-white transition"
-          >
-            <ArrowLeft size={20} />
-            <span className="text-sm sm:text-base">Back to Dashboard</span>
-          </button>
-        </div>
-    <div className="relative w-full flex flex-col items-center px-4 sm:px-10 mt-20 font-sans">
-      <h2 className="text-center text-white text-3xl sm:text-4xl font-bold bg-[#0f172a] px-6 py-3 rounded-lg border border-[#3b82f6] shadow-[0_0_15px_#3b82f6] mb-20">
-        MY SKILLS
-      </h2>
-
-      <div className="flex flex-col sm:flex-row justify-center items-start gap-16 sm:gap-28">
-        {Object.entries(skillsData).map(([category, skills]) => (
-          <div key={category} className="flex flex-col items-center">
-            <div className="text-[#60a5fa] text-xl font-semibold mb-6 underline underline-offset-4">
-              {category}
-            </div>
-            <div className="flex flex-col gap-6">
-              {skills.map((skill, index) => (
-                <div key={index} className="relative group">
-                  <div className="flex items-center gap-3 border border-[#3b82f6] text-white px-4 py-2 rounded-full hover:scale-105 transition-transform cursor-pointer bg-[#1e293b]/30 shadow-[0_0_12px_#3b82f6] backdrop-blur-md animate-float">
-                    <img
-                      src={skill.img}
-                      alt={skill.name}
-                      className="w-6 h-6 object-contain animate-pulse"
-                    />
-                    <span className="text-sm sm:text-base">{skill.name}</span>
-                  </div>
-
-                  {/* Hover Card */}
-                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-3 z-30 hidden group-hover:flex flex-col bg-[#0f172a] text-white text-xs sm:text-sm border border-[#3b82f6] rounded-md p-3 shadow-[0_0_15px_#3b82f6] w-56 text-center transition-all duration-300">
-                    {skill.description}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+      <div className="absolute top-4 left-4">
+        <button
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2 text-gray-400 hover:text-white transition"
+        >
+          <ArrowLeft size={20} />
+          <span className="text-sm sm:text-base">Back to Dashboard</span>
+        </button>
       </div>
+      <div className="relative w-full flex flex-col items-center px-4 sm:px-10 mt-20 font-sans">
+        <h2 className="text-center text-white text-3xl sm:text-4xl font-bold bg-[#0f172a] px-6 py-3 rounded-lg border border-[#3b82f6] shadow-[0_0_15px_#3b82f6] mb-20">
+          MY SKILLS
+        </h2>
 
-      {/* Float animation */}
-      <style jsx>{`
+        <div className="flex flex-col sm:flex-row justify-center items-start gap-16 sm:gap-28">
+          {Object.entries(skillsData).map(([category, skills]) => (
+            <div key={category} className="flex flex-col items-center">
+              <div className="text-[#60a5fa] text-xl font-semibold mb-6 underline underline-offset-4">
+                {category}
+              </div>
+              <div className="flex flex-col gap-6">
+                {skills.map((skill, index) => (
+                  <div key={index} className="relative group">
+                    <div className="flex items-center gap-3 border border-[#3b82f6] text-white px-4 py-2 rounded-full hover:scale-105 transition-transform cursor-pointer bg-[#1e293b]/30 shadow-[0_0_12px_#3b82f6] backdrop-blur-md animate-float">
+                      <img
+                        src={skill.img}
+                        alt={skill.name}
+                        className="w-6 h-6 object-contain animate-pulse"
+                      />
+                      <span className="text-sm sm:text-base">{skill.name}</span>
+                    </div>
+
+                    {/* Hover Card */}
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full mt-3 z-30 hidden group-hover:flex flex-col bg-[#0f172a] text-white text-xs sm:text-sm border border-[#3b82f6] rounded-md p-3 shadow-[0_0_15px_#3b82f6] w-56 text-center transition-all duration-300">
+                      {skill.description}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Float animation */}
+        <style jsx>{`
         .animate-float {
           animation: floaty 4s ease-in-out infinite;
         }
@@ -153,7 +153,7 @@ const Skills = () => {
           }
         }
       `}</style>
-    </div>
+      </div>
     </Pagetrasition>
   );
 };

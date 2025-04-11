@@ -69,11 +69,9 @@ const Dashboard = () => {
       icon: <Award className="w-8 h-8 text-blue-400" />,
       title: "Certificates",
       content: (
-        <div className="flex flex-col items-center space-y-3">
-          <p className="text-sm text-gray-400">3 Certificates Earned</p>
-          <div className="w-20 h-2 bg-gray-700 rounded-full">
-            <div className="h-full bg-blue-400 rounded-full" style={{ width: '75%' }}></div>
-          </div>
+        <div className="flex flex-col items-center y-3">
+          <p className="text-sm text-gray-400">These are the certificates ,</p>
+          <p className="text-sm text-gray-400">I’ve earned from various platforms.</p>
         </div>
       ),
       route: "/certificates",
