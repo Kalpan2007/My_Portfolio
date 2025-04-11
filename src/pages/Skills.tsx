@@ -74,15 +74,15 @@ const skillsData = {
       description: "Code hosting platform.",
     },
     {
-      name: "VS Code",
-      img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
-      description: "Popular code editor.",
-    },
-    {
       name: "Figma",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
       description: "Collaborative UI/UX design tool.",
     },
+    {
+      name: "Postman",
+      img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
+      description: "API platform for building and testing APIs."
+    },    
     {
       name: "C++",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
@@ -92,6 +92,7 @@ const skillsData = {
 };
 
 const Skills = () => {
+  const navigate = useNavigate();
   return (
     <Pagetrasition>
      <div className="absolute top-4 left-4">
