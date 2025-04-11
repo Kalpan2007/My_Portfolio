@@ -3,7 +3,7 @@ import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import PageTransition from '../components/PageTransition';
 
-const projects = [
+const projects = [  
   {
     title: "E-Commerce Platform",
     description: "Full-stack e-commerce solution with React, Node.js, and MongoDB",
@@ -31,7 +31,7 @@ const projects = [
 ];
 
 const Projects = () => {
-  const navigate = useNavigate();
+const navigate = useNavigate(); 
 
   return (
     <PageTransition>

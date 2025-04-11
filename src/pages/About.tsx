@@ -4,14 +4,14 @@ import profileImage from '../assets/About-img.png';
 
 const About: React.FC = () => {
   const welcomeRef = useRef(null);
-  const aboutRef = useRef(null);
-  const codingRef = useRef(null);
   const educationRef = useRef(null);
+  const techRef = useRef(null);
+  const whoAmIRef = useRef(null);
 
   const isWelcomeInView = useInView(welcomeRef, { once: true, amount: 0.2 });
-  const isAboutInView = useInView(aboutRef, { once: true, amount: 0.2 });
-  const isCodingInView = useInView(codingRef, { once: true, amount: 0.2 });
   const isEducationInView = useInView(educationRef, { once: true, amount: 0.2 });
+  const isTechInView = useInView(techRef, { once: true, amount: 0.2 });
+  const isWhoAmIInView = useInView(whoAmIRef, { once: true, amount: 0.2 });
 
   // Animation variants
   const fadeInUp = {
@@ -97,29 +97,157 @@ const About: React.FC = () => {
         </motion.div>
       </section>
 
-      {/* About Me */}
-      <section ref={aboutRef} className="py-20 px-4 max-w-7xl mx-auto">
+      {/* Education Journey */}
+      <section ref={educationRef} className="py-20 px-4 max-w-7xl mx-auto">
         <motion.h2
           variants={fadeInUp}
           initial="hidden"
-          animate={isAboutInView ? 'visible' : 'hidden'}
+          animate={isEducationInView ? 'visible' : 'hidden'}
           className="text-4xl font-bold text-center text-white mb-12 drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)]"
         >
-          About Me
+          My Education Journey
+        </motion.h2>
+        <div className="relative max-w-3xl mx-auto">
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-700 hidden md:block"></div>
+          {[
+            {
+              title: '10th Standard',
+              date: '2022',
+              desc: 'Completed my 10th grade, laying the foundation for my academic journey.',
+              icon: '🏫',
+            },
+            {
+              title: '12th PCM - 92%',
+              date: '2024',
+              desc: 'Secured 92% in PCM and ranked 2121 in Gujarat ACPC.',
+              icon: '🎓',
+            },
+            {
+              title: 'Rai University x CodingGita',
+              date: '2024 - Present',
+              desc: 'Pursuing CSE with CodingGita’s guidance. Scored 9.95 CGPA in my 1st semester.',
+              icon: '📚',
+            },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              custom={i}
+              initial="hidden"
+              animate={isEducationInView ? 'visible' : 'hidden'}
+              variants={rotateIn}
+              className="mb-8 flex flex-col md:flex-row items-center justify-between w-full"
+            >
+              <div className="order-1 w-full md:w-5/12 mb-4 md:mb-0"></div>
+              <div className="z-10 flex items-center order-1 bg-gray-800 shadow-xl w-10 h-10 md:w-8 md:h-8 rounded-full ring-8 ring-gray-900 justify-center">
+                <span className="text-2xl md:text-xl">{item.icon}</span>
+              </div>
+              <motion.div
+                variants={cardHover}
+                whileHover="hover"
+                className="order-1 bg-gray-800 p-4 md:p-6 rounded-lg shadow-lg w-full md:w-5/12 ml-0 md:ml-6 text-center md:text-left"
+              >
+                <h3 className="text-lg md:text-xl font-semibold text-gray-100">{item.title}</h3>
+                <p className="text-sm text-gray-400">{item.desc}</p>
+                <p className="text-sm text-gray-500 mt-2">{item.date}</p>
+              </motion.div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Tech Journey */}
+      <section ref={techRef} className="py-20 px-4 max-w-7xl mx-auto">
+        <motion.h2
+          variants={fadeInUp}
+          initial="hidden"
+          animate={isTechInView ? 'visible' : 'hidden'}
+          className="text-4xl font-bold text-center text-white mb-12 drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)]"
+        >
+          My Tech Journey
+        </motion.h2>
+        <div className="relative max-w-3xl mx-auto">
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-700 hidden md:block"></div>
+          {[
+            {
+              title: 'Start Learning HTML, CSS, JS',
+              date: 'August 2024',
+              desc: 'Began my journey into basic web development with HTML, CSS, and JavaScript.',
+              icon: '🌐',
+            },
+            {
+              title: 'UI/UX Design with Figma & GitHub',
+              date: 'September 2024',
+              desc: 'Explored UI/UX design using Figma, learned GitHub, and practiced problem-solving.',
+              icon: '🎨',
+            },
+            {
+              title: 'MERN Stack Basics',
+              date: 'October 2024 - January 2025',
+              desc: 'Started learning the fundamentals of the MERN stack (MongoDB, Express.js, React, Node.js).',
+              icon: '💻',
+            },
+            {
+              title: 'Advanced Tools & Frameworks',
+              date: 'February 2025 - Present',
+              desc: 'Delving into Tailwind, MUI, Chakra, and gaining additional knowledge.',
+              icon: '🚀',
+            },
+            {
+              title: 'Continuing Learning DSA and New Skills',
+              date: 'March 2025 - Ongoing',
+              desc: 'Focusing on Data Structures and Algorithms (DSA) and exploring new upcoming skills.',
+              icon: '📚',
+            },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              custom={i}
+              initial="hidden"
+              animate={isTechInView ? 'visible' : 'hidden'}
+              variants={rotateIn}
+              className="mb-8 flex flex-col md:flex-row items-center justify-between w-full"
+            >
+              <div className="order-1 w-full md:w-5/12 mb-4 md:mb-0"></div>
+              <div className="z-10 flex items-center order-1 bg-gray-800 shadow-xl w-10 h-10 md:w-8 md:h-8 rounded-full ring-8 ring-gray-900 justify-center">
+                <span className="text-2xl md:text-xl">{item.icon}</span>
+              </div>
+              <motion.div
+                variants={cardHover}
+                whileHover="hover"
+                className="order-1 bg-gray-800 p-4 md:p-6 rounded-lg shadow-lg w-full md:w-5/12 ml-0 md:ml-6 text-center md:text-left"
+              >
+                <h3 className="text-lg md:text-xl font-semibold text-gray-100">{item.title}</h3>
+                <p className="text-sm text-gray-400">{item.desc}</p>
+                <p className="text-sm text-gray-500 mt-2">{item.date}</p>
+              </motion.div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Who I Am Now */}
+      <section ref={whoAmIRef} className="py-20 px-4 max-w-7xl mx-auto">
+        <motion.h2
+          variants={fadeInUp}
+          initial="hidden"
+          animate={isWhoAmIInView ? 'visible' : 'hidden'}
+          className="text-4xl font-bold text-center text-white mb-12 drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)]"
+        >
+          Who I Am Now
         </motion.h2>
         <div className="flex flex-col md:flex-row items-center gap-8 max-w-6xl mx-auto">
           <motion.div
             variants={fadeInLeft}
             initial="hidden"
-            animate={isAboutInView ? 'visible' : 'hidden'}
+            animate={isWhoAmIInView ? 'visible' : 'hidden'}
             className="w-full md:w-1/2 relative rounded-xl overflow-hidden"
           >
             <motion.img
               src={profileImage}
               alt="Kalpan Kaneriya"
-              className="w-full h-full max-h-[400px] object-cover rounded-xl transition-transform duration-300 hover:scale-105"
+              className="w-full h-auto max-h-[500px] md:max-h-[400px] object-cover rounded-xl transition-transform duration-300 hover:scale-105"
               initial={{ opacity: 0 }}
-              animate={isAboutInView ? { opacity: 1 } : { opacity: 0 }}
+              animate={isWhoAmIInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 1 }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end justify-center text-white text-xl font-semibold p-4">
@@ -129,146 +257,55 @@ const About: React.FC = () => {
           <motion.div
             variants={fadeInRight}
             initial="hidden"
-            animate={isAboutInView ? 'visible' : 'hidden'}
+            animate={isWhoAmIInView ? 'visible' : 'hidden'}
             className="w-full md:w-1/2 space-y-6"
           >
             <motion.h3
               variants={fadeInRight}
               initial="hidden"
-              animate={isAboutInView ? 'visible' : 'hidden'}
+              animate={isWhoAmIInView ? 'visible' : 'hidden'}
               custom={0}
               className="text-2xl font-bold text-gray-200 border-b-2 border-blue-400 inline-block pb-1"
             >
-              Who Am I?
+              My Current Identity
             </motion.h3>
             <motion.p
               variants={fadeInRight}
               initial="hidden"
-              animate={isAboutInView ? 'visible' : 'hidden'}
+              animate={isWhoAmIInView ? 'visible' : 'hidden'}
               custom={1}
               className="text-base text-gray-300 leading-relaxed bg-gray-800/50 p-4 rounded-lg shadow-inner"
             >
-              I’m a full-stack MERN maestro and a detail-driven UI/UX designer, crafting digital experiences that are not only functional—but visually stunning and intuitive.
+              I am a full-stack MERN developer and UI/UX designer, passionate about creating functional, visually stunning, and intuitive digital experiences.
             </motion.p>
             <motion.p
               variants={fadeInRight}
               initial="hidden"
-              animate={isAboutInView ? 'visible' : 'hidden'}
+              animate={isWhoAmIInView ? 'visible' : 'hidden'}
               custom={2}
               className="text-base text-gray-300 leading-relaxed bg-gray-800/50 p-4 rounded-lg shadow-inner"
             >
-              On the development front, I dive deep into React, Node.js, Express.js, and MongoDB, building scalable, efficient, and high-performing web applications. I don’t just write code—I sculpt it with elegance and precision.
+              With a strong foundation in React, Node.js, Express.js, and MongoDB, I build scalable and efficient web applications with precision and elegance.
             </motion.p>
             <motion.p
               variants={fadeInRight}
               initial="hidden"
-              animate={isAboutInView ? 'visible' : 'hidden'}
+              animate={isWhoAmIInView ? 'visible' : 'hidden'}
               custom={3}
               className="text-base text-gray-300 leading-relaxed bg-gray-800/50 p-4 rounded-lg shadow-inner"
             >
-              On the design side, I bring interfaces to life using tools like Figma, transforming complex ideas into clean, user-centric designs. From wireframes to prototypes, I ensure every pixel serves a purpose and every interaction feels natural.
+              On the design front, I craft user-centric interfaces using Figma, ensuring every pixel and interaction enhances the user experience.
             </motion.p>
             <motion.p
               variants={fadeInRight}
               initial="hidden"
-              animate={isAboutInView ? 'visible' : 'hidden'}
+              animate={isWhoAmIInView ? 'visible' : 'hidden'}
               custom={4}
               className="text-base text-gray-300 leading-relaxed bg-gray-800/50 p-4 rounded-lg shadow-inner"
             >
-              With an obsession for optimization and a love for clean, maintainable code, I leverage modern tools and AI to supercharge workflows. Whether it’s the backend logic or the frontend finesse—I’m here to make products that not only work, but wow.
+              Currently, I’m enhancing my skills with DSA, advanced frameworks like Tailwind and Chakra, and exploring new technologies to shape the future of web development.
             </motion.p>
           </motion.div>
-        </div>
-      </section>
-
-      {/* Coding Journey */}
-      <section ref={codingRef} className="py-20 px-4 max-w-7xl mx-auto">
-        <motion.h2
-          variants={fadeInUp}
-          initial="hidden"
-          animate={isCodingInView ? 'visible' : 'hidden'}
-          className="text-4xl font-bold text-center text-white mb-12 drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)]"
-        >
-          My Coding Journey
-        </motion.h2>
-        <div className="relative max-w-3xl mx-auto">
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-700"></div>
-          {[
-            {
-              title: 'JNV BK (9th - 12th)',
-              date: '2020 - 2024',
-              desc: 'Basic learning phase. Got my first interest in coding here.',
-              icon: '🏫',
-            },
-            {
-              title: 'Rai University',
-              date: '2024 - Present',
-              desc: 'Currently exploring advanced development & real-world projects.',
-              icon: '🎓',
-            },
-            {
-              title: 'Coding Experience',
-              date: 'Ongoing',
-              desc: 'Frontend Focus (React, GSAP, ShadCN, Three.js, Tailwind) & Backend Basics (Node.js, Express, MongoDB, Firebase)',
-              icon: '💻',
-            },
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              custom={i}
-              initial="hidden"
-              animate={isCodingInView ? 'visible' : 'hidden'}
-              variants={rotateIn}
-              className="mb-12 flex items-center justify-between w-full"
-            >
-              <div className="order-1 w-5/12"></div>
-              <div className="z-10 flex items-center order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full ring-8 ring-gray-900">
-                <span className="text-xl">{item.icon}</span>
-              </div>
-              <div className="order-1 bg-gray-800 p-6 rounded-lg shadow-lg w-5/12 ml-6">
-                <h3 className="text-xl font-semibold text-gray-100">{item.title}</h3>
-                <p className="text-sm text-gray-400">{item.desc}</p>
-                <p className="text-sm text-gray-500 mt-2">{item.date}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Education */}
-      <section ref={educationRef} className="py-20 px-4 max-w-7xl mx-auto">
-        <motion.h2
-          variants={fadeInUp}
-          initial="hidden"
-          animate={isEducationInView ? 'visible' : 'hidden'}
-          className="text-4xl font-bold text-center text-white mb-12 drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)]"
-        >
-          Education
-        </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {[
-            {
-              title: 'Rai University x CodingGita',
-              desc: 'Pursuing CSE with CodingGita’s guidance. Scored 9.95 CGPA in my 1st semester.',
-            },
-            {
-              title: '12th PCM - 92%',
-              desc: 'Secured 92% in PCM and ranked 2121 in Gujarat ACPC.',
-            },
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              variants={{ ...fadeInUp, ...cardHover }}
-              initial="hidden"
-              animate={isEducationInView ? 'visible' : 'hidden'}
-              whileHover="hover"
-              custom={i}
-              className="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-700 transition-colors duration-300"
-            >
-              <h3 className="text-xl font-semibold text-gray-200 mb-2">{item.title}</h3>
-              <p className="text-sm text-gray-400">{item.desc}</p>
-            </motion.div>
-          ))}
         </div>
       </section>
     </div>

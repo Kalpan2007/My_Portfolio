@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* Import Poppins font instead of Inter */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif; /* Changed from Inter to Poppins */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -33,8 +34,7 @@ html {
   background: #444;
 }
 
-
-/* animation backgound for the app */
+/* Animation background for the app */
 @keyframes bg-shift {
   0% { background-position: 0 0; }
   100% { background-position: 16px 16px; }
