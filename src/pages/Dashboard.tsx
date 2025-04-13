@@ -57,9 +57,7 @@ const Dashboard = () => {
       content: (
         <div className="flex flex-col items-center space-y-3">
           <div className="flex gap-2">
-            <img src="https://via.placeholder.com/50?text=P1" alt="Proj 1" className="w-16 h-16 rounded object-cover" />
-            <img src="https://via.placeholder.com/50?text=P2" alt="Proj 2" className="w-16 h-16 rounded object-cover" />
-            <img src="https://via.placeholder.com/50?text=P3" alt="Proj 3" className="w-16 h-16 rounded object-cover" />
+           This is  All My Projects 
           </div>
         </div>
       ),
@@ -92,11 +90,8 @@ const Dashboard = () => {
       title: "Beyond Code",
       content: (
         <div className="flex flex-col items-center space-y-2">
-          <div className="flex gap-2">
-            <Globe className="w-6 h-6 text-blue-400" />
-            <Award className="w-6 h-6 text-blue-400" />
-          </div>
-          <p className="text-sm text-gray-100">Photography, Travel</p>
+          <p className="text-sm text-gray-100">Cricket</p>
+          <p className="text-sm text-gray-100">Mobile Gaming</p>
         </div>
       ),
       route: "/beyond-code",

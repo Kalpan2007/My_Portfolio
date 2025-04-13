@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import Jsf from '../assets/Js_01_img.png';
 // Certificate data - 9 certificates total
 const certificatesData = [
   {
@@ -8,7 +8,7 @@ const certificatesData = [
     issuer: "AIM4YOU Finance & Investing",
     date: "April 2024",
     description: "Mastered advanced JavaScript design patterns including module pattern, singleton, factory, observer and MVC architecture.",
-    img: "/api/placeholder/320/180"
+    img: Jsf
   },
   {
     title: "React.js Certification",
