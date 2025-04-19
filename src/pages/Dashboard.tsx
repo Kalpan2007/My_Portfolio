@@ -138,7 +138,7 @@ const Dashboard = () => {
           initial="initial"
           animate="animate"
           whileHover="hover"
-          className="lg:col-start-2 lg:row-start-1 lg:row-end-3 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg transition-all duration-300 hover:bg-white/10 h-[400px] w-full max-w-[600px] mx-auto"
+          className="lg:col-start-2 lg:row-start-1 lg:row-end-3 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg transition-all duration-100 hover:bg-white/10 h-[400px] w-full max-w-[600px] mx-auto"
         >
           <div className="flex flex-col items-center text-center space-y-6 h-full justify-center">
             <div className="w-28 h-28 rounded-full overflow-hidden ring-2 ring-blue-500/30 shadow-md">
