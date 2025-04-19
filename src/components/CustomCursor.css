@@ -26,13 +26,25 @@
     }
   }
   
-  /* Make sure your app has a dark blue background */
-  body {
-    background-color: #0f172a; /* Tailwind's dark blue, modify as needed to match your background */
-    cursor: none !important;
+  /* Apply custom cursor only on desktop/laptop screens */
+  @media (min-width: 1024px) {
+    body {
+      cursor: none !important;
+    }
+    
+    /* For elements that need cursor interaction */
+    a, button, input, textarea, select, [role="button"] {
+      cursor: none !important;
+    }
   }
   
-  /* For elements that need cursor interaction */
-  a, button, input, textarea, select, [role="button"] {
-    cursor: none !important;
+  /* Use default cursor on mobile and tablet */
+  @media (max-width: 1023px) {
+    body {
+      cursor: auto !important;
+    }
+    
+    a, button, input, textarea, select, [role="button"] {
+      cursor: pointer !important;
+    }
   }
