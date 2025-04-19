@@ -1,0 +1,38 @@
+/* Add this to your global CSS file */
+
+@keyframes rayAnimation {
+    0% {
+      transform: rotate(var(--rotation)) translateY(-20px) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(var(--rotation)) translateY(-35px) scale(0);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes pulseAnimation {
+    0% {
+      transform: scale(1);
+      opacity: 0.3;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.3;
+    }
+  }
+  
+  /* Make sure your app has a dark blue background */
+  body {
+    background-color: #0f172a; /* Tailwind's dark blue, modify as needed to match your background */
+    cursor: none !important;
+  }
+  
+  /* For elements that need cursor interaction */
+  a, button, input, textarea, select, [role="button"] {
+    cursor: none !important;
+  }
