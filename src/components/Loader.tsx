@@ -4,7 +4,7 @@ import { useSprings, animated, SpringValue } from '@react-spring/web';
 const AnimatedSpan = animated.span as React.ComponentProps<typeof animated.span>;
 
 const Loader = () => {
-  const text = 'Welcome to the Kalpan Portfolio';
+  const text = "Welcome to Kalpan's Portfolio"
   const elements = text.split(' ');
   const [inView, setInView] = useState(false);
   const ref = useRef<HTMLParagraphElement>(null);

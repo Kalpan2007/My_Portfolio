@@ -1,4 +1,3 @@
-// InteractiveCursor.tsx
 import { useState, useEffect, useRef } from 'react';
 
 interface CursorPosition {

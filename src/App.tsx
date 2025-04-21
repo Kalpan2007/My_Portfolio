@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Dashboard from './pages/Dashboard';
 import Projects from './pages/Projects';
@@ -10,6 +10,24 @@ import CustomCursor from './components/CustomCursor';
 import Aboutme from "./pages/About"
 import Certificate from './pages/Certificate';
 import Loader from './components/Loader'; // 👈 Import loader
+
+function AnimatedRoutes() {
+  const location = useLocation();
+  
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/experience" element={<Experience />} />
+        <Route path="/skills" element={<Skills />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<Aboutme />} />
+        <Route path="/certificates" element={<Certificate />} />
+      </Routes>
+    </AnimatePresence>
+  );
+}
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,17 +48,7 @@ function App() {
         {isLoading ? (
           <Loader onFinish={() => setIsLoading(false)} />
         ) : (
-          <AnimatePresence mode="wait">
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/experience" element={<Experience />} />
-              <Route path="/skills" element={<Skills />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/about" element={<Aboutme />} />
-              <Route path="/certificates" element={<Certificate />} />
-            </Routes>
-          </AnimatePresence>
+          <AnimatedRoutes />
         )}
       </div>
     </Router>

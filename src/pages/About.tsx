@@ -1,8 +1,11 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import profileImage from '../assets/About-img.png';
+import { ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const About: React.FC = () => {
+  const navigate = useNavigate();
   const welcomeRef = useRef(null);
   const educationRef = useRef(null);
   const techRef = useRef(null);
@@ -308,6 +311,52 @@ const About: React.FC = () => {
           </motion.div>
         </div>
       </section>
+      <div className="w-full bg-gray-900/80 backdrop-blur-md border-t border-gray-800">
+        <div className="max-w-7xl mx-auto py-6 px-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <button
+              onClick={() => navigate('/')}
+              className="flex items-center gap-2 text-gray-400 hover:text-white transition"
+            >
+              <ArrowLeft size={20} />
+              <span>Back to Home</span>
+            </button>
+
+            <div className="flex flex-wrap justify-center gap-4">
+              <button
+                onClick={() => navigate('/projects')}
+                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
+              >
+                Projects
+              </button>
+              <button
+                onClick={() => navigate('/skills')}
+                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
+              >
+                Skills
+              </button>
+              <button
+                onClick={() => navigate('/experience')}
+                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
+              >
+                Experience
+              </button>
+              <button
+                onClick={() => navigate('/certificates')}
+                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
+              >
+                Certificates
+              </button>
+              <button
+                onClick={() => navigate('/contact')}
+                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
+              >
+                Contact
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
