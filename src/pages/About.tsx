@@ -1,8 +1,8 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import profileImage from '../assets/About-img.png';
-import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import BackToDashboard from '../components/BackToDashboard';
 
 const About: React.FC = () => {
   const navigate = useNavigate();
@@ -314,14 +314,7 @@ const About: React.FC = () => {
       <div className="w-full bg-gray-900/80 backdrop-blur-md border-t border-gray-800">
         <div className="max-w-7xl mx-auto py-6 px-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <button
-              onClick={() => navigate('/')}
-              className="flex items-center gap-2 text-gray-400 hover:text-white transition"
-            >
-              <ArrowLeft size={20} />
-              <span>Back to Home</span>
-            </button>
-
+            <BackToDashboard />
             <div className="flex flex-wrap justify-center gap-4">
               <button
                 onClick={() => navigate('/projects')}

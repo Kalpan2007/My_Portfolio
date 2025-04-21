@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin, Phone } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import PageTransition from '../components/PageTransition';
+import BackToDashboard from '../components/BackToDashboard';
 
 const Contact = () => {
   const navigate = useNavigate();
@@ -22,13 +23,9 @@ const Contact = () => {
     <PageTransition>
       <div className="min-h-screen p-8">
         <div className="max-w-7xl mx-auto">
-          <button
-            onClick={() => navigate('/')}
-            className="flex items-center gap-2 text-gray-400 hover:text-white mb-8 transition"
-          >
-            <ArrowLeft size={20} />
-            Back to Dashboard
-          </button>
+          <div className="mb-8">
+            <BackToDashboard />
+          </div>
 
           <h1 className="text-4xl font-bold mb-8">Contact</h1>
 

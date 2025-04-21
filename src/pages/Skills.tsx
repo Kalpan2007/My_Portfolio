@@ -2,6 +2,7 @@ import React from "react";
 import Pagetrasition from '../components/PageTransition'
 import { ArrowLeft } from 'lucide-react'
 import { useNavigate } from 'react-router-dom';
+import BackToDashboard from '../components/BackToDashboard';
 const skillsData = {
   Frontend: [
     {
@@ -96,13 +97,7 @@ const Skills = () => {
   return (
     <Pagetrasition>
       <div className="absolute top-4 left-4">
-        <button
-          onClick={() => navigate("/")}
-          className="flex items-center gap-2 text-gray-400 hover:text-white transition"
-        >
-          <ArrowLeft size={20} />
-          <span className="text-sm sm:text-base">Back to Dashboard</span>
-        </button>
+      <BackToDashboard />
       </div>
       <div className="relative w-full flex flex-col items-center px-4 sm:px-10 mt-20 font-sans">
         <h2 className="text-center text-white text-3xl sm:text-4xl font-bold bg-[#0f172a] px-6 py-3 rounded-lg border border-[#3b82f6] shadow-[0_0_15px_#3b82f6] mb-20">

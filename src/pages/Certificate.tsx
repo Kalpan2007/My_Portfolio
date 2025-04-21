@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Jsf from '../assets/Js_01_img.png';
+import BackToDashboard from '../components/BackToDashboard';
+
 // Certificate data - 9 certificates total
 const certificatesData = [
   {
@@ -68,32 +70,6 @@ const certificatesData = [
   }
 ];
 
-const BackButton = () => {
-  const navigate = useNavigate();
-  return (
-    <button
-    onClick={() => navigate("/")}
-      className="flex items-center gap-2 text-gray-400 hover:text-white transition"
-    >
-      <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        width="20" 
-        height="20" 
-        viewBox="0 0 24 24" 
-        fill="none" 
-        stroke="currentColor" 
-        strokeWidth="2" 
-        strokeLinecap="round" 
-        strokeLinejoin="round"
-      >
-        <path d="m12 19-7-7 7-7"/>
-        <path d="M19 12H5"/>
-      </svg>
-      <span className="text-sm sm:text-base">Back to Dashboard</span>
-    </button>
-  );
-};
-
 const CertificateCard = ({ certificate }) => {
   return (
     <div className="bg-[#0f172a]/80 border border-[#3b82f6] rounded-xl shadow-lg overflow-hidden w-full transition-all hover:scale-105 hover:shadow-xl">
@@ -125,7 +101,7 @@ const Certificates = () => {
   return (
     <div className="min-h-screen py-20 px-4 sm:px-8 bg-[#0f172a]">
       <div className="absolute top-4 left-4">
-        <BackButton />
+        <BackToDashboard />
       </div>
       
       <div className="max-w-7xl mx-auto">
