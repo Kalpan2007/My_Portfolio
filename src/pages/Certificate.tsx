@@ -13,15 +13,40 @@ const certificatesData = [
     img: Jsf,
     topics: ["Factory", "Observer", "MVC", "ES6+", "Modular JS"]
   },
+  {
+    title: "Advanced JavaScript Patterns",
+    issuer: "AIM4YOU Finance & Investing",
+    date: "April 2024",
+    description: "Mastered advanced JavaScript design patterns including module pattern, singleton, factory, observer and MVC architecture.",
+    img: Jsf,
+    topics: ["Factory", "Observer", "MVC", "ES6+", "Modular JS"]
+  },
+  {
+    title: "Advanced JavaScript Patterns",
+    issuer: "AIM4YOU Finance & Investing",
+    date: "April 2024",
+    description: "Mastered advanced JavaScript design patterns including module pattern, singleton, factory, observer and MVC architecture.",
+    img: Jsf,
+    topics: ["Factory", "Observer", "MVC", "ES6+", "Modular JS"]
+  },
+  {
+    title: "Advanced JavaScript Patterns",
+    issuer: "AIM4YOU Finance & Investing",
+    date: "April 2024",
+    description: "Mastered advanced JavaScript design patterns including module pattern, singleton, factory, observer and MVC architecture.",
+    img: Jsf,
+    topics: ["Factory", "Observer", "MVC", "ES6+", "Modular JS"]
+  },
 ];
 
 const CertificateCard = ({ certificate }) => {
   return (
     <div className="group w-full [perspective:1000px]">
-      <div className="relative w-full h-[300px] sm:h-[320px] transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+      {/* Increased height for larger cards */}
+      <div className="relative w-full h-[400px] sm:h-[450px] transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
         
-        {/* Front Side */}
-        <div className="absolute w-full h-full rounded-xl bg-[#0f172a]/90 border border-blue-500 shadow-lg p-4 flex items-center justify-center [backface-visibility:hidden]">
+        {/* Front Side - Increased padding and size */}
+        <div className="absolute w-full h-full rounded-xl bg-[#0f172a]/90 border border-blue-500 shadow-lg p-6 flex items-center justify-center [backface-visibility:hidden]">
           <img
             src={certificate.img}
             alt={certificate.title}
@@ -29,19 +54,19 @@ const CertificateCard = ({ certificate }) => {
           />
         </div>
 
-        {/* Back Side */}
-        <div className="absolute w-full h-full rounded-xl bg-gradient-to-br from-[#1e293b] to-[#0f172a] border border-blue-700 text-white p-5 [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col justify-center items-center text-center">
-          <h3 className="text-xl font-bold text-blue-400 mb-2">
+        {/* Back Side - Adjusted spacing for larger card */}
+        <div className="absolute w-full h-full rounded-xl bg-gradient-to-br from-[#1e293b] to-[#0f172a] border border-blue-700 text-white p-8 [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col justify-center items-center text-center">
+          <h3 className="text-2xl font-bold text-blue-400 mb-4">
             {certificate.title}
           </h3>
-          <p className="text-sm text-gray-300 mb-4 px-2">
+          <p className="text-base text-gray-300 mb-6 px-4">
             {certificate.description}
           </p>
-          <div className="flex flex-wrap justify-center gap-2 mt-auto">
+          <div className="flex flex-wrap justify-center gap-3 mt-auto">
             {certificate.topics?.map((topic, i) => (
               <span
                 key={i}
-                className="text-xs px-3 py-1 rounded-full bg-blue-800/20 border border-blue-400 text-blue-200"
+                className="text-sm px-4 py-1.5 rounded-full bg-blue-800/20 border border-blue-400 text-blue-200"
               >
                 {topic}
               </span>
@@ -63,9 +88,15 @@ const Certificates = () => {
       </div>
 
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-center text-white text-3xl sm:text-4xl font-bold bg-[#0f172a] px-6 py-3 rounded-lg border border-[#3b82f6] shadow-[0_0_15px_#3b82f6] mb-16 mx-auto w-fit">
-          MY CERTIFICATES
-        </h2>
+        {/* Title Section with added instruction */}
+        <div className="text-center mb-16">
+          <h2 className="text-white text-3xl sm:text-4xl font-bold bg-[#0f172a] px-6 py-3 rounded-lg border border-[#3b82f6] shadow-[0_0_15px_#3b82f6] mb-4 mx-auto w-fit">
+            MY CERTIFICATES
+          </h2>
+          <p className="text-blue-400 text-sm sm:text-base mt-4 animate-pulse">
+            ✨ Hover over certificates to explore details ✨
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {certificatesData.map((certificate, index) => (
