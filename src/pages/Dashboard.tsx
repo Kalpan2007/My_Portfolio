@@ -79,8 +79,7 @@ const Dashboard = () => {
       title: "Experience",
       content: (
         <div className="flex flex-col items-center space-y-2">
-          <p className="text-sm text-gray-100">2 Years in Development</p>
-          <p className="text-xs text-gray-200">Internships & Freelance</p>
+          <p className="text-xs text-gray-200">Internship</p>
         </div>
       ),
       route: "/experience",

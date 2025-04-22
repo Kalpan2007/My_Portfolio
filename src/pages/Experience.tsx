@@ -5,38 +5,20 @@ import BackToDashboard from '../components/BackToDashboard';
 
 const experiences = [
   {
-    position: "Senior Full Stack Developer",
-    company: "Tech Solutions Inc.",
-    duration: "2022 - Present",
-    description: "Leading development of enterprise web applications using MERN stack.",
+    position: "UI/UX Designer Intern",
+    company: "Company - Eduztrik",
+    duration: "March 2025 – Present",
+    description: "Contributing as the lead UI/UX designer for Eduztrik’s core platform, focusing on creating intuitive and visually compelling user experiences across web applications.",
     responsibilities: [
-      "Architected and implemented scalable web applications",
-      "Led a team of 5 developers",
-      "Improved application performance by 40%"
-    ]
-  },
-  {
-    position: "Frontend Developer",
-    company: "Digital Innovations",
-    duration: "2020 - 2022",
-    description: "Developed responsive web applications using React and modern frontend technologies.",
-    responsibilities: [
-      "Built responsive user interfaces",
-      "Implemented state management solutions",
-      "Optimized application performance"
-    ]
-  },
-  {
-    position: "UI/UX Designer",
-    company: "Creative Studio",
-    duration: "2019 - 2020",
-    description: "Designed user interfaces and experiences for web and mobile applications.",
-    responsibilities: [
-      "Created user-centered designs",
-      "Conducted user research",
-      "Developed UI component libraries"
+      "Designed user-centric web interfaces from scratch using Figma",
+      "Collaborated closely with developers to implement pixel-perfect designs",
+      "Conducted UX research and translated insights into design improvements",
+      "Crafted design systems and reusable UI components for scalability",
+      "Actively participated in team discussions, sprint planning, and reviews"
     ]
   }
+  
+
 ];
 
 const Experience = () => {
