@@ -1,23 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Phone } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useForm, ValidationError } from '@formspree/react';
 import PageTransition from '../components/PageTransition';
 import BackToDashboard from '../components/BackToDashboard';
 
 const Contact = () => {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log(formData);
-  };
+  const [state, handleSubmit] = useForm("xkgrnnoy"); // Replace "yourFormspreeID" with your actual Formspree form ID
 
   return (
     <PageTransition>
@@ -44,9 +33,8 @@ const Contact = () => {
                   <input
                     type="text"
                     id="name"
+                    name="name"
                     className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   />
                 </div>
                 <div>
@@ -56,9 +44,13 @@ const Contact = () => {
                   <input
                     type="email"
                     id="email"
+                    name="email"
                     className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  />
+                  <ValidationError
+                    prefix="Email"
+                    field="email"
+                    errors={state.errors}
                   />
                 </div>
                 <div>
@@ -67,19 +59,27 @@ const Contact = () => {
                   </label>
                   <textarea
                     id="message"
+                    name="message"
                     rows={4}
                     className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  />
+                  <ValidationError
+                    prefix="Message"
+                    field="message"
+                    errors={state.errors}
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition transform hover:scale-[1.02] active:scale-[0.98]"
+                  disabled={state.submitting}
+                  className="w-full px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-all duration-300 shadow-md drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] flex items-center justify-center gap-2 hover:scale-102 hover:shadow-[0_0_12px_#3b82f6]"
                 >
-                  Send Message
+                  {state.submitting ? "Sending..." : "Send Message"}
                 </button>
               </form>
+              {state.succeeded && (
+                <p className="text-green-500 mt-4">Thank you! Your message has been sent.</p>
+              )}
             </motion.div>
 
             <motion.div
