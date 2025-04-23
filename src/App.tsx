@@ -11,6 +11,7 @@ import Aboutme from "./pages/About"
 import Certificate from './pages/Certificate';
 import Loader from './components/Loader'; // 👈 Import loader
 import ScrollToTop from './components/ScrollToTop';
+import OtherSection from './components/OtherSide'
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -25,6 +26,7 @@ function AnimatedRoutes() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<Aboutme />} />
         <Route path="/certificates" element={<Certificate />} />
+        <Route path="/My_Other_Side" element={<OtherSection />} />
       </Routes>
     </AnimatePresence>
   );
