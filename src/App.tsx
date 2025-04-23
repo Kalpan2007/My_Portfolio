@@ -11,7 +11,7 @@ import Aboutme from "./pages/About"
 import Certificate from './pages/Certificate';
 import Loader from './components/Loader'; // 👈 Import loader
 import ScrollToTop from './components/ScrollToTop';
-import OtherSection from './components/OtherSide'
+import OtherSection from './pages/OtherSide'
 
 function AnimatedRoutes() {
   const location = useLocation();
