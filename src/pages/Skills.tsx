@@ -1,8 +1,8 @@
 import React from "react";
-import Pagetrasition from '../components/PageTransition'
-import { ArrowLeft } from 'lucide-react'
+import Pagetrasition from '../components/PageTransition';
 import { useNavigate } from 'react-router-dom';
 import BackToDashboard from '../components/BackToDashboard';
+
 const skillsData = {
   Frontend: [
     {
@@ -59,7 +59,7 @@ const skillsData = {
     },
     {
       name: "JWT",
-      img: "data:image/png;base64,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",
+      img: "data:image/png;base64,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",
       description: "Token-based authentication method.",
     },
   ],
@@ -82,7 +82,7 @@ const skillsData = {
     {
       name: "Postman",
       img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
-      description: "API platform for building and testing APIs."
+      description: "API platform for building and testing APIs.",
     },
     {
       name: "C++",
@@ -94,60 +94,78 @@ const skillsData = {
 
 const Skills = () => {
   const navigate = useNavigate();
+
   return (
     <Pagetrasition>
-      <div className="absolute top-4 left-4">
-      <BackToDashboard />
-      </div>
-      <div className="relative w-full flex flex-col items-center px-4 sm:px-10 mt-20 font-sans">
-        <h2 className="text-center text-white text-3xl sm:text-4xl font-bold bg-[#0f172a] px-6 py-3 rounded-lg border border-[#3b82f6] shadow-[0_0_15px_#3b82f6] mb-20">
-          MY SKILLS
-        </h2>
+      <div className="flex flex-col min-h-screen">
+        {/* Main Content */}
+        <div className="flex-grow p-8">
+          <div className="max-w-7xl mx-auto">
+            
 
-        <div className="flex flex-col sm:flex-row justify-center items-start gap-16 sm:gap-28">
-          {Object.entries(skillsData).map(([category, skills]) => (
-            <div key={category} className="flex flex-col items-center">
-              <div className="text-[#60a5fa] text-xl font-semibold mb-6 underline underline-offset-4">
-                {category}
-              </div>
-              <div className="flex flex-col gap-6">
-                {skills.map((skill, index) => (
-                  <div key={index} className="relative group">
-                    <div className="flex items-center gap-3 border border-[#3b82f6] text-white px-4 py-2 rounded-full hover:scale-105 transition-transform cursor-pointer bg-[#1e293b]/30 shadow-[0_0_12px_#3b82f6] backdrop-blur-md animate-float">
-                      <img
-                        src={skill.img}
-                        alt={skill.name}
-                        className="w-6 h-6 object-contain animate-pulse"
-                      />
-                      <span className="text-sm sm:text-base">{skill.name}</span>
-                    </div>
+            <h1 className="text-4xl font-bold text-center mb-8 text-white">My Skills</h1>
 
-                    {/* Hover Card */}
-                    <div className="absolute left-1/2 -translate-x-1/2 top-full mt-3 z-30 hidden group-hover:flex flex-col bg-[#0f172a] text-white text-xs sm:text-sm border border-[#3b82f6] rounded-md p-3 shadow-[0_0_15px_#3b82f6] w-56 text-center transition-all duration-300">
-                      {skill.description}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Object.entries(skillsData).map(([category, skills], index) => (
+                <div key={index} className="backdrop-blur-sm rounded-3xl overflow-hidden bg-white/5">
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-4 text-blue-400">{category}</h3>
+                    <div className="divide-y divide-gray-700"> {/* Added divider */}
+                      {skills.map((skill, i) => (
+                        <div key={i} className="flex items-center gap-4 py-4"> {/* Added padding for spacing */}
+                          <img
+                            src={skill.img}
+                            alt={skill.name}
+                            className="w-10 h-10 object-contain"
+                          />
+                          <div>
+                            <h4 className="text-lg font-semibold text-white">{skill.name}</h4>
+                            <p className="text-sm text-gray-400">{skill.description}</p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
 
-        {/* Float animation */}
-        <style jsx>{`
-        .animate-float {
-          animation: floaty 4s ease-in-out infinite;
-        }
-        @keyframes floaty {
-          0%,
-          100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-5px);
-          }
-        }
-      `}</style>
+        {/* Bottom Navigation */}
+        <div className="w-full bg-gray-900/80 backdrop-blur-md border-t border-gray-800">
+          <div className="max-w-7xl mx-auto py-4 px-4">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
+              <BackToDashboard />
+              <div className="flex flex-wrap justify-center gap-2">
+                <button
+                  onClick={() => navigate('/projects')}
+                  className="px-4 py-2 bg-white/10 rounded-md text-sm hover:bg-white/20 transition-all"
+                >
+                  Projects
+                </button>
+                <button
+                  onClick={() => navigate('/experience')}
+                  className="px-4 py-2 bg-white/10 rounded-md text-sm hover:bg-white/20 transition-all"
+                >
+                  Experience
+                </button>
+                <button
+                  onClick={() => navigate('/certificates')}
+                  className="px-4 py-2 bg-white/10 rounded-md text-sm hover:bg-white/20 transition-all"
+                >
+                  Certificates
+                </button>
+                <button
+                  onClick={() => navigate('/about')}
+                  className="px-4 py-2 bg-white/10 rounded-md text-sm hover:bg-white/20 transition-all"
+                >
+                  About
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </Pagetrasition>
   );

@@ -28,9 +28,6 @@ const Experience = () => {
     <PageTransition>
       <div className="min-h-screen p-8">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-8">
-            <BackToDashboard />
-          </div>
 
           <h1 className="text-4xl font-bold mb-8">Experience</h1>
 
@@ -56,6 +53,39 @@ const Experience = () => {
                 </ul>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </div>
+      <div className="w-full bg-gray-900/80 backdrop-blur-md border-t border-gray-800">
+        <div className="max-w-7xl mx-auto py-6 px-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <BackToDashboard />
+            <div className="flex flex-wrap justify-center gap-4">
+              <button
+                onClick={() => navigate('/projects')}
+                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
+              >
+                Projects
+              </button>
+              <button
+                onClick={() => navigate('/skills')}
+                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
+              >
+                Skills
+              </button>
+              <button
+                onClick={() => navigate('/certificates')}
+                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
+              >
+                Certificates
+              </button>
+              <button
+                onClick={() => navigate('/about')}
+                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
+              >
+                About
+              </button>
+            </div>
           </div>
         </div>
       </div>

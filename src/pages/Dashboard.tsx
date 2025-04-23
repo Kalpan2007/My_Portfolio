@@ -86,14 +86,14 @@ const Dashboard = () => {
     },
     {
       icon: <Globe className="w-8 h-8 text-blue-400" />,
-      title: "Beyond Code",
+      title: "My Other Side	",
       content: (
         <div className="flex flex-col items-center space-y-2">
           <p className="text-sm text-gray-100">Cricket</p>
           <p className="text-sm text-gray-100">Mobile Gaming</p>
         </div>
       ),
-      route: "/beyond-code",
+      route: "/My_Other_Side	",
     },
     {
       icon: <Code className="w-8 h-8 text-blue-400" />,
