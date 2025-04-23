@@ -48,16 +48,22 @@ export const HoverEffect = ({
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className="relative z-20 overflow-hidden rounded-3xl shadow-xl border border-transparent hover:border-white/20"
           >
-            <div
-              className="absolute inset-0 bg-cover bg-center opacity-60 transition-all duration-300"
-              style={{ backgroundImage: `url(${item.backgroundImage})` }}
-            />
+            {/* Background Image */}
+            <div className="absolute inset-0">
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url(${item.backgroundImage})` }}
+              />
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent opacity-80" />
+            </div>
 
-            <div className="relative z-30 p-6 flex flex-col justify-between h-full text-white bg-black/40 rounded-3xl">
-              <h3 className="text-xl font-semibold mb-4">{item.title}</h3>
-              <ul className="space-y-2 text-sm text-zinc-200 list-disc pl-4">
+            {/* Content */}
+            <div className="relative z-30 p-6 flex flex-col justify-between h-full text-white space-y-4">
+              <h3 className="text-xl font-semibold mb-2 drop-shadow-md">{item.title}</h3>
+              <ul className="bg-black/40 backdrop-blur-md p-4 rounded-xl space-y-2 text-sm text-zinc-200 list-disc pl-5">
                 {item.description.map((point, idx) => (
-                  <li key={idx}>{point}</li>
+                  <li key={idx} className="drop-shadow-sm">{point}</li>
                 ))}
               </ul>
             </div>
