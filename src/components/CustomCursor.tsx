@@ -1,221 +1,185 @@
-import { useState, useEffect, useRef } from 'react';
+import { motion, useSpring } from "framer-motion";
+import { FC, JSX, useEffect, useRef, useState } from "react";
 
-interface CursorPosition {
+interface Position {
   x: number;
   y: number;
 }
 
-interface HoverableElement {
-  element: HTMLElement;
-  entered: boolean;
+export interface SmoothCursorProps {
+  cursor?: JSX.Element;
+  springConfig?: {
+    damping: number;
+    stiffness: number;
+    mass: number;
+    restDelta: number;
+  };
 }
 
-const InteractiveCursor: React.FC = () => {
-  const [position, setPosition] = useState<CursorPosition>({ x: 0, y: 0 });
-  const [isClicked, setIsClicked] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
-  const [cursorSize, setCursorSize] = useState(20);
-  const [trailPositions, setTrailPositions] = useState<CursorPosition[]>([]);
-  const [isDesktop, setIsDesktop] = useState(false);
-  
-  const clickSoundRef = useRef<HTMLAudioElement | null>(null);
-  const hoverSoundRef = useRef<HTMLAudioElement | null>(null);
-  const hoverElementsRef = useRef<HoverableElement[]>([]);
-  
-  // Check if the device is desktop/laptop
-  useEffect(() => {
-    const checkIfDesktop = () => {
-      // Simple check for desktop/laptop - assumes tablet and mobile are smaller than 1024px
-      const isLaptopOrDesktop = window.innerWidth >= 1024;
-      setIsDesktop(isLaptopOrDesktop);
-      
-      // Reset cursor to default on mobile/tablet devices
-      if (!isLaptopOrDesktop) {
-        document.body.style.cursor = 'auto';
-      } else {
-        document.body.style.cursor = 'none';
-      }
-    };
-    
-    // Initial check
-    checkIfDesktop();
-    
-    // Re-check on window resize
-    window.addEventListener('resize', checkIfDesktop);
-    
-    return () => {
-      window.removeEventListener('resize', checkIfDesktop);
-      document.body.style.cursor = 'auto';
-    };
-  }, []);
-  
-  // Only initialize cursor if on desktop
-  useEffect(() => {
-    if (!isDesktop) return;
-    
-    // Create audio elements for sounds
-    clickSoundRef.current = new Audio();
-    clickSoundRef.current.src = 'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAASAAAeMwAUFBQUFCgUFBQUFBQoKCgoKCg8PDw8PDw8VFRUVFRUaGhoaGhofHx8fHx8fJSUlJSUlKioqKioqLy8vLy8vNDQ0NDQ0NDQ5OTk5OTk8PDw8PDw8PDw//////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAYHAAAAAAAAHjMGsgYAAAAAAAD/+xDEAAPAAAGkAAAAIAAANIAAAAScJAFgaNQEAC8R8ChIcChoKBQkOd/nPg+AgQIEMfB8HwfBAEAQBA5/5z4PnwfB8HwQIECBAgQ+D4Pg+D5DCz4PnwfB8EAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBA+D4Pg+D4IECD4Pg+D4PggCAIAgCBAoQPg+D4Pg+CAIAgCAIAgQIPg+D5//5z4Pg+BAEAQBAECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBB//98QZMEWdygAAAEAAAAAABgJICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAggQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBA';
-    
-    hoverSoundRef.current = new Audio();
-    hoverSoundRef.current.src = 'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAGAAADsAA3Nzc3Nzc3Nzc3Nzc3TU1NTU1NTU1NTU1NTWNjY2NjY2NjY2NjY2N5eXl5eXl5eXl5eXl5j4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+P//////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAMAAAAAAAAAsCMCVJpgAAAAAAAD/+xDEAAPAAAGkAAAAIAAANIAAAARzQXl6LzEGAPMNAoLcRBAUNzchEEBQiCAoIGP//////////+AgICDf//////////8BAQEAQICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg';
-    
-    // Register interactive elements
-    const interactiveSelectors = 'a, button, input, textarea, select, [role="button"]';
-    const hoverElements = Array.from(document.querySelectorAll(interactiveSelectors));
-    
-    hoverElementsRef.current = hoverElements.map(element => ({
-      element: element as HTMLElement,
-      entered: false
-    }));
-            
-    // Initialize mouse tracking
-    const updateCursorPosition = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      
-      // Update trail positions
-      setTrailPositions(prevPositions => {
-        const newPositions = [...prevPositions, { x: e.clientX, y: e.clientY }];
-        if (newPositions.length > 5) {
-          return newPositions.slice(-5);
-        }
-        return newPositions;
-      });
-      
-      // Check for hover elements
-      const hoveredElement = hoverElementsRef.current.find(item => {
-        const rect = item.element.getBoundingClientRect();
-        return (
-          e.clientX >= rect.left &&
-          e.clientX <= rect.right &&
-          e.clientY >= rect.top &&
-          e.clientY <= rect.bottom
-        );
-      });
-      
-      const wasHovering = isHovering;
-      setIsHovering(!!hoveredElement);
-      
-      // Play hover sound when entering an interactive element
-      if (!wasHovering && hoveredElement && !hoveredElement.entered) {
-        hoveredElement.entered = true;
-        if (hoverSoundRef.current) {
-          hoverSoundRef.current.volume = 0.2;
-          hoverSoundRef.current.currentTime = 0;
-          hoverSoundRef.current.play().catch(() => {});
-        }
-      }
-      
-      // Reset entered state when not hovering
-      if (!hoveredElement) {
-        hoverElementsRef.current.forEach(item => {
-          item.entered = false;
-        });
-      }
-    };
-    
-    const handleClick = () => {
-      setIsClicked(true);
-      setCursorSize(prevSize => prevSize + 10);
-      
-      // Play click sound
-      if (clickSoundRef.current) {
-        clickSoundRef.current.volume = 0.3;
-        clickSoundRef.current.currentTime = 0;
-        clickSoundRef.current.play().catch(() => {});
-      }
-      
-      setTimeout(() => {
-        setIsClicked(false);
-        setCursorSize(20);
-      }, 300);
-    };
-    
-    document.addEventListener('mousemove', updateCursorPosition);
-    document.addEventListener('click', handleClick);
-    
-    return () => {
-      document.removeEventListener('mousemove', updateCursorPosition);
-      document.removeEventListener('click', handleClick);
-    };
-  }, [isDesktop, isHovering]);
-  
-  // Don't render anything if not on desktop
-  if (!isDesktop) return null;
-  
+const DefaultCursorSVG: FC = () => {
   return (
-    <>
-      {/* Trail elements */}
-      {trailPositions.map((pos, index) => (
-        <div
-          key={index}
-          className="pointer-events-none fixed z-40 rounded-full bg-cyan-500 opacity-30"
-          style={{
-            left: `${pos.x}px`,
-            top: `${pos.y}px`,
-            width: `${8 + index * 2}px`,
-            height: `${8 + index * 2}px`,
-            transform: 'translate(-50%, -50%)',
-            transition: 'opacity 0.3s',
-            opacity: 0.1 + index * 0.1,
-          }}
-        />
-      ))}
-      
-      {/* Main cursor */}
-      <div
-        className="pointer-events-none fixed z-50 flex items-center justify-center"
-        style={{
-          left: `${position.x}px`,
-          top: `${position.y}px`,
-          transform: 'translate(-50%, -50%)',
-        }}
-      >
-        {/* Outer ring */}
-        <div
-          className={`absolute rounded-full transition-all duration-300 ${
-            isHovering ? 'bg-cyan-400 opacity-30' : 'bg-cyan-500 opacity-20'
-          }`}
-          style={{
-            width: `${cursorSize + 10}px`,
-            height: `${cursorSize + 10}px`,
-            transform: isClicked ? 'scale(1.5)' : 'scale(1)',
-          }}
-        />
-        
-        {/* Inner dot */}
-        <div
-          className={`absolute rounded-full transition-all duration-200 ${
-            isHovering ? 'bg-cyan-300' : 'bg-cyan-400'
-          }`}
-          style={{
-            width: `${cursorSize / 2}px`,
-            height: `${cursorSize / 2}px`,
-            transform: isClicked ? 'scale(0.8)' : 'scale(1)',
-          }}
-        />
-        
-        {/* Click rays */}
-        {isClicked && (
-          <>
-            {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
-              <div
-                key={deg}
-                className="absolute bg-cyan-300 rounded-full"
-                style={{
-                  width: '2px',
-                  height: '10px',
-                  transform: `rotate(${deg}deg) translateY(-20px)`,
-                  opacity: 0.8,
-                  animation: 'rayAnimation 0.3s ease-out',
-                }}
-              />
-            ))}
-          </>
-        )}
-      </div>
-    </>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={34} 
+      height={40}
+      viewBox="0 0 50 54"
+      fill="cyan" // Changed color to cyan
+      style={{ scale: 0.4 }}
+    >
+      <path
+        d="M42.6817 41.1495L27.5103 6.79925C26.7269 5.02557 24.2082 5.02558 23.3927 6.79925L7.59814 41.1495C6.75833 42.9759 8.52712 44.8902 10.4125 44.1954L24.3757 39.0496C24.8829 38.8627 25.4385 38.8627 25.9422 39.0496L39.8121 44.1954C41.6849 44.8902 43.4884 42.9759 42.6817 41.1495Z"
+        fill="cyan"
+      />
+    </svg>
   );
 };
 
-export default InteractiveCursor;
+export function SmoothCursor({
+  cursor = <DefaultCursorSVG />,
+  springConfig = {
+    damping: 45,
+    stiffness: 400,
+    mass: 1,
+    restDelta: 0.001,
+  },
+}: SmoothCursorProps) {
+  const [isMoving, setIsMoving] = useState(false);
+  const [isClicking, setIsClicking] = useState(false); // State for click effect
+  const lastMousePos = useRef<Position>({ x: 0, y: 0 });
+  const velocity = useRef<Position>({ x: 0, y: 0 });
+  const lastUpdateTime = useRef(Date.now());
+  const previousAngle = useRef(0);
+  const accumulatedRotation = useRef(0);
+
+  const cursorX = useSpring(0, springConfig);
+  const cursorY = useSpring(0, springConfig);
+  const rotation = useSpring(0, {
+    ...springConfig,
+    damping: 60,
+    stiffness: 300,
+  });
+  const scale = useSpring(1, {
+    ...springConfig,
+    stiffness: 500,
+    damping: 35,
+  });
+
+  useEffect(() => {
+    // Disable cursor on mobile devices
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      document.body.style.cursor = "auto";
+      return;
+    }
+
+    const updateVelocity = (currentPos: Position) => {
+      const currentTime = Date.now();
+      const deltaTime = currentTime - lastUpdateTime.current;
+
+      if (deltaTime > 0) {
+        velocity.current = {
+          x: (currentPos.x - lastMousePos.current.x) / deltaTime,
+          y: (currentPos.y - lastMousePos.current.y) / deltaTime,
+        };
+      }
+
+      lastUpdateTime.current = currentTime;
+      lastMousePos.current = currentPos;
+    };
+
+    const smoothMouseMove = (e: MouseEvent) => {
+      const currentPos = { x: e.clientX, y: e.clientY };
+      updateVelocity(currentPos);
+
+      const speed = Math.sqrt(
+        Math.pow(velocity.current.x, 2) + Math.pow(velocity.current.y, 2)
+      );
+
+      cursorX.set(currentPos.x);
+      cursorY.set(currentPos.y);
+
+      if (speed > 0.1) {
+        const currentAngle =
+          Math.atan2(velocity.current.y, velocity.current.x) * (180 / Math.PI) +
+          90;
+
+        let angleDiff = currentAngle - previousAngle.current;
+        if (angleDiff > 180) angleDiff -= 360;
+        if (angleDiff < -180) angleDiff += 360;
+        accumulatedRotation.current += angleDiff;
+        rotation.set(accumulatedRotation.current);
+        previousAngle.current = currentAngle;
+
+        scale.set(0.95);
+        setIsMoving(true);
+
+        const timeout = setTimeout(() => {
+          scale.set(1);
+          setIsMoving(false);
+        }, 150);
+
+        return () => clearTimeout(timeout);
+      }
+    };
+
+    const handleMouseDown = () => {
+      setIsClicking(true);
+      scale.set(0.8); // Shrink cursor on click
+    };
+
+    const handleMouseUp = () => {
+      setIsClicking(false);
+      scale.set(1); // Reset cursor size
+    };
+
+    let rafId: number;
+    const throttledMouseMove = (e: MouseEvent) => {
+      if (rafId) return;
+
+      rafId = requestAnimationFrame(() => {
+        smoothMouseMove(e);
+        rafId = 0;
+      });
+    };
+
+    document.body.style.cursor = "none";
+    window.addEventListener("mousemove", throttledMouseMove);
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      window.removeEventListener("mousemove", throttledMouseMove);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
+      document.body.style.cursor = "auto";
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [cursorX, cursorY, rotation, scale]);
+
+  return (
+    <motion.div
+      style={{
+        position: "fixed",
+        left: cursorX,
+        top: cursorY,
+        translateX: "-50%",
+        translateY: "-50%",
+        rotate: rotation,
+        scale: scale,
+        zIndex: 100,
+        pointerEvents: "none",
+        willChange: "transform",
+        opacity: isClicking ? 0.8 : 1, // Reduce opacity on click
+      }}
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
+      transition={{
+        type: "spring",
+        stiffness: 400,
+        damping: 30,
+      }}
+    >
+      {cursor}
+    </motion.div>
+  );
+}

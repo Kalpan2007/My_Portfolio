@@ -6,7 +6,7 @@ import Projects from './pages/Projects';
 import Experience from './pages/Experience';
 import Skills from './pages/Skills';
 import Contact from './pages/Contact';
-import CustomCursor from './components/CustomCursor';
+import { SmoothCursor } from './components/CustomCursor'; // ✅ Named import
 import Aboutme from "./pages/About"
 import Certificate from './pages/Certificate';
 import Loader from './components/Loader'; // 👈 Import loader
@@ -45,7 +45,7 @@ function App() {
       <div className="min-h-screen bg-gradient-to-br from-[#0a0f1c] via-[#0f172a] to-[#1a1f35] text-gray-100 overflow-hidden">
         <div className="fixed inset-0 w-full h-full bg-[radial-gradient(#1d284d_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-40 animate-bg-shift" />
         
-        <CustomCursor />
+        <SmoothCursor />
 
         {isLoading ? (
           <Loader onFinish={() => setIsLoading(false)} />
