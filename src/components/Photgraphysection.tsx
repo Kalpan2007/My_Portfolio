@@ -1,44 +1,43 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Camera, Image as ImageIcon, Eye } from 'lucide-react';
-
 import { SectionContainer } from './SectionContainer';
 import { SectionHeading } from './SectionHeading';
-
+import img01 from '../assets/GAMING.jpg';
 const photos = [
   {
     id: 1,
-    url: 'https://images.pexels.com/photos/1761279/pexels-photo-1761279.jpeg',
+    url: {img01},
     title: 'Urban Geometry',
     caption: 'Finding patterns in the city chaos',
   },
   {
     id: 2,
-    url: 'https://images.pexels.com/photos/1770809/pexels-photo-1770809.jpeg',
+    url: '',
     title: 'Natural Symmetry',
     caption: 'The perfect balance of nature',
   },
   {
     id: 3,
-    url: 'https://images.pexels.com/photos/1906658/pexels-photo-1906658.jpeg',
+    url: '',
     title: 'Light & Shadow',
     caption: 'Playing with contrast and light',
   },
   {
     id: 4,
-    url: 'https://images.pexels.com/photos/1122868/pexels-photo-1122868.jpeg',
+    url: '',
     title: 'Minimalist',
     caption: 'Less is more',
   },
   {
     id: 5,
-    url: 'https://images.pexels.com/photos/1261731/pexels-photo-1261731.jpeg',
+    url: '',
     title: 'Color Study',
     caption: 'Exploring the spectrum',
   },
   {
     id: 6,
-    url: 'https://images.pexels.com/photos/1252983/pexels-photo-1252983.jpeg',
+    url: '',
     title: 'Portraiture',
     caption: 'Capturing authentic moments',
   },
@@ -75,13 +74,12 @@ export const PhotographySection: React.FC = () => {
       </div>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
-        {photos.map((photo, index) => (
+        {photos.slice(0, 6).map((photo, index) => (
           <motion.div
             key={photo.id}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
             className="group"
           >
             <div 
@@ -89,48 +87,29 @@ export const PhotographySection: React.FC = () => {
                 ${index % 2 === 0 ? 'rotate-2' : '-rotate-2'} 
                 group-hover:rotate-0 relative`}
             >
-              <div className="overflow-hidden rounded-sm">
+              {/* Image Container with Fixed Aspect Ratio */}
+              <div className="relative overflow-hidden rounded-sm" style={{ paddingTop: '177.78%' /* 9:16 aspect ratio */ }}>
                 <img 
                   src={photo.url} 
                   alt={photo.title} 
-                  className="w-full h-60 object-cover filter grayscale group-hover:filter-none transition-all duration-500" 
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500" 
+                  loading="lazy"
                 />
               </div>
-              
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md flex items-end p-6">
+
+              {/* Overlay for Title and Caption */}
+              <div className="absolute inset-0 bg-black/30 flex items-end p-4">
                 <div>
                   <h3 className="text-white text-lg font-medium">{photo.title}</h3>
                   <p className="text-gray-300 text-sm">{photo.caption}</p>
                 </div>
-              </div>
-              
-              <div className="absolute top-6 right-6 bg-white/80 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <Eye className="w-4 h-4 text-gray-800" />
-              </div>
-              
-              <div className="absolute bottom-0 right-0 w-8 h-8 bg-white z-10 flex items-center justify-center transform translate-y-2 translate-x-1">
-                <ImageIcon className="w-4 h-4 text-photo-dark" />
               </div>
             </div>
           </motion.div>
         ))}
       </div>
       
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
-        viewport={{ once: true }}
-        className="mt-12 text-center"
-      >
-        <a 
-          href="#" 
-          className="inline-flex items-center text-photo-light hover:text-white transition-colors"
-        >
-          <Camera className="w-5 h-5 mr-2" />
-          View Full Gallery
-        </a>
-      </motion.div>
+      
     </SectionContainer>
   );
 };
