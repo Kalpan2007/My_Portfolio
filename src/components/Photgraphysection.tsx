@@ -4,12 +4,13 @@ import { Camera, Image as ImageIcon, Eye } from 'lucide-react';
 import { SectionContainer } from './SectionContainer';
 import { SectionHeading } from './SectionHeading';
 import img01 from '../assets/GAMING.jpg';
+
 const photos = [
   {
     id: 1,
-    url: {img01},
-    title: 'Urban Geometry',
-    caption: 'Finding patterns in the city chaos',
+    url: img01,
+    title: 'Immersed in Gaming',
+    caption: 'Capturing the intense focus and passion during a thrilling gaming session.',
   },
   {
     id: 2,
@@ -73,7 +74,7 @@ export const PhotographySection: React.FC = () => {
         </motion.div>
       </div>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-2">
         {photos.slice(0, 6).map((photo, index) => (
           <motion.div
             key={photo.id}
@@ -83,12 +84,12 @@ export const PhotographySection: React.FC = () => {
             className="group"
           >
             <div 
-              className={`bg-white p-3 shadow-lg transform transition-transform duration-500 rounded-md
+              className={`bg-white p-2 shadow-lg transform transition-transform duration-500 rounded-md
                 ${index % 2 === 0 ? 'rotate-2' : '-rotate-2'} 
-                group-hover:rotate-0 relative`}
+                group-hover:rotate-0 relative scale-75`}
             >
-              {/* Image Container with Fixed Aspect Ratio */}
-              <div className="relative overflow-hidden rounded-sm" style={{ paddingTop: '177.78%' /* 9:16 aspect ratio */ }}>
+              {/* Image Container with 9:16 aspect ratio */}
+              <div className="relative overflow-hidden rounded-sm" style={{ paddingTop: '177.78%' }}>
                 <img 
                   src={photo.url} 
                   alt={photo.title} 
@@ -98,7 +99,7 @@ export const PhotographySection: React.FC = () => {
               </div>
 
               {/* Overlay for Title and Caption */}
-              <div className="absolute inset-0 bg-black/30 flex items-end p-4">
+              <div className="absolute inset-0 bg-black/30 flex items-end p-2">
                 <div>
                   <h3 className="text-white text-lg font-medium">{photo.title}</h3>
                   <p className="text-gray-300 text-sm">{photo.caption}</p>
@@ -108,8 +109,6 @@ export const PhotographySection: React.FC = () => {
           </motion.div>
         ))}
       </div>
-      
-      
     </SectionContainer>
   );
 };
