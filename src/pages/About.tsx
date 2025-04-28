@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import profileImage from '../assets/About-img.png';
 import { useNavigate } from 'react-router-dom';
 import BackToDashboard from '../components/BackToDashboard';
+import { Home } from 'lucide-react';
 
 const About: React.FC = () => {
   const navigate = useNavigate();
@@ -311,45 +312,34 @@ const About: React.FC = () => {
           </motion.div>
         </div>
       </section>
-      <div className="w-full bg-gray-900/80 backdrop-blur-md border-t border-gray-800">
-        <div className="max-w-7xl mx-auto py-6 px-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <BackToDashboard />
-            <div className="flex flex-wrap justify-center gap-4">
-              <button
-                onClick={() => navigate('/projects')}
-                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
-              >
-                Projects
-              </button>
-              <button
-                onClick={() => navigate('/skills')}
-                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
-              >
-                Skills
-              </button>
-              <button
-                onClick={() => navigate('/experience')}
-                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
-              >
-                Experience
-              </button>
-              <button
-                onClick={() => navigate('/certificates')}
-                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
-              >
-                Certificates
-              </button>
-              <button
-                onClick={() => navigate('/contact')}
-                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
-              >
-                Contact
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[95%] sm:w-auto">
+  <div className="bg-gray-900/40 backdrop-blur-md border border-gray-700/30 rounded-full px-2 sm:px-4 py-2 shadow-lg">
+    <div className="flex items-center justify-start gap-1.5 sm:gap-4 no-scrollbar overflow-x-auto">
+      <button
+        onClick={() => navigate('/')}
+        className="w-7 h-7 sm:w-8 sm:h-8 bg-gray-800/80 rounded-full flex-shrink-0 flex items-center justify-center hover:bg-gray-700/80 transition-all cursor-none"
+      >
+        <Home className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+      </button>
+      {[
+        { path: '/projects', label: 'Projects' },
+        { path: '/skills', label: 'Skills' },
+        { path: '/experience', label: 'Experience' },
+        { path: '/certificates', label: 'Certificates' },
+        { path: '/contact', label: 'Connect' },
+        { path: '/My_Other_Side', label: 'Other Side' }
+      ].map((item) => (
+        <button
+          key={item.path}
+          onClick={() => navigate(item.path)}
+          className="text-[11px] sm:text-sm text-gray-300 hover:text-white px-1.5 sm:px-3 py-1 rounded-full hover:bg-white/10 transition-all cursor-none whitespace-nowrap flex-shrink-0"
+        >
+          {item.label}
+        </button>
+      ))}
+    </div>
+  </div>
+</div>
     </div>
   );
 };
