@@ -1,43 +1,25 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import Jsf from '../assets/Js_01_img.png';
-import BackToDashboard from '../components/BackToDashboard';
 import { Home } from 'lucide-react';
 
 // Certificate data - you can add more here
 const certificatesData = [
   {
-    title: "Advanced JavaScript Patterns",
-    issuer: "AIM4YOU Finance & Investing",
-    date: "April 2024",
-    description: "Mastered advanced JavaScript design patterns including module pattern, singleton, factory, observer and MVC architecture.",
-    img: Jsf,
-    topics: ["Factory", "Observer", "MVC", "ES6+", "Modular JS"]
-  },
+    title: "Introduction to JavaScript",
+    issuer: "Sololearn",
+    description: "Completed a foundational JavaScript course covering core programming concepts, including functions, loops, conditions, DOM manipulation, and ES6+ features, with practical and theoretical understanding.",
+    img: 'https://res.cloudinary.com/dxdrzit6x/image/upload/v1745994133/daf7a3e3-434d-4496-8a6b-7d99a520e5be_nolncv.png', 
+    topics: ["Variables", "Functions", "Loops", "Conditions", "Events", "DOM", "Basics of ES6"]
+  } , 
   {
-    title: "Advanced JavaScript Patterns",
-    issuer: "AIM4YOU Finance & Investing",
-    date: "April 2024",
-    description: "Mastered advanced JavaScript design patterns including module pattern, singleton, factory, observer and MVC architecture.",
-    img: Jsf,
-    topics: ["Factory", "Observer", "MVC", "ES6+", "Modular JS"]
-  },
-  {
-    title: "Advanced JavaScript Patterns",
-    issuer: "AIM4YOU Finance & Investing",
-    date: "April 2024",
-    description: "Mastered advanced JavaScript design patterns including module pattern, singleton, factory, observer and MVC architecture.",
-    img: Jsf,
-    topics: ["Factory", "Observer", "MVC", "ES6+", "Modular JS"]
-  },
-  {
-    title: "Advanced JavaScript Patterns",
-    issuer: "AIM4YOU Finance & Investing",
-    date: "April 2024",
-    description: "Mastered advanced JavaScript design patterns including module pattern, singleton, factory, observer and MVC architecture.",
-    img: Jsf,
-    topics: ["Factory", "Observer", "MVC", "ES6+", "Modular JS"]
-  },
+    title: "JavaScript Intermediate",
+    issuer: "Sololearn",
+    description: "Completed an intermediate-level JavaScript course focused on deeper programming concepts such as scope, closures, callbacks, and ES6+ features, with practical exercises to strengthen problem-solving and coding fluency.",
+    img: 'https://res.cloudinary.com/dxdrzit6x/image/upload/v1745993850/Js_01_img-Bu2qmYFf_jnd5xc.png',
+    topics: ["Scope", "Closures", "Callbacks", "Arrays & Objects", "ES6+", "Functions", "Intermediate Logic"]
+  } , 
+  
+  
+  
 ];
 
 const CertificateCard = ({ certificate }) => {

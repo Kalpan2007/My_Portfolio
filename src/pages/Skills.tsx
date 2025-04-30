@@ -1,4 +1,3 @@
-import React from "react";
 import Pagetrasition from '../components/PageTransition';
 import { useNavigate } from 'react-router-dom';
 import BackToDashboard from '../components/BackToDashboard';

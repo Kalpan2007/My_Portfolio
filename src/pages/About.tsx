@@ -1,8 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import profileImage from '../assets/About-img.png';
 import { useNavigate } from 'react-router-dom';
-import BackToDashboard from '../components/BackToDashboard';
 import { Home } from 'lucide-react';
 
 const About: React.FC = () => {
@@ -247,7 +245,7 @@ const About: React.FC = () => {
             className="w-full md:w-1/2 relative rounded-xl overflow-hidden"
           >
             <motion.img
-              src={profileImage}
+              src= "https://res.cloudinary.com/dxdrzit6x/image/upload/v1745993849/About-img-CBqeJdI__fzy6wo.png"
               alt="Kalpan Kaneriya"
               className="w-full h-auto max-h-[500px] md:max-h-[400px] object-cover rounded-xl transition-transform duration-300 hover:scale-105"
               initial={{ opacity: 0 }}

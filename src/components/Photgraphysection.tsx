@@ -14,40 +14,40 @@ import { useNavigate } from 'react-router-dom';
 const photos = [
   {
     id: 1,
-    url: img01,
+    url: 'https://res.cloudinary.com/dxdrzit6x/image/upload/v1745993847/Img01-DIwVqjA0_to5w1q.jpg',
     title: 'Immersed in Gaming',
     caption: 'Capturing the intense focus and passion during a thrilling gaming session.',
   },
   {
     id: 2,
-    url: img02,
+    url: 'https://res.cloudinary.com/dxdrzit6x/image/upload/v1745993848/Img02-m7BGro5J_kxk9dl.jpg',
     title: 'More Than a Game',
     caption: 'Professional by mindset, legendary by heart — this is where true greatness plays silently but leaves echoes forever.',
   },
   {
     id: 3,
-    url: img03,
+    url: 'https://res.cloudinary.com/dxdrzit6x/image/upload/v1745993850/Img03-BrNzSriJ_jhdfna.jpg',
     title: 'Standing Strong',
     caption: 'Captured this beautiful bird by the water. Calm, steady, and full of life.'
   },
   
   {
     id: 4,
-    url: img04,
+    url: 'https://res.cloudinary.com/dxdrzit6x/image/upload/v1745993848/Img04-BR0ZSUhX_qgrqoq.jpg',
     title: 'Calm Shores',
     caption: 'A bright day at the seashore — soft waves, blue skies, camel rides, and simple moments by the water.'
   },
   
   {
     id: 5,
-    url: img05,
+    url: 'https://res.cloudinary.com/dxdrzit6x/image/upload/v1745993847/Img05-DJcBPaJ3_shijak.jpg',
     title: 'Endless Skies',
     caption: 'The sky reminds us — there are no limits, only dreams waiting to fly.'
   }
   ,
   {
     id: 6,
-    url: img06,
+    url: 'https://res.cloudinary.com/dxdrzit6x/image/upload/v1745993848/Img06-Br6LNj62_pn7h1a.jpg',
     title: 'Morning Magic',
     caption: 'Mornings like this — when the sun slowly rises, painting the sky with golden dreams. A peaceful start, a cool vibe.'
   }

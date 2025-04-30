@@ -4,8 +4,6 @@ import {
   Github, Twitter, Linkedin, ArrowRight, Download,
   Code, Mail, Award, Globe, Briefcase,
 } from 'lucide-react';
-import profileImage from '../assets/PXL_20250114_114831859.PORTRAIT.jpg'; 
-import About_Me_Img from '../assets/About-img.png'; 
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -43,7 +41,7 @@ const Dashboard = () => {
       content: (
         <div className="flex flex-col items-center space-y-3">
           <div className="relative h-24 w-full">
-            <img src={About_Me_Img} alt="About" className="w-full h-full object-cover rounded-lg" />
+            <img src="https://res.cloudinary.com/dxdrzit6x/image/upload/v1745993849/About-img-CBqeJdI__fzy6wo.png" alt="About" className="w-full h-full object-cover rounded-lg" />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent rounded-lg" />
             <p className="absolute bottom-2 left-2 text-sm text-white">My Story</p>
           </div>
@@ -142,7 +140,7 @@ const Dashboard = () => {
           <div className="flex flex-col items-center text-center space-y-6 h-full justify-center">
             <div className="w-28 h-28 rounded-full overflow-hidden ring-2 ring-blue-500/30 shadow-md">
               <img
-                src={profileImage}
+                src="https://res.cloudinary.com/dxdrzit6x/image/upload/v1745993853/PXL_20250114_114831859.PORTRAIT-ghB93Tpx_i9oxjr.jpg"
                 alt="Kalpan Kaneriya"
                 className="w-full h-full object-cover rounded-full"
               />
