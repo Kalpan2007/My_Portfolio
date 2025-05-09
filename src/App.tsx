@@ -17,7 +17,7 @@ function AnimatedRoutes() {
   const location = useLocation();
   
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="wait" initial={false}>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/projects" element={<Projects />} />
@@ -50,7 +50,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 3000);
+    const timer = setTimeout(() => setIsLoading(false), isMobileOrTablet ? 1500 : 2500);
     return () => clearTimeout(timer);
   }, []);
 

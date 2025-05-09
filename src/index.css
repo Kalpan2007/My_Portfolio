@@ -9,11 +9,14 @@ body {
   font-family: 'Poppins', sans-serif; /* Changed from Inter to Poppins */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* For iOS devices */
 }
 
 /* Custom scrollbar */
@@ -60,6 +63,52 @@ html {
       cursor: auto !important;
     }
   }
+
+  .mobile-smooth {
+    @media (max-width: 768px) {
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      perspective: 1000px;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+  
+  .remove-tap-highlight {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-card {
+    @media (max-width: 768px) {
+      transform: none !important;
+      transition: transform 0.2s ease-out;
+      
+      &:active {
+        transform: scale(0.98) !important;
+      }
+    }
+  }
+
+  .mobile-friendly-tap {
+    @media (max-width: 768px) {
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      user-select: none;
+    }
+  }
+
+  .mobile-modal {
+    @media (max-width: 768px) {
+      .modal-content {
+        padding: 1rem;
+        margin: 0.5rem;
+        max-height: calc(100vh - 2rem);
+      }
+      
+      .modal-scrollable {
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+  }
 }
 
 @layer base {
@@ -73,4 +122,53 @@ html {
       cursor: auto !important;
     }
   }
+}
+
+/* Prevent unwanted animations on mobile */
+@media (max-width: 768px) {
+  * {
+    animation-duration: 0.2s !important;
+  }
+  
+  .animate-bg-shift {
+    animation: none !important;
+  }
+
+  * {
+    transform-style: flat !important;
+    perspective: none !important;
+  }
+}
+
+/* Global scrollbar styles */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer/Edge */
+}
+
+/* Hide webkit (Chrome/Safari) scrollbars */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Maintain overflow scroll functionality */
+.overflow-scroll,
+.overflow-y-scroll,
+.overflow-x-scroll,
+.overflow-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Optional: Add custom scrollbar track for specific elements if needed */
+.custom-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Enable touch scrolling on mobile */
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
 }

@@ -1,24 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Code2 } from "lucide-react";
 import ProjectCard from '../components/ProjectCard';
 import ProjectModal, { ProjectDetail } from "../components/ProjectModel";
 import { BottomNav } from "../components/BottomNav";
 import PageTransition from "../components/PageTransition";
-import ProjectsData from "../Project_Data/Data"; // Import the detailed project data
+import ProjectsData from "../Project_Data/Data";
 
 const Projects: React.FC = () => {
-  // State for controlling the modal
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedProject, setSelectedProject] = useState<ProjectDetail | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Function to open the modal with the selected project
+  // Check for mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const openProjectModal = (project: ProjectDetail) => {
     setSelectedProject(project);
     setIsModalOpen(true);
   };
 
-  // Function to close the modal
   const closeProjectModal = () => {
     setSelectedProject(null);
     setIsModalOpen(false);
@@ -26,54 +34,66 @@ const Projects: React.FC = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-[#0f172a] text-gray-100 py-20 px-4">
+      <div className="min-h-screen bg-[#0f172a] text-gray-100 pt-16 pb-24 px-3 sm:px-4 md:py-20">
         {/* Title Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Code2 className="w-8 h-8 text-cyan-400" />
-            <h1 className="text-4xl font-bold">Projects</h1>
+            <Code2 className="w-6 h-6 md:w-8 md:h-8 text-cyan-400" />
+            <h1 className="text-3xl md:text-4xl font-bold">Projects</h1>
           </div>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base px-4">
             Explore my collection of projects that showcase my skills in web development,
             design, and problem-solving.
           </p>
         </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 max-w-7xl mx-auto">
           {ProjectsData.map((project) => (
             <ProjectCard
               key={project.id}
               title={project.title}
               href={project.liveUrl}
-              className="h-64 md:h-80"
+              className="h-[280px] md:h-80"
               onClick={() => openProjectModal(project)}
               project={project}
+              isMobile={isMobile}
             >
-              <div className="space-y-4">
-                <div className="relative h-32 w-full overflow-hidden rounded-lg border border-cyan-500/20">
+              <div className="space-y-3 md:space-y-4">
+                <div className="relative h-28 md:h-32 w-full overflow-hidden rounded-lg border border-cyan-500/20">
                   <img
                     src={project.images[0]}
                     alt={project.title}
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/30 to-transparent"></div>
                 </div>
-                <h3 className="text-xl font-semibold text-cyan-50">{project.title}</h3>
-                <p className="text-cyan-200/70 text-sm">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag, idx) => (
+                <h3 className="text-lg md:text-xl font-semibold text-cyan-50 line-clamp-1">
+                  {project.title}
+                </h3>
+                <p className="text-cyan-200/70 text-xs md:text-sm line-clamp-2">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-1.5 md:gap-2">
+                  {project.tags.slice(0, isMobile ? 3 : 4).map((tag, idx) => (
                     <span
                       key={idx}
-                      className="text-xs px-2 py-1 bg-cyan-900/50 border border-cyan-500/20 rounded-full text-cyan-200"
+                      className="text-[10px] md:text-xs px-2 py-0.5 md:py-1 bg-cyan-900/50 
+                               border border-cyan-500/20 rounded-full text-cyan-200"
                     >
                       {tag}
                     </span>
                   ))}
+                  {project.tags.length > (isMobile ? 3 : 4) && (
+                    <span className="text-[10px] md:text-xs text-cyan-300">
+                      +{project.tags.length - (isMobile ? 3 : 4)} more
+                    </span>
+                  )}
                 </div>
               </div>
             </ProjectCard>
@@ -85,6 +105,7 @@ const Projects: React.FC = () => {
           isOpen={isModalOpen}
           onClose={closeProjectModal}
           project={selectedProject}
+          isMobile={isMobile}
         />
 
         <BottomNav />

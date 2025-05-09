@@ -1,7 +1,8 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Home, ChevronRight, ChevronLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
+import debounce from 'lodash.debounce';
 
 const routes = [
   { path: '/', label: 'Home', icon: Home },
@@ -20,9 +21,27 @@ export const BottomNav = () => {
   const navScrollRef = useRef<HTMLDivElement>(null);
   const [showLeftScroll, setShowLeftScroll] = useState(false);
   const [showRightScroll, setShowRightScroll] = useState(true);
+  const isMobile = window.innerWidth <= 768;
 
-  // Scroll handling logic
-  const handleScrollCheck = () => {
+  // Debounced scroll handler
+  const handleScroll = useMemo(
+    () =>
+      debounce((direction: 'left' | 'right') => {
+        if (navScrollRef.current) {
+          const scrollAmount = isMobile ? 100 : 200;
+          const currentScroll = navScrollRef.current.scrollLeft;
+          
+          navScrollRef.current.scrollTo({
+            left: currentScroll + (direction === 'left' ? -scrollAmount : scrollAmount),
+            behavior: 'smooth'
+          });
+        }
+      }, 100),
+    [isMobile]
+  );
+
+  // Optimized scroll check
+  const handleScrollCheck = useCallback(() => {
     if (navScrollRef.current) {
       const hasOverflow = navScrollRef.current.scrollWidth > navScrollRef.current.clientWidth;
       const hasLeftScroll = navScrollRef.current.scrollLeft > 10;
@@ -33,23 +52,13 @@ export const BottomNav = () => {
       setShowLeftScroll(hasOverflow && hasLeftScroll);
       setShowRightScroll(hasOverflow && hasRightScroll);
     }
-  };
-
-  const handleScroll = (direction: 'left' | 'right') => {
-    if (navScrollRef.current) {
-      const scrollAmount = 200;
-      navScrollRef.current.scrollTo({
-        left: navScrollRef.current.scrollLeft + (direction === 'left' ? -scrollAmount : scrollAmount),
-        behavior: 'smooth'
-      });
-    }
-  };
+  }, []);
 
   useEffect(() => {
     handleScrollCheck();
     window.addEventListener('resize', handleScrollCheck);
     return () => window.removeEventListener('resize', handleScrollCheck);
-  }, []);
+  }, [handleScrollCheck]);
 
   // Check if route is active
   const isActive = (path: string) => {
