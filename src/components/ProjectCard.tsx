@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Code2 } from "lucide-react";
+
+// Define the props interface for the ProjectCard component
+interface ProjectCardProps {
+  children: React.ReactNode;
+  title: string;
+  href?: string;
+  className?: string;
+}
 
 // Custom class name combiner utility function
-const cns = (...classes) => classes.filter(Boolean).join(" ");
+const cns = (...classes: (string | boolean | undefined)[]) => classes.filter(Boolean).join(" ");
 
 // Project Card Component (with all the 3D pin effects)
-const ProjectCard = ({ children, title, href, className }) => {
-  const [isHovered, setIsHovered] = React.useState(false);
+const ProjectCard: React.FC<ProjectCardProps> = ({ children, title, href, className }) => {
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   return (
     <div
@@ -132,70 +139,4 @@ const ProjectCard = ({ children, title, href, className }) => {
   );
 };
 
-// Demo of example project cards with the new cyan theme
-export default function CyanThemedProjectCardsDemo() {
-  // Sample projects for demo
-  const projects = [
-    {
-      id: 1,
-      title: "Portfolio Website",
-      description: "A modern portfolio built with React and Tailwind CSS",
-      tags: ["React", "Tailwind", "Framer Motion"],
-      image: "/api/placeholder/400/320"
-    },
-    {
-      id: 2,
-      title: "E-commerce Platform",
-      description: "Full-stack e-commerce solution with payment integration",
-      tags: ["Next.js", "MongoDB", "Stripe"],
-      image: "/api/placeholder/400/320"
-    },
-    {
-      id: 3,
-      title: "Aceternity UI",
-      description: "Customizable Tailwind CSS and Framer Motion Components",
-      tags: ["React", "Tailwind", "Design System"],
-      image: "/api/placeholder/400/320"
-    }
-  ];
-
-  return (
-    <div className="bg-[#0f172a] p-8 min-h-screen">
-      {/* Title Section */}
-      <div className="flex items-center justify-center gap-2 mb-8">
-        <Code2 className="w-6 h-6 text-cyan-400" />
-        <h1 className="text-2xl font-bold text-white">Cyan 3D Project Cards</h1>
-      </div>
-
-      {/* Project Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
-        {projects.map((project) => (
-          <ProjectCard key={project.id} title={project.title} href="#">
-            <div className="space-y-4">
-              <div className="relative h-32 w-full overflow-hidden rounded-lg border border-cyan-500/20">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/30 to-transparent"></div>
-              </div>
-              <h3 className="text-xl font-semibold text-cyan-50">{project.title}</h3>
-              <p className="text-cyan-200/70 text-sm">{project.description}</p>
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag, idx) => (
-                  <span
-                    key={idx}
-                    className="text-xs px-2 py-1 bg-cyan-900/50 border border-cyan-500/20 rounded-full text-cyan-200"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </ProjectCard>
-        ))}
-      </div>
-    </div>
-  );
-}
+export default ProjectCard;

@@ -1,11 +1,27 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Code2 } from "lucide-react";
-import ProjectCard from "../components/Projectcard"; // Import the improved ProjectCard component
+import ProjectCard from "../components/ProjectCard"; // Import the ProjectCard component
 import { BottomNav } from '../components/BottomNav';
 import PageTransition from "../components/PageTransition";
+
+// Define interfaces for project data
+interface ProjectTag {
+  id: number;
+  name: string;
+}
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  href: string;
+  tags: string[];
+  image: string;
+}
+
 // Sample project data
-const projectsData = [
+const projectsData: Project[] = [
   {
     id: 1,
     title: "Portfolio Website",
@@ -33,63 +49,63 @@ const projectsData = [
   // Add more projects as needed
 ];
 
-const Projects = () => {
+const Projects: React.FC = () => {
   return (
     <PageTransition>
-    <div className="min-h-screen bg-[#0f172a] text-gray-100 py-20 px-4">
-      {/* Title Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-16"
-      >
-        <div className="flex items-center justify-center gap-2 mb-4">
-          <Code2 className="w-8 h-8 text-blue-500" />
-          <h1 className="text-4xl font-bold">Projects</h1>
-        </div>
-        <p className="text-gray-400 max-w-2xl mx-auto">
-          Explore my collection of projects that showcase my skills in web development,
-          design, and problem-solving.
-        </p>
-      </motion.div>
+      <div className="min-h-screen bg-[#0f172a] text-gray-100 py-20 px-4">
+        {/* Title Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-16"
+        >
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Code2 className="w-8 h-8 text-cyan-400" />
+            <h1 className="text-4xl font-bold">Projects</h1>
+          </div>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Explore my collection of projects that showcase my skills in web development,
+            design, and problem-solving.
+          </p>
+        </motion.div>
 
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-        {projectsData.map((project) => (
-          <ProjectCard
-            key={project.id}
-            title={project.title}
-            href={project.href}
-            className="h-64 md:h-80 group"
-          >
-            <div className="space-y-4">
-              <div className="relative h-32 w-full overflow-hidden rounded-lg border border-cyan-500/20">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/30 to-transparent"></div>
+        {/* Projects Grid - Fixed to only show projectsData once */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {projectsData.map((project) => (
+            <ProjectCard
+              key={project.id}
+              title={project.title}
+              href={project.href}
+              className="h-64 md:h-80"
+            >
+              <div className="space-y-4">
+                <div className="relative h-32 w-full overflow-hidden rounded-lg border border-cyan-500/20">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/30 to-transparent"></div>
+                </div>
+                <h3 className="text-xl font-semibold text-cyan-50">{project.title}</h3>
+                <p className="text-cyan-200/70 text-sm">{project.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag, idx) => (
+                    <span
+                      key={idx}
+                      className="text-xs px-2 py-1 bg-cyan-900/50 border border-cyan-500/20 rounded-full text-cyan-200"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <h3 className="text-xl font-semibold text-cyan-50">{project.title}</h3>
-              <p className="text-cyan-200/70 text-sm">{project.description}</p>
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag, idx) => (
-                  <span
-                    key={idx}
-                    className="text-xs px-2 py-1 bg-cyan-900/50 border border-cyan-500/20 rounded-full text-cyan-200"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </ProjectCard>
-        ))}
+            </ProjectCard>
+          ))}
+        </div>
+        
+        <BottomNav />
       </div>
-      
-      <BottomNav />
-    </div>
     </PageTransition>
   );
 };
