@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Code2 } from "lucide-react";
-import ProjectCard from "../components/Projectcard";
+import ProjectCard from '../components/ProjectCard';
 import ProjectModal, { ProjectDetail } from "../components/ProjectModel";
 import { BottomNav } from "../components/BottomNav";
 import PageTransition from "../components/PageTransition";
-import projectsData from "../Project_Data/Data"; // Import the detailed project data
+import ProjectsData from "../Project_Data/Data"; // Import the detailed project data
 
 const Projects: React.FC = () => {
   // State for controlling the modal
@@ -45,7 +45,7 @@ const Projects: React.FC = () => {
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {projectsData.map((project) => (
+          {ProjectsData.map((project) => (
             <ProjectCard
               key={project.id}
               title={project.title}
