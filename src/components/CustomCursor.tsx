@@ -43,6 +43,29 @@ export function SmoothCursor({
     restDelta: 0.001,
   },
 }: SmoothCursorProps) {
+  const [shouldRender, setShouldRender] = useState(true);
+
+  useEffect(() => {
+    const checkDevice = () => {
+      const isMobileOrTablet = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      ) || window.innerWidth <= 768;
+      
+      setShouldRender(!isMobileOrTablet);
+      document.body.style.cursor = isMobileOrTablet ? 'auto' : 'none';
+    };
+
+    // Check on mount
+    checkDevice();
+
+    // Check on resize
+    window.addEventListener('resize', checkDevice);
+    return () => window.removeEventListener('resize', checkDevice);
+  }, []);
+
+  // Don't render anything if it's a mobile device or tablet
+  if (!shouldRender) return null;
+
   const [isMoving, setIsMoving] = useState(false);
   const [isClicking, setIsClicking] = useState(false); // State for click effect
   const lastMousePos = useRef<Position>({ x: 0, y: 0 });

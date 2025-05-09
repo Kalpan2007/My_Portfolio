@@ -51,4 +51,26 @@ html {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+  .cursor-none-important {
+    cursor: none !important;
+  }
+  
+  @media (max-width: 768px) {
+    .cursor-none-important {
+      cursor: auto !important;
+    }
+  }
+}
+
+@layer base {
+  * {
+    cursor: none !important;
+  }
+  
+  /* Enable default cursor on mobile devices */
+  @media (max-width: 768px) {
+    * {
+      cursor: auto !important;
+    }
+  }
 }
