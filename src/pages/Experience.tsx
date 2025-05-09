@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import PageTransition from '../components/PageTransition';
-import BackToDashboard from '../components/BackToDashboard';
+import { BottomNav } from '../components/BottomNav';
 
 const experiences = [
   {
@@ -56,39 +56,7 @@ const Experience = () => {
           </div>
         </div>
       </div>
-      <div className="w-full bg-gray-900/80 backdrop-blur-md border-t border-gray-800">
-        <div className="max-w-7xl mx-auto py-6 px-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <BackToDashboard />
-            <div className="flex flex-wrap justify-center gap-4">
-              <button
-                onClick={() => navigate('/projects')}
-                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
-              >
-                Projects
-              </button>
-              <button
-                onClick={() => navigate('/skills')}
-                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
-              >
-                Skills
-              </button>
-              <button
-                onClick={() => navigate('/certificates')}
-                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
-              >
-                Certificates
-              </button>
-              <button
-                onClick={() => navigate('/about')}
-                className="px-6 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-all"
-              >
-                About
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <BottomNav/>
     </PageTransition>
   );
 };

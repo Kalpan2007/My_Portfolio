@@ -1,7 +1,8 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Home } from 'lucide-react';
+import { BottomNav } from '../components/BottomNav';
+import PageTransition from '../components/PageTransition';
 
 const About: React.FC = () => {
   const navigate = useNavigate();
@@ -9,6 +10,11 @@ const About: React.FC = () => {
   const educationRef = useRef(null);
   const techRef = useRef(null);
   const whoAmIRef = useRef(null);
+  const navScrollRef = useRef<HTMLDivElement>(null);
+
+  // State to control scroll buttons visibility
+  const [showLeftScroll, setShowLeftScroll] = useState(false);
+  const [showRightScroll, setShowRightScroll] = useState(true);
 
   const isWelcomeInView = useInView(welcomeRef, { once: true, amount: 0.2 });
   const isEducationInView = useInView(educationRef, { once: true, amount: 0.2 });
@@ -58,7 +64,62 @@ const About: React.FC = () => {
     }),
   };
 
+  // Handle nav scroll
+  const handleScroll = (direction: 'left' | 'right') => {
+    if (navScrollRef.current) {
+      const scrollAmount = 200;
+      const currentScroll = navScrollRef.current.scrollLeft;
+      
+      if (direction === 'left') {
+        navScrollRef.current.scrollTo({
+          left: currentScroll - scrollAmount,
+          behavior: 'smooth'
+        });
+      } else {
+        navScrollRef.current.scrollTo({
+          left: currentScroll + scrollAmount,
+          behavior: 'smooth'
+        });
+      }
+      
+      // Check scroll position after a small delay to update button visibility
+      setTimeout(() => {
+        if (navScrollRef.current) {
+          setShowLeftScroll(navScrollRef.current.scrollLeft > 10);
+          setShowRightScroll(
+            navScrollRef.current.scrollLeft <
+            navScrollRef.current.scrollWidth - navScrollRef.current.clientWidth - 10
+          );
+        }
+      }, 300);
+    }
+  };
+
+  // Handle scroll event to update button visibility
+  const handleScrollCheck = () => {
+    if (navScrollRef.current) {
+      const hasLeftScroll = navScrollRef.current.scrollLeft > 10;
+      const hasRightScroll = 
+        navScrollRef.current.scrollLeft < 
+        navScrollRef.current.scrollWidth - navScrollRef.current.clientWidth - 10;
+
+      // Only show scroll buttons if there's overflow
+      const hasOverflow = navScrollRef.current.scrollWidth > navScrollRef.current.clientWidth;
+      
+      setShowLeftScroll(hasOverflow && hasLeftScroll);
+      setShowRightScroll(hasOverflow && hasRightScroll);
+    }
+  };
+
+  // Add useEffect to check overflow on mount and resize
+  useEffect(() => {
+    handleScrollCheck();
+    window.addEventListener('resize', handleScrollCheck);
+    return () => window.removeEventListener('resize', handleScrollCheck);
+  }, []);
+
   return (
+    <PageTransition>
     <div className="min-h-screen bg-gray-900 text-gray-100 overflow-x-hidden">
       {/* Welcome Screen */}
       <section ref={welcomeRef} className="min-h-screen flex items-center justify-center relative">
@@ -127,7 +188,7 @@ const About: React.FC = () => {
             {
               title: 'Rai University x CodingGita',
               date: '2024 - Present',
-              desc: 'Pursuing CSE with CodingGita’s guidance. Scored 9.95 CGPA in my 1st semester.',
+              desc: 'Pursuing CSE with CodingGita guidance. Scored 9.95 CGPA in my 1st semester.' ,
               icon: '📚',
             },
           ].map((item, i) => (
@@ -305,40 +366,16 @@ const About: React.FC = () => {
               custom={4}
               className="text-base text-gray-300 leading-relaxed bg-gray-800/50 p-4 rounded-lg shadow-inner"
             >
-              Currently, I’m enhancing my skills with DSA, advanced frameworks like Tailwind and Chakra, and exploring new technologies to shape the future of web development.
+              Currently, I'm enhancing my skills with DSA, advanced frameworks like Tailwind and Chakra, and exploring new technologies to shape the future of web development.
             </motion.p>
           </motion.div>
         </div>
       </section>
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[95%] sm:w-auto">
-  <div className="bg-gray-900/40 backdrop-blur-md border border-gray-700/30 rounded-full px-2 sm:px-4 py-2 shadow-lg">
-    <div className="flex items-center justify-start gap-1.5 sm:gap-4 no-scrollbar overflow-x-auto">
-      <button
-        onClick={() => navigate('/')}
-        className="w-7 h-7 sm:w-8 sm:h-8 bg-gray-800/80 rounded-full flex-shrink-0 flex items-center justify-center hover:bg-gray-700/80 transition-all cursor-none"
-      >
-        <Home className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
-      </button>
-      {[
-        { path: '/projects', label: 'Projects' },
-        { path: '/skills', label: 'Skills' },
-        { path: '/experience', label: 'Experience' },
-        { path: '/certificates', label: 'Certificates' },
-        { path: '/contact', label: 'Connect' },
-        { path: '/My_Other_Side', label: 'Other Side' }
-      ].map((item) => (
-        <button
-          key={item.path}
-          onClick={() => navigate(item.path)}
-          className="text-[11px] sm:text-sm text-gray-300 hover:text-white px-1.5 sm:px-3 py-1 rounded-full hover:bg-white/10 transition-all cursor-none whitespace-nowrap flex-shrink-0"
-        >
-          {item.label}
-        </button>
-      ))}
+
+      <BottomNav />
+      
     </div>
-  </div>
-</div>
-    </div>
+    </PageTransition>
   );
 };
 

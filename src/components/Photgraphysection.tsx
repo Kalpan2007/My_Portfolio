@@ -121,56 +121,6 @@ export const PhotographySection: React.FC = () => {
           </motion.div>
         ))}
       </div>
-
-      {/* Centered Bottom Navigation */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
-        <div className="bg-gray-900/40 backdrop-blur-md border border-gray-700/30 rounded-full px-4 py-2.5 shadow-lg">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => navigate('/')}
-              className="w-8 h-8 bg-gray-800/80 rounded-full flex items-center justify-center hover:bg-gray-700/80 transition-all cursor-none"
-            >
-              <Home className="w-4 h-4 text-white" />
-            </button>
-            <button
-              onClick={() => navigate('/about')}
-              className="text-sm text-gray-300 hover:text-white px-3 py-1 rounded-full hover:bg-white/10 transition-all cursor-none"
-            >
-              About
-            </button>
-            <button
-              onClick={() => navigate('/projects')}
-              className="text-sm text-gray-300 hover:text-white px-3 py-1 rounded-full hover:bg-white/10 transition-all cursor-none"
-            >
-              Projects
-            </button>
-            <button
-              onClick={() => navigate('/skills')}
-              className="text-sm text-gray-300 hover:text-white px-3 py-1 rounded-full hover:bg-white/10 transition-all cursor-none"
-            >
-              Skills
-            </button>
-            <button
-              onClick={() => navigate('/experience')}
-              className="text-sm text-gray-300 hover:text-white px-3 py-1 rounded-full hover:bg-white/10 transition-all cursor-none"
-            >
-              Experience
-            </button>
-            <button
-              onClick={() => navigate('/certificates')}
-              className="text-sm text-gray-300 hover:text-white px-3 py-1 rounded-full hover:bg-white/10 transition-all cursor-none"
-            >
-              Certificates
-            </button>
-            <button
-              onClick={() => navigate('/connect')}
-              className="text-sm text-gray-300 hover:text-white px-3 py-1 rounded-full hover:bg-white/10 transition-all cursor-none"
-            >
-              Connect
-            </button>
-          </div>
-        </div>
-      </div>
     </SectionContainer>
   );
 };

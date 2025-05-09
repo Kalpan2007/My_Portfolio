@@ -1,7 +1,6 @@
 import Pagetrasition from '../components/PageTransition';
 import { useNavigate } from 'react-router-dom';
-import BackToDashboard from '../components/BackToDashboard';
-
+import { BottomNav } from '../components/BottomNav';
 const skillsData = {
   Frontend: [
     {
@@ -131,40 +130,7 @@ const Skills = () => {
           </div>
         </div>
 
-        {/* Bottom Navigation */}
-        <div className="w-full bg-gray-900/80 backdrop-blur-md border-t border-gray-800">
-          <div className="max-w-7xl mx-auto py-4 px-4">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
-              <BackToDashboard />
-              <div className="flex flex-wrap justify-center gap-2">
-                <button
-                  onClick={() => navigate('/projects')}
-                  className="px-4 py-2 bg-white/10 rounded-md text-sm hover:bg-white/20 transition-all"
-                >
-                  Projects
-                </button>
-                <button
-                  onClick={() => navigate('/experience')}
-                  className="px-4 py-2 bg-white/10 rounded-md text-sm hover:bg-white/20 transition-all"
-                >
-                  Experience
-                </button>
-                <button
-                  onClick={() => navigate('/certificates')}
-                  className="px-4 py-2 bg-white/10 rounded-md text-sm hover:bg-white/20 transition-all"
-                >
-                  Certificates
-                </button>
-                <button
-                  onClick={() => navigate('/about')}
-                  className="px-4 py-2 bg-white/10 rounded-md text-sm hover:bg-white/20 transition-all"
-                >
-                  About
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <BottomNav />
       </div>
     </Pagetrasition>
   );

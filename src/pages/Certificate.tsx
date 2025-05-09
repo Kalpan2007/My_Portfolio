@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { Home } from 'lucide-react';
+import { BottomNav } from '../components/BottomNav';
+import PageTransition from '../components/PageTransition';
 
 // Certificate data - you can add more here
 const certificatesData = [
@@ -24,6 +25,7 @@ const certificatesData = [
 
 const CertificateCard = ({ certificate }) => {
   return (
+    <PageTransition>
     <div className="group w-full [perspective:1000px]">
       {/* Increased height for larger cards */}
       <div className="relative w-full h-[400px] sm:h-[450px] transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
@@ -58,6 +60,7 @@ const CertificateCard = ({ certificate }) => {
         </div>
       </div>
     </div>
+    </PageTransition>
   );
 };
 
@@ -85,42 +88,8 @@ const Certificates = () => {
         </div>
       </div>
 
-      {/* Replace the old navigation with this new one */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[95%] sm:w-auto">
-        <div className="bg-gray-900/40 backdrop-blur-md border border-gray-700/30 rounded-full px-2 sm:px-4 py-2 shadow-lg">
-          <div className="flex items-center justify-start gap-1.5 sm:gap-4 no-scrollbar overflow-x-auto">
-            <button
-              onClick={() => navigate('/')}
-              className="w-7 h-7 sm:w-8 sm:h-8 bg-gray-800/80 rounded-full flex-shrink-0 flex items-center justify-center hover:bg-gray-700/80 transition-all cursor-none"
-            >
-              <Home className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
-            </button>
-            {[
-              { path: '/projects', label: 'Projects' },
-              { path: '/skills', label: 'Skills' },
-              { path: '/experience', label: 'Experience' },
-              { path: '/about', label: 'About' },
-              { path: '/contact', label: 'Connect' },
-              { path: '/My_Other_Side', label: 'Other Side' }
-            ].map((item) => (
-              <button
-                key={item.path}
-                onClick={() => navigate(item.path)}
-                className="text-[11px] sm:text-sm text-gray-300 hover:text-white px-1.5 sm:px-3 py-1 rounded-full hover:bg-white/10 transition-all cursor-none whitespace-nowrap flex-shrink-0"
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Remove the old navigation bar */}
-      {/* Remove this entire section
-      <div className="w-full bg-gray-900/80 backdrop-blur-md border-t border-gray-800 mt-8">
-        ... old navigation code ...
-      </div>
-      */}
+      
+     <BottomNav />
     </div>
   );
 };
