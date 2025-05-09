@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { ProjectDetail } from "./ProjectModel"; // Import the ProjectDetail interface
 
 // Define the props interface for the ProjectCard component
 interface ProjectCardProps {
@@ -7,13 +8,15 @@ interface ProjectCardProps {
   title: string;
   href?: string;
   className?: string;
+  onClick?: () => void; // Added for modal open
+  project?: ProjectDetail; // Optional project data
 }
 
 // Custom class name combiner utility function
 const cns = (...classes: (string | boolean | undefined)[]) => classes.filter(Boolean).join(" ");
 
 // Project Card Component (with all the 3D pin effects)
-const ProjectCard: React.FC<ProjectCardProps> = ({ children, title, href, className }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ children, title, href, className, onClick }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   return (
@@ -68,16 +71,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ children, title, href, classN
             : "translateZ(0px)",
         }}
       >
-        <a
-          href={href || "#"}
+        {/* Modified to trigger modal instead of navigating */}
+        <button
           className="px-4 py-1.5 bg-cyan-500/90 rounded-full text-xs font-medium text-white flex items-center gap-1 border border-cyan-300/30"
           style={{ boxShadow: "0 0 15px rgba(34, 211, 238, 0.4)" }}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (onClick) onClick();
+          }}
         >
           <span>View Project</span>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
-        </a>
+        </button>
       </motion.div>
 
       {/* Card */}
@@ -100,6 +108,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ children, title, href, classN
             : "0 0 0 rgba(0,0,0,0)",
           transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
         }}
+        onClick={onClick} // Added to make entire card clickable for modal
       >
         {/* Card Content with Z-translation */}
         <motion.div

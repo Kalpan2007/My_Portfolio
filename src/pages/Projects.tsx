@@ -1,55 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Code2 } from "lucide-react";
-import ProjectCard from "../components/ProjectCard"; // Import the ProjectCard component
-import { BottomNav } from '../components/BottomNav';
+import ProjectCard from "../components/Projectcard";
+import ProjectModal, { ProjectDetail } from "../components/ProjectModel";
+import { BottomNav } from "../components/BottomNav";
 import PageTransition from "../components/PageTransition";
-
-// Define interfaces for project data
-interface ProjectTag {
-  id: number;
-  name: string;
-}
-
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  href: string;
-  tags: string[];
-  image: string;
-}
-
-// Sample project data
-const projectsData: Project[] = [
-  {
-    id: 1,
-    title: "Portfolio Website",
-    description: "A modern portfolio built with React and Tailwind CSS",
-    href: "https://yourportfolio.com",
-    tags: ["React", "Tailwind", "Framer Motion"],
-    image: "/api/placeholder/400/320"
-  },
-  {
-    id: 2,
-    title: "E-commerce Platform",
-    description: "Full-stack e-commerce solution with payment integration",
-    href: "https://project2.com",
-    tags: ["Next.js", "MongoDB", "Stripe"],
-    image: "/api/placeholder/400/320"
-  },
-  {
-    id: 3,
-    title: "Aceternity UI",
-    description: "Customizable Tailwind CSS and Framer Motion Components",
-    href: "/ui.aceternity.com",
-    tags: ["React", "Tailwind", "Design System"],
-    image: "/api/placeholder/400/320"
-  },
-  // Add more projects as needed
-];
+import projectsData from "../Project_Data/Data"; // Import the detailed project data
 
 const Projects: React.FC = () => {
+  // State for controlling the modal
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedProject, setSelectedProject] = useState<ProjectDetail | null>(null);
+
+  // Function to open the modal with the selected project
+  const openProjectModal = (project: ProjectDetail) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  // Function to close the modal
+  const closeProjectModal = () => {
+    setSelectedProject(null);
+    setIsModalOpen(false);
+  };
+
   return (
     <PageTransition>
       <div className="min-h-screen bg-[#0f172a] text-gray-100 py-20 px-4">
@@ -69,19 +43,21 @@ const Projects: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Projects Grid - Fixed to only show projectsData once */}
+        {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {projectsData.map((project) => (
             <ProjectCard
               key={project.id}
               title={project.title}
-              href={project.href}
+              href={project.liveUrl}
               className="h-64 md:h-80"
+              onClick={() => openProjectModal(project)}
+              project={project}
             >
               <div className="space-y-4">
                 <div className="relative h-32 w-full overflow-hidden rounded-lg border border-cyan-500/20">
                   <img
-                    src={project.image}
+                    src={project.images[0]}
                     alt={project.title}
                     className="w-full h-full object-cover"
                   />
@@ -103,7 +79,14 @@ const Projects: React.FC = () => {
             </ProjectCard>
           ))}
         </div>
-        
+
+        {/* Project Modal */}
+        <ProjectModal
+          isOpen={isModalOpen}
+          onClose={closeProjectModal}
+          project={selectedProject}
+        />
+
         <BottomNav />
       </div>
     </PageTransition>
