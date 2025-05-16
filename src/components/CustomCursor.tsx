@@ -1,5 +1,5 @@
 import { motion, useSpring } from "framer-motion";
-import { FC, JSX, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
 interface Position {
   x: number;
@@ -20,10 +20,10 @@ const DefaultCursorSVG: FC = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={34} 
+      width={34}
       height={40}
       viewBox="0 0 50 54"
-      fill="cyan" // Changed color to cyan
+      fill="cyan"
       style={{ scale: 0.4 }}
     >
       <path
@@ -37,67 +37,57 @@ const DefaultCursorSVG: FC = () => {
 export function SmoothCursor({
   cursor = <DefaultCursorSVG />,
   springConfig = {
-    damping: 45,
-    stiffness: 400,
-    mass: 1,
+    damping: 30, // Reduced damping for faster response
+    stiffness: 600, // Increased stiffness for snappier movement
+    mass: 0.5, // Reduced mass for quicker acceleration
     restDelta: 0.001,
   },
 }: SmoothCursorProps) {
   const [shouldRender, setShouldRender] = useState(true);
-
-  useEffect(() => {
-    const checkDevice = () => {
-      const isMobileOrTablet = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      ) || window.innerWidth <= 768;
-      
-      setShouldRender(!isMobileOrTablet);
-      document.body.style.cursor = isMobileOrTablet ? 'auto' : 'none';
-    };
-
-    // Check on mount
-    checkDevice();
-
-    // Check on resize
-    window.addEventListener('resize', checkDevice);
-    return () => window.removeEventListener('resize', checkDevice);
-  }, []);
-
-  // Don't render anything if it's a mobile device or tablet
-  if (!shouldRender) return null;
-
   const [isMoving, setIsMoving] = useState(false);
-  const [isClicking, setIsClicking] = useState(false); // State for click effect
+  const [isClicking, setIsClicking] = useState(false);
+
   const lastMousePos = useRef<Position>({ x: 0, y: 0 });
   const velocity = useRef<Position>({ x: 0, y: 0 });
   const lastUpdateTime = useRef(Date.now());
   const previousAngle = useRef(0);
   const accumulatedRotation = useRef(0);
+  const rafId = useRef<number>();
 
   const cursorX = useSpring(0, springConfig);
   const cursorY = useSpring(0, springConfig);
   const rotation = useSpring(0, {
     ...springConfig,
-    damping: 60,
-    stiffness: 300,
+    damping: 40, // Slightly reduced for smoother rotation
+    stiffness: 400, // Balanced for responsive rotation
   });
   const scale = useSpring(1, {
     ...springConfig,
-    stiffness: 500,
-    damping: 35,
+    stiffness: 800, // Increased for faster scale transitions
+    damping: 25, // Reduced for snappier scale
   });
 
   useEffect(() => {
-    // Disable cursor on mobile devices
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-      document.body.style.cursor = "auto";
-      return;
-    }
+    const checkDevice = () => {
+      const isMobileOrTablet =
+        /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        ) || window.innerWidth <= 768;
+      setShouldRender(!isMobileOrTablet);
+      document.body.style.cursor = isMobileOrTablet ? "auto" : "none";
+    };
+
+    checkDevice();
+    window.addEventListener("resize", checkDevice);
+    return () => window.removeEventListener("resize", checkDevice);
+  }, []);
+
+  useEffect(() => {
+    if (!shouldRender) return;
 
     const updateVelocity = (currentPos: Position) => {
       const currentTime = Date.now();
-      const deltaTime = currentTime - lastUpdateTime.current;
+      const deltaTime = (currentTime - lastUpdateTime.current) / 1000; // Convert to seconds
 
       if (deltaTime > 0) {
         velocity.current = {
@@ -114,14 +104,14 @@ export function SmoothCursor({
       const currentPos = { x: e.clientX, y: e.clientY };
       updateVelocity(currentPos);
 
-      const speed = Math.sqrt(
-        Math.pow(velocity.current.x, 2) + Math.pow(velocity.current.y, 2)
-      );
-
       cursorX.set(currentPos.x);
       cursorY.set(currentPos.y);
 
-      if (speed > 0.1) {
+      const speed = Math.sqrt(
+        velocity.current.x ** 2 + velocity.current.y ** 2
+      );
+
+      if (speed > 50) { // Adjusted threshold for rotation sensitivity
         const currentAngle =
           Math.atan2(velocity.current.y, velocity.current.x) * (180 / Math.PI) +
           90;
@@ -129,55 +119,53 @@ export function SmoothCursor({
         let angleDiff = currentAngle - previousAngle.current;
         if (angleDiff > 180) angleDiff -= 360;
         if (angleDiff < -180) angleDiff += 360;
-        accumulatedRotation.current += angleDiff;
+
+        accumulatedRotation.current += angleDiff * 1.2; // Increased sensitivity for more rotation
         rotation.set(accumulatedRotation.current);
         previousAngle.current = currentAngle;
 
-        scale.set(0.95);
-        setIsMoving(true);
-
-        const timeout = setTimeout(() => {
-          scale.set(1);
-          setIsMoving(false);
-        }, 150);
-
-        return () => clearTimeout(timeout);
+        if (!isMoving) {
+          scale.set(0.92); // Slightly more pronounced scale effect
+          setIsMoving(true);
+        }
+      } else if (isMoving) {
+        scale.set(1);
+        setIsMoving(false);
       }
     };
 
     const handleMouseDown = () => {
       setIsClicking(true);
-      scale.set(0.8); // Shrink cursor on click
+      scale.set(0.75); // More noticeable click effect
     };
 
     const handleMouseUp = () => {
       setIsClicking(false);
-      scale.set(1); // Reset cursor size
+      scale.set(1);
     };
 
-    let rafId: number;
-    const throttledMouseMove = (e: MouseEvent) => {
-      if (rafId) return;
-
-      rafId = requestAnimationFrame(() => {
-        smoothMouseMove(e);
-        rafId = 0;
-      });
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!rafId.current) {
+        rafId.current = requestAnimationFrame(() => {
+          smoothMouseMove(e);
+          rafId.current = undefined;
+        });
+      }
     };
 
-    document.body.style.cursor = "none";
-    window.addEventListener("mousemove", throttledMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
 
     return () => {
-      window.removeEventListener("mousemove", throttledMouseMove);
+      window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
-      document.body.style.cursor = "auto";
-      if (rafId) cancelAnimationFrame(rafId);
+      if (rafId.current) cancelAnimationFrame(rafId.current);
     };
-  }, [cursorX, cursorY, rotation, scale]);
+  }, [shouldRender, cursorX, cursorY, rotation, scale, isMoving]);
+
+  if (!shouldRender) return null;
 
   return (
     <motion.div
@@ -185,21 +173,20 @@ export function SmoothCursor({
         position: "fixed",
         left: cursorX,
         top: cursorY,
-        translateX: "-50%",
-        translateY: "-50%",
+        transform: `translate(-50%, -50%)`,
         rotate: rotation,
-        scale: scale,
-        zIndex: 100,
+        scale,
+        zIndex: 9999,
         pointerEvents: "none",
-        willChange: "transform",
-        opacity: isClicking ? 0.8 : 1, // Reduce opacity on click
+        willChange: "left, top, transform",
+        opacity: isClicking ? 0.7 : 1, // Enhanced click opacity effect
       }}
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       transition={{
         type: "spring",
-        stiffness: 400,
-        damping: 30,
+        stiffness: 600,
+        damping: 25,
       }}
     >
       {cursor}

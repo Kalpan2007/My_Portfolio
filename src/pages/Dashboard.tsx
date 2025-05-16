@@ -126,9 +126,9 @@ const Dashboard = () => {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="min-h-screen p-4 text-gray-100 mt-8"
+      className="min-h-screen py-8 md:py-12 px-4 text-gray-100" // Updated padding
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         {/* Profile Card (center aligned) */}
         <motion.div
           variants={profileVariants}
