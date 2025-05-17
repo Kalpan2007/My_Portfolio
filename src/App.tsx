@@ -36,6 +36,7 @@ const router = createBrowserRouter(
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
+  
 
   useEffect(() => {
     // Handle mobile viewport height
