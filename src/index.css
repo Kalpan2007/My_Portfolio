@@ -5,6 +5,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
+*,body{
+  cursor: none !important; /* Hide cursor globally */
+}
+
 body {
   font-family: 'Poppins', sans-serif; /* Changed from Inter to Poppins */
   -webkit-font-smoothing: antialiased;
@@ -172,48 +177,22 @@ html {
 @layer base {
   html, body {
     @apply bg-[#0f172a] text-gray-100;
-    font-family: 'Poppins', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overscroll-behavior: none;
-    overflow-x: hidden;
+    cursor: none;
   }
 
-  /* Remove fixed positioning from body */
-  body {
-    min-height: 100vh;
-    /* Remove position: fixed that was causing reload issues */
-    width: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* Fix iOS height issues */
-  @supports (-webkit-touch-callout: none) {
-    body {
-      min-height: -webkit-fill-available;
+  @media (max-width: 768px) {
+    html, body {
+      cursor: auto;
     }
   }
 
   * {
-    cursor: none !important;
+    cursor: none;
   }
-  
-  /* Enable default cursor on mobile devices */
+
   @media (max-width: 768px) {
     * {
       cursor: auto !important;
-    }
-  }
-
-  html {
-    @apply cursor-none;
-  }
-  
-  @media (max-width: 768px) {
-    html {
-      @apply cursor-auto;
     }
   }
 }
@@ -324,3 +303,5 @@ html {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
+
+
