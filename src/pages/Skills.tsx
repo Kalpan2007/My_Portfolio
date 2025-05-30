@@ -1,6 +1,7 @@
 import Pagetrasition from '../components/PageTransition';
 import { useNavigate } from 'react-router-dom';
 import { BottomNav } from '../components/BottomNav';
+import { Languages } from 'lucide-react';
 const skillsData = {
   Frontend: [
     {

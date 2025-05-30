@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import {
   Github, Twitter, Linkedin, ArrowRight, Download,
-  Code, Mail, Award, Globe, Briefcase,
+  Code, Mail, Award, Globe, Briefcase, Laptop, Terminal
 } from 'lucide-react';
 
 const Dashboard = () => {
@@ -126,16 +126,16 @@ const Dashboard = () => {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="min-h-screen py-8 md:py-12 px-4 text-gray-100" // Updated padding
+      className="min-h-screen p-8"
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-        {/* Profile Card (center aligned) */}
+      <div className="max-w-7xl mx-auto grid grid-cols-5 grid-rows-5 gap-4 h-[calc(100vh-4rem)]">
+        {/* Profile Card - Large left section */}
         <motion.div
           variants={profileVariants}
           initial="initial"
           animate="animate"
           whileHover="hover"
-          className="lg:col-start-2 lg:row-start-1 lg:row-end-3 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg transition-all duration-100 hover:bg-white/10 h-[400px] w-full max-w-[600px] mx-auto"
+          className="col-span-2 row-span-4 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg transition-all duration-100 hover:bg-white/10"
         >
           <div className="flex flex-col items-center text-center space-y-6 h-full justify-center">
             <div className="w-28 h-28 rounded-full overflow-hidden ring-2 ring-blue-500/30 shadow-md">
@@ -173,40 +173,144 @@ const Dashboard = () => {
           </div>
         </motion.div>
 
-        {/* Other Cards */}
-        {cards.map((card, index) => (
-          <motion.div
-            key={index}
-            custom={index}
-            variants={cardVariants}
-            initial="initial"
-            animate="animate"
-            whileHover="hover"
-            onClick={card.route ? () => navigate(card.route) : undefined}
-            className={`p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg transition-all duration-300 hover:bg-white/10 h-[200px] w-full cursor-${card.route ? "pointer" : "default"}`}
-          >
-            <div className="flex flex-col items-center text-center space-y-4 h-full justify-center relative">
-              {card.icon}
-              <h2 className="text-xl font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]">
-                {card.title}
-              </h2>
-              {card.content}
-              {card.route && !card.isLink && (
-                <div className="absolute bottom-4 right-4">
-                  <ArrowRight className="w-6 h-6 text-blue-400 hover:text-blue-300 transition" onClick={() => navigate(card.route)} />
-                </div>
-              )}
-              {card.isLink && (
-                <button
-                  onClick={(e) => { e.stopPropagation(); window.location.href = "/resume.pdf"; }}
-                  className="mt-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm flex items-center gap-1 shadow-md transition"
-                >
-                  Download <ArrowRight className="w-4 h-4" />
-                </button>
-              )}
+        {/* About Section - Bottom left */}
+        <motion.div
+          custom={0}
+          variants={cardVariants}
+          initial="initial"
+          animate="animate"
+          whileHover="hover"
+          onClick={() => navigate("/about")}
+          className="col-span-2 col-start-1 row-start-5 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg transition-all duration-300 hover:bg-white/10 cursor-pointer"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Code className="w-8 h-8 text-blue-400" />
+              <h2 className="text-xl font-bold">About Me</h2>
             </div>
-          </motion.div>
-        ))}
+            <ArrowRight className="w-5 h-5 text-blue-400" />
+          </div>
+          <p className="mt-3 text-sm text-gray-400">Learn more about my journey and passion for web development</p>
+        </motion.div>
+
+        {/* Projects - Middle column, top */}
+        <motion.div
+          custom={1}
+          variants={cardVariants}
+          className="col-span-2 row-span-2 col-start-3 row-start-1 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer"
+          onClick={() => navigate("/projects")}
+        >
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-4">
+              <Laptop className="w-8 h-8 text-blue-400" />
+              <h2 className="text-xl font-bold">Projects</h2>
+            </div>
+            <ArrowRight className="w-5 h-5 text-blue-400" />
+          </div>
+          <div className="space-y-3">
+            <div className="flex flex-wrap gap-2">
+              <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">Portfolio</span>
+              <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">E-commerce</span>
+              <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">UI Components</span>
+            </div>
+            <p className="text-sm text-gray-400">Explore my latest web development projects</p>
+          </div>
+        </motion.div>
+
+        {/* Experience - Middle column, middle */}
+        <motion.div
+          custom={2}
+          variants={cardVariants}
+          className="col-span-2 row-span-2 col-start-3 row-start-3 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer"
+          onClick={() => navigate("/experience")}
+        >
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-4">
+              <Briefcase className="w-8 h-8 text-blue-400" />
+              <h2 className="text-xl font-bold">Experience</h2>
+            </div>
+            <ArrowRight className="w-5 h-5 text-blue-400" />
+          </div>
+          <div className="space-y-2">
+            <p className="text-sm text-gray-300">Web Development Intern</p>
+            <p className="text-xs text-gray-400">Building real-world projects and gaining hands-on experience</p>
+          </div>
+        </motion.div>
+
+        {/* Skills - Middle column, bottom */}
+        <motion.div
+          custom={3}
+          variants={cardVariants}
+          className="col-span-2 col-start-3 row-start-5 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer"
+          onClick={() => navigate("/skills")}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Terminal className="w-8 h-8 text-blue-400" />
+              <h2 className="text-xl font-bold">Skills</h2>
+            </div>
+            <ArrowRight className="w-5 h-5 text-blue-400" />
+          </div>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">React</span>
+            <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">Node.js</span>
+            <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">MongoDB</span>
+          </div>
+        </motion.div>
+
+        {/* Certificates - Right column, top */}
+        <motion.div
+          custom={4}
+          variants={cardVariants}
+          className="row-span-2 col-start-5 row-start-1 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer"
+          onClick={() => navigate("/certificates")}
+        >
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-4">
+              <Award className="w-8 h-8 text-blue-400" />
+              <h2 className="text-xl font-bold">Certificates</h2>
+            </div>
+            <ArrowRight className="w-5 h-5 text-blue-400" />
+          </div>
+          <p className="text-sm text-gray-400">View my certifications and achievements</p>
+        </motion.div>
+
+        {/* Other Side - Right column, middle */}
+        <motion.div
+          custom={5}
+          variants={cardVariants}
+          className="row-span-2 col-start-5 row-start-3 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer"
+          onClick={() => navigate("/My_Other_Side")}
+        >
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-4">
+              <Globe className="w-8 h-8 text-blue-400" />
+              <h2 className="text-xl font-bold">Other Side</h2>
+            </div>
+            <ArrowRight className="w-5 h-5 text-blue-400" />
+          </div>
+          <div className="space-y-2">
+            <p className="text-sm text-gray-300">Cricket Enthusiast</p>
+            <p className="text-sm text-gray-300">Mobile Gaming</p>
+          </div>
+        </motion.div>
+
+        {/* Contact - Right column, bottom */}
+        <motion.div
+          custom={6}
+          variants={cardVariants}
+          className="col-start-5 row-start-5 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer"
+          onClick={() => navigate("/contact")}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Mail className="w-8 h-8 text-blue-400" />
+              <h2 className="text-xl font-bold">Contact</h2>
+            </div>
+            <ArrowRight className="w-5 h-5 text-blue-400" />
+          </div>
+          <p className="mt-3 text-sm text-gray-400">Let's connect and discuss opportunities</p>
+        </motion.div>
       </div>
     </motion.div>
   );
