@@ -96,33 +96,34 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               y: 10,
               transition: { duration: 0.2 }
             }}
-            className="fixed inset-4 sm:inset-10 md:inset-20 z-50 overflow-hidden"
+            className="fixed inset-0 sm:inset-10 md:inset-20 z-50 overflow-hidden" // Updated insets
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="bg-gradient-to-br from-slate-900 to-slate-950 rounded-xl h-full overflow-hidden border border-cyan-500/20 shadow-2xl shadow-cyan-500/10">
-              {/* Close button */}
+            <div className="bg-gradient-to-br from-slate-900 to-slate-950 h-full overflow-hidden border border-cyan-500/20 shadow-2xl shadow-cyan-500/10 rounded-none sm:rounded-xl"> {/* Removed rounded corners on mobile */}
+              {/* Close button - moved for better mobile access */}
               <motion.button
                 whileHover={{ scale: 1.1, rotate: 90 }}
                 whileTap={{ scale: 0.9 }}
-                className="absolute top-4 right-4 p-1 rounded-full bg-slate-800/80 border border-slate-700 z-10 text-gray-400 hover:text-white"
+                className="fixed top-4 right-4 p-2 rounded-full bg-slate-800/90 border border-slate-700 z-50 text-gray-400 hover:text-white"
                 onClick={onClose}
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5 sm:w-6 sm:h-6" />
               </motion.button>
               
               <div className="h-full overflow-y-auto custom-scrollbar">
-                <div className="p-6 md:p-8">
+                <div className="p-4 sm:p-6 md:p-8"> {/* Adjusted padding for mobile */}
                   {/* Header */}
                   <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0, transition: { delay: 0.1 } }}
+                    className="mt-8 sm:mt-0" // Added top margin on mobile for close button
                   >
-                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">{project.title}</h2>
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2">{project.title}</h2>
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4">
                       {project.tags.map((tag, idx) => (
                         <span
                           key={idx}
-                          className="text-xs px-2 py-1 bg-cyan-900/50 border border-cyan-500/20 rounded-full text-cyan-200"
+                          className="text-[10px] sm:text-xs px-2 py-0.5 sm:py-1 bg-cyan-900/50 border border-cyan-500/20 rounded-full text-cyan-200"
                         >
                           {tag}
                         </span>
@@ -130,14 +131,13 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                     </div>
                   </motion.div>
                   
-                  {/* Media Section */}
+                  {/* Media Section - adjusted heights */}
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1, transition: { delay: 0.2 } }}
-                    className="mb-8 relative"
+                    className="mb-6 sm:mb-8 relative"
                   >
-                    {/* Main Image/Video Showcase */}
-                    <div className="relative h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden border border-cyan-500/20 bg-slate-800/40">
+                    <div className="relative h-48 sm:h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden border border-cyan-500/20 bg-slate-800/40">
                       {/* Handle video content */}
                       {project.videoUrl && activeImageIndex === project.images.length && (
                         <div className="absolute inset-0 flex items-center justify-center">
@@ -199,15 +199,15 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                       )}
                     </div>
                     
-                    {/* Thumbnails */}
+                    {/* Thumbnails - adjusted for mobile */}
                     {(project.images.length > 1 || project.videoUrl) && (
-                      <div className="flex gap-2 mt-3 overflow-x-auto pb-2 custom-scrollbar">
+                      <div className="flex gap-1.5 sm:gap-2 mt-2 sm:mt-3 overflow-x-auto pb-2 custom-scrollbar">
                         {project.images.map((img, idx) => (
                           <motion.div
                             key={idx}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className={`h-16 w-24 flex-shrink-0 rounded-md overflow-hidden border-2 cursor-pointer transition-all
+                            className={`h-14 sm:h-16 w-20 sm:w-24 flex-shrink-0 rounded-md overflow-hidden border-2 cursor-pointer transition-all
                               ${activeImageIndex === idx ? 'border-cyan-500 shadow-md shadow-cyan-500/30' : 'border-slate-700'}`}
                             onClick={() => {
                               setActiveImageIndex(idx);
@@ -217,40 +217,27 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                             <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
                           </motion.div>
                         ))}
-                        
-                        {/* Video Thumbnail */}
-                        {project.videoUrl && (
-                          <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className={`h-16 w-24 flex-shrink-0 rounded-md overflow-hidden border-2 cursor-pointer transition-all flex items-center justify-center bg-slate-800
-                              ${activeImageIndex === project.images.length ? 'border-cyan-500 shadow-md shadow-cyan-500/30' : 'border-slate-700'}`}
-                            onClick={() => setActiveImageIndex(project.images.length)}
-                          >
-                            <Play className="w-6 h-6 text-cyan-500" />
-                          </motion.div>
-                        )}
                       </div>
                     )}
                   </motion.div>
                   
-                  {/* Project Information */}
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  {/* Project Information - adjusted grid for mobile */}
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
                     {/* Left Column - Description */}
                     <motion.div 
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0, transition: { delay: 0.3 } }}
                       className="lg:col-span-2"
                     >
-                      <h3 className="text-xl font-semibold text-white mb-4">Project Overview</h3>
+                      <h3 className="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4">Project Overview</h3>
                       <div className="prose prose-sm prose-invert max-w-none">
-                        <p className="text-gray-300">{project.longDescription || project.description}</p>
+                        <p className="text-sm sm:text-base text-gray-300">{project.longDescription || project.description}</p>
                         
-                        {/* Features */}
+                        {/* Features with adjusted spacing */}
                         {project.features && project.features.length > 0 && (
-                          <div className="mt-6">
-                            <h4 className="text-lg font-medium text-white mb-2">Key Features</h4>
-                            <ul className="list-disc pl-5 space-y-1 text-gray-300">
+                          <div className="mt-4 sm:mt-6">
+                            <h4 className="text-base sm:text-lg font-medium text-white mb-2">Key Features</h4>
+                            <ul className="list-disc pl-4 sm:pl-5 space-y-1 text-sm sm:text-base text-gray-300">
                               {project.features.map((feature, idx) => (
                                 <li key={idx}>{feature}</li>
                               ))}
