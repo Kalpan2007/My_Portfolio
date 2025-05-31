@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import {
   Github, Twitter, Linkedin, ArrowRight, Download,
-  Code, Mail, Award, Globe, Briefcase, Laptop, Terminal
+  Code, Mail, Award, Globe, Briefcase, Laptop, Terminal ,
 } from 'lucide-react';
 
 const Dashboard = () => {
@@ -126,16 +126,16 @@ const Dashboard = () => {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="min-h-screen p-8"
+      className="min-h-screen p-8 md:p-8"
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-5 grid-rows-5 gap-4 h-[calc(100vh-4rem)]">
-        {/* Profile Card - Large left section */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-4 md:grid-rows-5 md:h-[calc(100vh-4rem)]">
+        {/* Profile Card */}
         <motion.div
           variants={profileVariants}
           initial="initial"
           animate="animate"
           whileHover="hover"
-          className="col-span-2 row-span-4 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg transition-all duration-100 hover:bg-white/10"
+          className="col-span-1 md:col-span-2 md:row-span-4 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg transition-all duration-100 hover:bg-white/10 min-h-[400px]"
         >
           <div className="flex flex-col items-center text-center space-y-6 h-full justify-center">
             <div className="w-28 h-28 rounded-full overflow-hidden ring-2 ring-blue-500/30 shadow-md">
@@ -173,31 +173,11 @@ const Dashboard = () => {
           </div>
         </motion.div>
 
-        {/* About Section - Bottom left */}
-        <motion.div
-          custom={0}
-          variants={cardVariants}
-          initial="initial"
-          animate="animate"
-          whileHover="hover"
-          onClick={() => navigate("/about")}
-          className="col-span-2 col-start-1 row-start-5 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg transition-all duration-300 hover:bg-white/10 cursor-pointer"
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Code className="w-8 h-8 text-blue-400" />
-              <h2 className="text-xl font-bold">About Me</h2>
-            </div>
-            <ArrowRight className="w-5 h-5 text-blue-400" />
-          </div>
-          <p className="mt-3 text-sm text-gray-400">Learn more about my journey and passion for web development</p>
-        </motion.div>
-
-        {/* Projects - Middle column, top */}
+        {/* Projects Card */}
         <motion.div
           custom={1}
           variants={cardVariants}
-          className="col-span-2 row-span-2 col-start-3 row-start-1 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer"
+          className="col-span-1 md:col-span-2 md:row-span-2 md:col-start-3 md:row-start-1 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer min-h-[200px]"
           onClick={() => navigate("/projects")}
         >
           <div className="flex items-center justify-between mb-4">
@@ -217,11 +197,11 @@ const Dashboard = () => {
           </div>
         </motion.div>
 
-        {/* Experience - Middle column, middle */}
+        {/* Experience Card */}
         <motion.div
           custom={2}
           variants={cardVariants}
-          className="col-span-2 row-span-2 col-start-3 row-start-3 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer"
+          className="col-span-1 md:col-span-2 md:row-span-2 md:col-start-3 md:row-start-3 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer min-h-[180px]"
           onClick={() => navigate("/experience")}
         >
           <div className="flex items-center justify-between mb-4">
@@ -237,11 +217,11 @@ const Dashboard = () => {
           </div>
         </motion.div>
 
-        {/* Skills - Middle column, bottom */}
+        {/* Skills Card */}
         <motion.div
           custom={3}
           variants={cardVariants}
-          className="col-span-2 col-start-3 row-start-5 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer"
+          className="col-span-1 md:col-span-2 md:col-start-3 md:row-start-5 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer min-h-[150px]"
           onClick={() => navigate("/skills")}
         >
           <div className="flex items-center justify-between">
@@ -258,11 +238,28 @@ const Dashboard = () => {
           </div>
         </motion.div>
 
-        {/* Certificates - Right column, top */}
+        {/* About Me Card */}
+        <motion.div
+          custom={0}
+          variants={cardVariants}
+          className="col-span-1 md:col-span-2 md:col-start-1 md:row-start-5 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer min-h-[150px]"
+          onClick={() => navigate("/about")}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Code className="w-8 h-8 text-blue-400" />
+              <h2 className="text-xl font-bold">About Me</h2>
+            </div>
+            <ArrowRight className="w-5 h-5 text-blue-400" />
+          </div>
+          <p className="mt-3 text-sm text-gray-400">Learn more about my journey and passion for web development</p>
+        </motion.div>
+
+        {/* Certificates Card */}
         <motion.div
           custom={4}
           variants={cardVariants}
-          className="row-span-2 col-start-5 row-start-1 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer"
+          className="col-span-1 md:row-span-2 md:col-start-5 md:row-start-1 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer min-h-[180px]"
           onClick={() => navigate("/certificates")}
         >
           <div className="flex items-center justify-between mb-4">
@@ -275,11 +272,11 @@ const Dashboard = () => {
           <p className="text-sm text-gray-400">View my certifications and achievements</p>
         </motion.div>
 
-        {/* Other Side - Right column, middle */}
+        {/* Other Side Card */}
         <motion.div
           custom={5}
           variants={cardVariants}
-          className="row-span-2 col-start-5 row-start-3 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer"
+          className="col-span-1 md:row-span-2 md:col-start-5 md:row-start-3 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer min-h-[180px]"
           onClick={() => navigate("/My_Other_Side")}
         >
           <div className="flex items-center justify-between mb-4">
@@ -295,11 +292,11 @@ const Dashboard = () => {
           </div>
         </motion.div>
 
-        {/* Contact - Right column, bottom */}
+        {/* Contact Card */}
         <motion.div
           custom={6}
           variants={cardVariants}
-          className="col-start-5 row-start-5 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer"
+          className="col-span-1 md:col-start-5 md:row-start-5 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer min-h-[150px]"
           onClick={() => navigate("/contact")}
         >
           <div className="flex items-center justify-between">
