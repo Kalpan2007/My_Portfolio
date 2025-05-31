@@ -2,12 +2,13 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import {
   Github, Twitter, Linkedin, ArrowRight, Download,
-  Code, Mail, Award, Globe, Briefcase, Laptop, Terminal
+  Code, Mail, Award, Globe, Briefcase, Laptop, Terminal,
 } from 'lucide-react';
 
 const Dashboard = () => {
   const navigate = useNavigate();
 
+  // Animation variants
   const pageVariants = {
     initial: { opacity: 0, y: 50 },
     animate: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
@@ -16,216 +17,123 @@ const Dashboard = () => {
 
   const cardVariants = {
     initial: { scale: 0.9, opacity: 0 },
-    animate: (i) => ({
+    animate: (i: number) => ({
       scale: 1,
       opacity: 1,
       transition: { delay: i * 0.1, duration: 0.5, type: 'spring', stiffness: 100 },
     }),
-    hover: { scale: 1.03, boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)', transition: { duration: 0.3 } },
   };
 
-  const profileVariants = {
-    initial: { y: 30, opacity: 0 },
-    animate: {
-      y: 0,
-      opacity: 1,
-      transition: { delay: 0.3, duration: 0.6, type: 'spring', stiffness: 80 },
-    },
-    hover: { y: -5, transition: { duration: 0.3 } },
-  };
-
-  const cards = [
-    {
-      icon: <Code className="w-8 h-8 text-blue-400" />,
-      title: "About Me",
-      content: (
-        <div className="flex flex-col items-center space-y-3">
-          <div className="relative h-24 w-full">
-            <img src="https://res.cloudinary.com/dxdrzit6x/image/upload/v1745993849/About-img-CBqeJdI__fzy6wo.png" alt="About" className="w-full h-full object-cover rounded-lg" />
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent rounded-lg" />
-            <p className="absolute bottom-2 left-2 text-sm text-white">My Story</p>
-          </div>
-        </div>
-      ),
-      route: "/about",
-    },
-    {
-      icon: <Briefcase className="w-8 h-8 text-blue-400" />,
-      title: "Projects",
-      content: (
-        <div className="flex flex-col items-center space-y-3">
-          <div className="flex gap-2">
-           This is  All My Projects 
-          </div>
-        </div>
-      ),
-      route: "/projects",
-    },
-    {
-      icon: <Award className="w-8 h-8 text-blue-400" />,
-      title: "Certificates",
-      content: (
-        <div className="flex flex-col items-center y-3">
-          <p className="text-sm text-gray-400">These are the certificates ,</p>
-          <p className="text-sm text-gray-400">I've earned from various platforms.</p>
-        </div>
-      ),
-      route: "/certificates",
-    },
-    {
-      icon: <Briefcase className="w-8 h-8 text-blue-400" />,
-      title: "Experience",
-      content: (
-        <div className="flex flex-col items-center space-y-2">
-          <p className="text-xs text-gray-200">Internship</p>
-        </div>
-      ),
-      route: "/experience",
-    },
-    {
-      icon: <Globe className="w-8 h-8 text-blue-400" />,
-      title: "My Other Side",
-      content: (
-        <div className="flex flex-col items-center space-y-2">
-          <p className="text-sm text-gray-100">Cricket</p>
-          <p className="text-sm text-gray-100">Mobile Gaming</p>
-        </div>
-      ),
-      route: "/My_Other_Side",
-    },
-    {
-      icon: <Code className="w-8 h-8 text-blue-400" />,
-      title: "Skills",
-      content: (
-        <div className="flex flex-col items-center space-y-2">
-          <div className="flex gap-2 flex-wrap">
-            <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">React</span>
-            <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">MongoDB</span>
-            <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">Node.js</span>
-            <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">Express</span>
-          </div>
-        </div>
-      ),
-      route: "/skills",
-    },
-    {
-      icon: <Mail className="w-8 h-8 text-blue-400" />,
-      title: "Contact",
-      content: (
-        <div className="flex flex-col items-center space-y-2">
-          <p className="text-sm text-gray-100">Let's connect!</p>
-        </div>
-      ),
-      route: "/contact",
-    },
+  // Navigation items
+  const navItems = [
+    { title: 'Profile', icon: <Code />, route: '/', span: 'col-span-2 row-span-4 md:col-span-2 md:row-span-4' },
+    { title: 'Projects', icon: <Laptop />, route: '/projects', span: 'col-span-2 md:col-span-1' },
+    { title: 'About Me', icon: <Code />, route: '/about', span: 'col-span-2 md:col-span-1' },
+    { title: 'Certificates', icon: <Award />, route: '/certificates', span: 'col-span-2 md:col-span-1' },
+    { title: 'Other Side', icon: <Globe />, route: '/My_Other_Side', span: 'col-span-2 md:col-span-1' },
+    { title: 'Skills', icon: <Terminal />, route: '/skills', span: 'col-span-2 md:col-span-1' },
+    { title: 'Experience', icon: <Briefcase />, route: '/experience', span: 'col-span-2 md:col-span-1' },
+    { title: 'Connect', icon: <Mail />, route: '/contact', span: 'col-span-2 md:col-span-1' },
   ];
 
   return (
-    <motion.div
-      variants={pageVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      className="min-h-screen p-4 sm:p-8"
-    >
-      <div className="max-w-7xl mx-auto flex flex-col lg:grid lg:grid-cols-5 lg:grid-rows-5 gap-4 h-auto lg:h-[calc(100vh-4rem)]">
-        {/* Profile Card - Full width on mobile, large left section on desktop */}
-        <motion.div
-          variants={profileVariants}
-          initial="initial"
-          animate="animate"
-          whileHover="hover"
-          className="col-span-full lg:col-span-2 lg:row-span-4 p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg transition-all duration-100 hover:bg-white/10"
-        >
-          <div className="flex flex-col items-center text-center space-y-6 h-full justify-center">
-            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden ring-2 ring-blue-500/30 shadow-md">
-              <img
-                src="https://res.cloudinary.com/dxdrzit6x/image/upload/v1745993853/PXL_20250114_114831859.PORTRAIT-ghB93Tpx_i9oxjr.jpg"
-                alt="Kalpan Kaneriya"
-                className="w-full h-full object-cover rounded-full"
-              />
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-100 drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)]">
-              Kalpan Kaneriya
-            </h1>
-            <p className="text-base sm:text-lg text-gray-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
-              Full Stack Developer / UI-UX Designer
-            </p>
-            <div className="flex gap-4">
-              <a href="#" className="text-gray-300 hover:text-blue-400 transition drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]">
-                <Github className="w-5 h-5 sm:w-6 sm:h-6" />
-              </a>
-              <a href="#" className="text-gray-300 hover:text-blue-400 transition drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]">
-                <Twitter className="w-5 h-5 sm:w-6 sm:h-6" />
-              </a>
-              <a href="#" className="text-gray-300 hover:text-blue-400 transition drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]">
-                <Linkedin className="w-5 h-5 sm:w-6 sm:h-6" />
-              </a>
-            </div>
-            <a
-              href="/resume.pdf"
-              download
-              className="flex items-center gap-2 px-4 sm:px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition shadow-md drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]"
-            >
-              <Download className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="text-sm sm:text-base">Download Resume</span>
-            </a>
-          </div>
-        </motion.div>
-
-        {/* Mobile Navigation Menu */}
-        <div className="lg:hidden flex flex-col gap-4">
-          {cards.map((card, index) => (
-            <motion.div
-              key={card.title}
-              variants={cardVariants}
-              initial="initial"
-              animate="animate"
-              whileHover="hover"
-              custom={index}
-              onClick={() => navigate(card.route)}
-              className="p-4 rounded-xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer"
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  {card.icon}
-                  <h2 className="text-lg font-semibold">{card.title}</h2>
-                </div>
-                <ArrowRight className="w-5 h-5 text-blue-400" />
+    <div className="min-h-screen p-4 md:p-8 bg-[#0f172a]">
+      {/* Desktop Layout */}
+      <div className="hidden md:block max-w-7xl mx-auto">
+        <div className="grid grid-cols-6 gap-4">
+          {/* Profile Card - Large left section */}
+          <motion.div
+            variants={cardVariants}
+            initial="initial"
+            animate="animate"
+            custom={0}
+            className="col-span-2 row-span-4 p-6 rounded-3xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
+          >
+            <div className="flex flex-col items-center text-center space-y-6 h-full justify-center">
+              <div className="w-28 h-28 rounded-full overflow-hidden ring-2 ring-blue-500/30">
+                <img
+                  src="https://res.cloudinary.com/dxdrzit6x/image/upload/v1745993853/PXL_20250114_114831859.PORTRAIT-ghB93Tpx_i9oxjr.jpg"
+                  alt="Kalpan Kaneriya"
+                  className="w-full h-full object-cover"
+                />
               </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Desktop Grid Layout - Hidden on mobile */}
-        <div className="hidden lg:grid lg:grid-cols-3 lg:col-span-3 lg:row-span-5 gap-4">
-          {cards.map((card, index) => (
-            <motion.div
-              key={card.title}
-              variants={cardVariants}
-              initial="initial"
-              animate="animate"
-              whileHover="hover"
-              custom={index}
-              onClick={() => navigate(card.route)}
-              className="p-6 rounded-3xl bg-white/5 backdrop-blur-sm shadow-lg hover:bg-white/10 cursor-pointer"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center space-x-4">
-                  {card.icon}
-                  <h2 className="text-xl font-bold">{card.title}</h2>
-                </div>
-                <ArrowRight className="w-5 h-5 text-blue-400" />
+              <h1 className="text-3xl font-bold text-gray-100">Kalpan Kaneriya</h1>
+              <p className="text-lg text-gray-200">Full Stack Developer / UI-UX Designer</p>
+              <div className="flex gap-4">
+                <a href="#" className="text-gray-300 hover:text-blue-400 transition">
+                  <Github className="w-6 h-6" />
+                </a>
+                <a href="#" className="text-gray-300 hover:text-blue-400 transition">
+                  <Twitter className="w-6 h-6" />
+                </a>
+                <a href="#" className="text-gray-300 hover:text-blue-400 transition">
+                  <Linkedin className="w-6 h-6" />
+                </a>
               </div>
-              {card.content}
-            </motion.div>
-          ))}
+              <a
+                href="/resume.pdf"
+                download
+                className="flex items-center gap-2 px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition"
+              >
+                <Download className="w-5 h-5" />
+                <span>Download Resume</span>
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Grid Cards */}
+          <motion.div
+            variants={cardVariants}
+            initial="initial"
+            animate="animate"
+            custom={1}
+            className="col-span-4 grid grid-cols-2 gap-4"
+          >
+            {navItems.slice(1).map((item, index) => (
+              <motion.div
+                key={item.title}
+                variants={cardVariants}
+                custom={index + 2}
+                className="p-6 rounded-3xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 cursor-pointer"
+                onClick={() => navigate(item.route)}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="text-blue-400">{item.icon}</div>
+                    <h2 className="text-xl font-bold text-white">{item.title}</h2>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-blue-400" />
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </div>
-    </motion.div>
+
+      {/* Mobile Layout */}
+      <div className="md:hidden space-y-4">
+        {navItems.map((item, index) => (
+          <motion.div
+            key={item.title}
+            variants={cardVariants}
+            initial="initial"
+            animate="animate"
+            custom={index}
+            className="p-6 rounded-xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
+            onClick={() => navigate(item.route)}
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <div className="text-blue-400">{item.icon}</div>
+                <h2 className="text-lg font-bold text-white">{item.title}</h2>
+              </div>
+              <ArrowRight className="w-5 h-5 text-blue-400" />
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
   );
 };
 
 export default Dashboard;
-
-export default Dashboard
