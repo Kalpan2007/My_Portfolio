@@ -1,9 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     extend: {
-    },
+      transitionProperty: {
+        'transform': 'transform',
+      },
+    }
   },
-  plugins: [],
+  variants: {
+    extend: {
+      transform: ['hover', 'focus'],
+    }
+  }
 };
