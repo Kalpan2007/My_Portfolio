@@ -1,7 +1,8 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Github , Twitter , Linkedin ,ArrowRight ,Download , Code , Mail , Award , Globe , Briefcase , Laptop , Terminal } from 'lucide-react';
+import { Github , Twitter , Linkedin ,ArrowRight ,Download , Code , Mail , Award , Globe , Briefcase , Laptop , Terminal , Home ,FileCode , MessagesSquare ,  } from 'lucide-react';
+import { FloatingDock } from '../components/FloatingDock';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -41,48 +42,106 @@ const Dashboard = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-4 md:grid-rows-5 md:h-[calc(100vh-4rem)]">
         {/* Profile Card - Static, no animations */}
         <Card className="col-span-1 md:col-span-2 md:row-span-4 p-6">
-          <div className="flex flex-col items-center text-center space-y-6">
-            <div className="w-28 h-28 rounded-full overflow-hidden ring-2 ring-blue-500/30 shadow-md">
-              <img
-                src="https://res.cloudinary.com/dxdrzit6x/image/upload/v1745993853/PXL_20250114_114831859.PORTRAIT-ghB93Tpx_i9oxjr.jpg"
-                alt="Kalpan Kaneriya"
-                className="w-full h-full object-cover rounded-full"
-              />
+          <div className="flex flex-col items-center text-center space-y-8">
+            {/* Profile Image */}
+            <div className="relative w-32 h-32">
+              <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-2xl"></div>
+              <div className="relative w-full h-full rounded-full overflow-hidden ring-2 ring-blue-500/30 shadow-lg">
+                <img
+                  src="https://res.cloudinary.com/dxdrzit6x/image/upload/v1745993853/PXL_20250114_114831859.PORTRAIT-ghB93Tpx_i9oxjr.jpg"
+                  alt="Kalpan Kaneriya"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
-            <h1 className="text-3xl font-bold text-gray-100 drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)]">
-              Kalpan Kaneriya
-            </h1>
-            <p className="text-lg text-gray-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
-              Full Stack Developer / UI-UX Designer
-            </p>
-            <div className="flex gap-4">
-              <a
-                href="#"
-                className="text-gray-300 hover:text-blue-400 transition drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]"
-              >
-                <Github className="w-6 h-6" />
-              </a>
-              <a
-                href="#"
-                className="text-gray-300 hover:text-blue-400 transition drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]"
-              >
-                <Twitter className="w-6 h-6" />
-              </a>
-              <a
-                href="#"
-                className="text-gray-300 hover:text-blue-400 transition drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]"
-              >
-                <Linkedin className="w-6 h-6" />
-              </a>
+
+            {/* Name and Title */}
+            <div className="space-y-3">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)]">
+                Kalpan Kaneriya
+              </h1>
+              <p className="text-lg text-blue-200/90 font-medium">
+                Full Stack Developer / UI-UX Designer
+              </p>
             </div>
+
+           
+
+            {/* Resume Button */}
             <a
               href="/resume.pdf"
               download
-              className="flex items-center gap-2 px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition shadow-md drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]"
+              className="group relative px-6 py-2.5 rounded-lg overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 transition-all duration-300"
             >
-              <Download className="w-5 h-5" />
-              <span className="text-base">Download Resume</span>
+              <div className="relative flex items-center gap-2 text-white font-medium">
+                <Download className="w-5 h-5" />
+                <span>Download Resume</span>
+              </div>
             </a>
+
+            {/* Social Links - Smaller and at bottom */}
+            <div className="flex items-center justify-center gap-3 p-2 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
+              <a
+                href="https://github.com/YourUsername"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-all duration-300"
+              >
+                <span className="absolute -top-8 scale-0 px-2 py-1 text-xs font-medium text-white bg-black/70 rounded-md backdrop-blur-sm group-hover:scale-100 transition-transform">
+                  GitHub
+                </span>
+                <Github className="w-4 h-4 text-blue-300 group-hover:text-blue-400" />
+              </a>
+              <a
+                href="https://leetcode.com/YourUsername"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-all duration-300"
+              >
+                <span className="absolute -top-8 scale-0 px-2 py-1 text-xs font-medium text-white bg-black/70 rounded-md backdrop-blur-sm group-hover:scale-100 transition-transform">
+                  LeetCode
+                </span>
+                <Code className="w-4 h-4 text-blue-300 group-hover:text-blue-400" />
+              </a>
+              <a
+                href="https://linkedin.com/in/YourUsername"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-all duration-300"
+              >
+                <span className="absolute -top-8 scale-0 px-2 py-1 text-xs font-medium text-white bg-black/70 rounded-md backdrop-blur-sm group-hover:scale-100 transition-transform">
+                  LinkedIn
+                </span>
+                <Linkedin className="w-4 h-4 text-blue-300 group-hover:text-blue-400" />
+              </a>
+              <a
+                href="https://twitter.com/YourUsername"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-all duration-300"
+              >
+                <span className="absolute -top-8 scale-0 px-2 py-1 text-xs font-medium text-white bg-black/70 rounded-md backdrop-blur-sm group-hover:scale-100 transition-transform">
+                  Twitter
+                </span>
+                <Twitter className="w-4 h-4 text-blue-300 group-hover:text-blue-400" />
+              </a>
+              <a
+                href="https://instagram.com/YourUsername"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-all duration-300"
+              >
+                <span className="absolute -top-8 scale-0 px-2 py-1 text-xs font-medium text-white bg-black/70 rounded-md backdrop-blur-sm group-hover:scale-100 transition-transform">
+                  Instagram
+                </span>
+                <svg 
+                  viewBox="0 0 24 24" 
+                  className="w-4 h-4 text-blue-300 group-hover:text-blue-400 fill-current"
+                >
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </a>
+            </div>
           </div>
         </Card>
 
@@ -230,6 +289,8 @@ const Dashboard = () => {
           </p>
         </Card>
       </div>
+
+      
     </motion.div>
   );
 };
