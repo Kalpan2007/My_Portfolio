@@ -6,7 +6,7 @@
 @tailwind utilities;
 
 
-*,body{
+*,body {
   cursor: none !important; /* Hide cursor globally */
 }
 
