@@ -7,61 +7,48 @@ const CustomCursor = () => {
   const cursorY = useMotionValue(0);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Move hook initialization before any conditional returns
-  const springX = useSpring(cursorX, { damping: 20, stiffness: 300 });
-  const springY = useSpring(cursorY, { damping: 20, stiffness: 300 });
+  // Optimize spring config for better performance
+  const springConfig = { damping: 25, stiffness: 700, mass: 0.5 };
+  const springX = useSpring(cursorX, springConfig);
+  const springY = useSpring(cursorY, springConfig);
 
   useEffect(() => {
-    // Check for mobile using both user agent and screen width
-    const checkMobile = () => {
-      return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
-    };
-    
+    let rafId: number;
+    const checkMobile = () => window.innerWidth <= 768;
     setIsMobile(checkMobile());
 
     const moveHandler = (e: MouseEvent) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-    };
-
-    // Add resize listener to update mobile state
-    const handleResize = () => {
-      setIsMobile(checkMobile());
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        cursorX.set(e.clientX);
+        cursorY.set(e.clientY);
+      });
     };
 
     if (!checkMobile()) {
-      window.addEventListener('mousemove', moveHandler);
-      window.addEventListener('resize', handleResize);
+      window.addEventListener('mousemove', moveHandler, { passive: true });
     }
 
     return () => {
       window.removeEventListener('mousemove', moveHandler);
-      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(rafId);
     };
   }, []);
 
-  // Return null for mobile devices after hooks are initialized
   if (isMobile) return null;
 
   return (
     <motion.div
-      className="fixed z-[9999] pointer-events-none"
-      style={{
-        x: springX,
-        y: springY,
-        translateX: '-10px',
-        translateY: '-10px',
-      }}
+      className="fixed z-[9999] pointer-events-none will-change"
+      style={{ x: springX, y: springY }}
     >
-      {/* Sharper Cursor Shape with Clean Glow */}
       <svg
         width="32"
         height="32"
         viewBox="0 0 32 32"
         xmlns="http://www.w3.org/2000/svg"
-        className="drop-shadow-[0_0_10px_cyan]"
+        className="drop-shadow-[0_0_10px_cyan] will-change-transform"
       >
-        {/* Sharper Cursor Path */}
         <path
           d="M2 2 L28 12 L20 16 L24 28 L16 20 L2 28 Z"
           fill="#00ffff"

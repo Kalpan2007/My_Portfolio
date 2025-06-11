@@ -5,21 +5,49 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Base styles */
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
 
-*,body {
-  cursor: none !important; /* Hide cursor globally */
+  body {
+    @apply bg-[#0f172a] text-gray-100 font-['Poppins'] antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior-y: contain;
+  }
 }
 
-body {
-  font-family: 'Poppins', sans-serif; /* Changed from Inter to Poppins */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overscroll-behavior-y: contain;
-  -webkit-overflow-scrolling: touch;
-  width: 100%;
-  height: -webkit-fill-available;
-  @apply text-gray-100;
-  overflow-y: auto !important;
+/* Cursor styles - Desktop only */
+@media (min-width: 769px) {
+  *, body {
+    cursor: none !important;
+  }
+}
+
+/* Performance optimizations */
+.will-change {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Smooth scrolling for desktop */
+@media (min-width: 769px) {
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Remove animations on mobile for better performance */
+@media (max-width: 768px) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Smooth scrolling */
@@ -177,21 +205,16 @@ html {
 @layer base {
   html, body {
     @apply bg-[#0f172a] text-gray-100;
-    cursor: none;
   }
 
-  @media (max-width: 768px) {
-    html, body {
-      cursor: auto;
+  @media (min-width: 769px) {
+    *, body {
+      cursor: none !important;
     }
   }
 
-  * {
-    cursor: none;
-  }
-
   @media (max-width: 768px) {
-    * {
+    *, body {
       cursor: auto !important;
     }
   }
