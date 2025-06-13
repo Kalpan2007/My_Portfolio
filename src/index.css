@@ -200,6 +200,33 @@ html {
       }
     }
   }
+
+  /* Responsive container queries */
+  @container (min-width: 640px) {
+    .container-sm {
+      @apply sm:p-6;
+    }
+  }
+
+  @container (min-width: 768px) {
+    .container-md {
+      @apply md:p-8;
+    }
+  }
+
+  /* Touch-friendly hover states */
+  @media (hover: hover) and (pointer: fine) {
+    .hover-effect {
+      @apply transition-all duration-300;
+    }
+  }
+
+  /* Better mobile performance */
+  @media (max-width: 640px) {
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+  }
 }
 
 @layer base {

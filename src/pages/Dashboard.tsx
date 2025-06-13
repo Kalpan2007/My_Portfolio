@@ -56,91 +56,61 @@ const Dashboard = () => {
             </div>
 
             {/* Name and Title */}
-            <div className="space-y-3">
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)]">
+            <div className="space-y-2">
+              <h1 className="text-5xl font-black tracking-tight bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent drop-shadow-xl">
                 Kalpan Kaneriya
               </h1>
-              <p className="text-lg text-blue-200/90 font-medium">
+              <p className="text-2xl font-medium text-blue-200/90">
                 Full Stack Developer / UI-UX Designer
               </p>
             </div>
 
-           
-
-            {/* Resume Button */}
+            {/* Download Resume Button */}
+        
             <a
               href="/resume.pdf"
               download
-              className="group relative px-6 py-2.5 rounded-lg overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 transition-all duration-300"
+              className="group relative px-10 py-5 rounded-xl overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 transition-all duration-300 shadow-lg"
             >
-              <div className="relative flex items-center gap-2 text-white font-medium">
-                <Download className="w-5 h-5" />
+              <div className="flex items-center gap-4 text-white font-semibold text-lg">
+                <Download className="w-6 h-6" />
                 <span>Download Resume</span>
               </div>
             </a>
 
-            {/* Social Links - Smaller and at bottom */}
-            <div className="flex items-center justify-center gap-3 p-2 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
-              <a
-                href="https://github.com/YourUsername"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-all duration-300"
-              >
-                <span className="absolute -top-8 scale-0 px-2 py-1 text-xs font-medium text-white bg-black/70 rounded-md backdrop-blur-sm group-hover:scale-100 transition-transform">
-                  GitHub
-                </span>
-                <Github className="w-4 h-4 text-blue-300 group-hover:text-blue-400" />
-              </a>
-              <a
-                href="https://leetcode.com/YourUsername"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-all duration-300"
-              >
-                <span className="absolute -top-8 scale-0 px-2 py-1 text-xs font-medium text-white bg-black/70 rounded-md backdrop-blur-sm group-hover:scale-100 transition-transform">
-                  LeetCode
-                </span>
-                <Code className="w-4 h-4 text-blue-300 group-hover:text-blue-400" />
-              </a>
-              <a
-                href="https://linkedin.com/in/YourUsername"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-all duration-300"
-              >
-                <span className="absolute -top-8 scale-0 px-2 py-1 text-xs font-medium text-white bg-black/70 rounded-md backdrop-blur-sm group-hover:scale-100 transition-transform">
-                  LinkedIn
-                </span>
-                <Linkedin className="w-4 h-4 text-blue-300 group-hover:text-blue-400" />
-              </a>
-              <a
-                href="https://twitter.com/YourUsername"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-all duration-300"
-              >
-                <span className="absolute -top-8 scale-0 px-2 py-1 text-xs font-medium text-white bg-black/70 rounded-md backdrop-blur-sm group-hover:scale-100 transition-transform">
-                  Twitter
-                </span>
-                <Twitter className="w-4 h-4 text-blue-300 group-hover:text-blue-400" />
-              </a>
-              <a
-                href="https://instagram.com/YourUsername"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-all duration-300"
-              >
-                <span className="absolute -top-8 scale-0 px-2 py-1 text-xs font-medium text-white bg-black/70 rounded-md backdrop-blur-sm group-hover:scale-100 transition-transform">
-                  Instagram
-                </span>
-                <svg 
-                  viewBox="0 0 24 24" 
-                  className="w-4 h-4 text-blue-300 group-hover:text-blue-400 fill-current"
+            {/* Social Links */}
+            <div className="flex items-center justify-center gap-5 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
+              {[
+                { href: 'https://github.com/YourUsername', label: 'GitHub', Icon: Github },
+                { href: 'https://leetcode.com/YourUsername', label: 'LeetCode', Icon: Code },
+                { href: 'https://linkedin.com/in/YourUsername', label: 'LinkedIn', Icon: Linkedin },
+                { href: 'https://twitter.com/YourUsername', label: 'Twitter', Icon: Twitter },
+                {
+                  href: 'https://instagram.com/YourUsername',
+                  label: 'Instagram',
+                  Icon: () => (
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-6 h-6 text-blue-300 group-hover:text-blue-400 fill-current"
+                    >
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                  ),
+                },
+              ].map(({ href, label, Icon }, index) => (
+                <a
+                  key={index}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative w-12 h-12 flex items-center justify-center rounded-xl hover:bg-white/10 transition-all duration-300"
                 >
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                </svg>
-              </a>
+                  <span className="absolute -top-9 scale-0 px-2 py-1 text-xs font-medium text-white bg-black/70 rounded-md backdrop-blur-sm group-hover:scale-100 transition-transform">
+                    {label}
+                  </span>
+                  <Icon className="w-6 h-6 text-blue-300 group-hover:text-blue-400" />
+                </a>
+              ))}
             </div>
           </div>
         </Card>
