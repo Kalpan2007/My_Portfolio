@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Github , Twitter , Linkedin ,ArrowRight ,Download , Code , Mail , Award , Globe , Briefcase , Laptop , Terminal , Home ,FileCode , MessagesSquare ,  } from 'lucide-react';
 import { FloatingDock } from '../components/FloatingDock';
+import ProjectImageScroll from '../components/ProjectImageScroll'; // Import the new component
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -117,31 +118,32 @@ const Dashboard = () => {
 
         {/* Projects Card */}
         <Card
-          className="col-span-1 md:col-span-2 md:row-span-2 md:col-start-3 md:row-start-1 p-6"
+          className="col-span-1 md:col-span-2 md:row-span-2 p-6"
           onClick={() => navigate('/projects')}
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-4">
-              <Laptop className="w-8 h-8 text-blue-400" />
-              <h2 className="text-xl font-bold">Projects</h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <Code className="w-8 h-8 text-blue-400" />
+                <h2 className="text-xl font-bold">Projects</h2>
+              </div>
+              <ArrowRight className="w-5 h-5 text-blue-400" />
             </div>
-            <ArrowRight className="w-5 h-5 text-blue-400" />
-          </div>
-          <div className="space-y-3">
+            
+            {/* Project tags */}
             <div className="flex flex-wrap gap-2">
               <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">
-                Portfolio
+                Web Development
               </span>
               <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">
-                E-commerce
-              </span>
-              <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">
-                UI Components
+                UI/UX Design
               </span>
             </div>
-            <p className="text-sm text-gray-400">
-              Explore my latest web development projects
-            </p>
+
+            {/* Add the image scroll here */}
+            <div className="-mx-6 mt-4">
+              <ProjectImageScroll />
+            </div>
           </div>
         </Card>
 

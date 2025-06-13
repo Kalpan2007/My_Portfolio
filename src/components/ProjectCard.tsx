@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ProjectDetail } from "./ProjectModel"; // Import the ProjectDetail interface
+import { ProjectDetail } from "./ProjectModel"; 
 
 // Define the props interface for the ProjectCard component
 interface ProjectCardProps {
