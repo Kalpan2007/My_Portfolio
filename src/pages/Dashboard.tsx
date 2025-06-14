@@ -133,10 +133,19 @@ const Dashboard = () => {
             {/* Project tags */}
             <div className="flex flex-wrap gap-2">
               <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">
-                Web Development
+                Full Stack 
               </span>
               <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">
                 UI/UX Design
+              </span>
+              <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">
+                Extention
+              </span>
+              <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">
+                Frontend 
+              </span>
+              <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">
+                Backend 
               </span>
             </div>
 
