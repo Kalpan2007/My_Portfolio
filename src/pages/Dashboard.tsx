@@ -5,6 +5,7 @@ import { Github , Twitter , Linkedin ,ArrowRight ,Download , Code , Mail , Award
 import { FloatingDock } from '../components/FloatingDock';
 import ProjectImageScroll from '../components/ProjectImageScroll'; // Import the new component
 import ExperienceGlowCard from '../components/ExperienceGlowCard';
+import FloatingCertificates from '../components/FloatingCertificates';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -234,16 +235,23 @@ const Dashboard = () => {
           className="col-span-1 md:row-span-2 md:col-start-5 md:row-start-1 p-6"
           onClick={() => navigate('/certificates')}
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-4">
-              <Award className="w-8 h-8 text-blue-400" />
-              <h2 className="text-xl font-bold">Certificates</h2>
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-4">
+                <Award className="w-8 h-8 text-blue-400" />
+                <h2 className="text-xl font-bold">Certificates</h2>
+              </div>
+              <ArrowRight className="w-5 h-5 text-blue-400" />
             </div>
-            <ArrowRight className="w-5 h-5 text-blue-400" />
+            <p className="text-sm text-gray-400">
+              View my certifications and achievements
+            </p>
+
+            {/* Add FloatingCertificates here */}
+            <div className="mt-4">
+              <FloatingCertificates />
+            </div>
           </div>
-          <p className="text-sm text-gray-400">
-            View my certifications and achievements
-          </p>
         </Card>
 
         {/* Other Side Card */}
