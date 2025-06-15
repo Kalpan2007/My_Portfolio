@@ -82,12 +82,12 @@ const Dashboard = () => {
             {/* Social Links */}
             <div className="flex items-center justify-center gap-5 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
               {[
-                { href: 'https://github.com/YourUsername', label: 'GitHub', Icon: Github },
-                { href: 'https://leetcode.com/YourUsername', label: 'LeetCode', Icon: Code },
-                { href: 'https://linkedin.com/in/YourUsername', label: 'LinkedIn', Icon: Linkedin },
-                { href: 'https://twitter.com/YourUsername', label: 'Twitter', Icon: Twitter },
+                { href: 'https://github.com/kalpan2007', label: 'GitHub', Icon: Github },
+                { href: 'https://leetcode.com/u/kalpan_2007', label: 'LeetCode', Icon: Code },
+                { href: 'https://linkedin.com/in/3kz', label: 'LinkedIn', Icon: Linkedin },
+                { href: 'https://x.com/KalpanKaneriya', label: 'Twitter', Icon: Twitter },
                 {
-                  href: 'https://instagram.com/YourUsername',
+                  href: 'https://www.instagram.com/3k_verse/',
                   label: 'Instagram',
                   Icon: () => (
                     <svg
@@ -197,6 +197,15 @@ const Dashboard = () => {
             </span>
             <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">
               MongoDB
+            </span>
+            <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">
+              Figma
+            </span>
+            <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">
+              Git & Github
+            </span>
+            <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">
+              C++
             </span>
           </div>
         </Card>
