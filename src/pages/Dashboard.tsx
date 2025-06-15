@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Github , Twitter , Linkedin ,ArrowRight ,Download , Code , Mail , Award , Globe , Briefcase , Laptop , Terminal , Home ,FileCode , MessagesSquare ,  } from 'lucide-react';
 import { FloatingDock } from '../components/FloatingDock';
 import ProjectImageScroll from '../components/ProjectImageScroll'; // Import the new component
+import ExperienceGlowCard from '../components/ExperienceGlowCard';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -157,22 +158,23 @@ const Dashboard = () => {
         </Card>
 
         {/* Experience Card */}
-        <Card
-          className="col-span-1 md:col-span-2 md:row-span-2 md:col-start-3 md:row-start-3 p-6"
+        <Card 
+          className="col-span-1 md:col-span-2 md:row-span-2 p-6"
           onClick={() => navigate('/experience')}
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-4">
-              <Briefcase className="w-8 h-8 text-blue-400" />
-              <h2 className="text-xl font-bold">Experience</h2>
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-4">
+                <Briefcase className="w-8 h-8 text-blue-400" />
+                <h2 className="text-xl font-bold">Experience</h2>
+              </div>
+              <ArrowRight className="w-5 h-5 text-blue-400" />
             </div>
-            <ArrowRight className="w-5 h-5 text-blue-400" />
-          </div>
-          <div className="space-y-2">
-            <p className="text-sm text-gray-300">Web Development Intern</p>
-            <p className="text-xs text-gray-400">
-              Building real-world projects and gaining hands-on experience
-            </p>
+
+            <p className="text-sm text-gray-400 mb-4">Leading UI/UX design at Eduztrik</p>
+            
+            {/* Experience Glow Card */}
+            <ExperienceGlowCard />
           </div>
         </Card>
 
