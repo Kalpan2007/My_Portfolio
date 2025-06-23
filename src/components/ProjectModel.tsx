@@ -22,6 +22,16 @@ export interface ProjectDetail {
   features?: string[];
 }
 
+// Add this helper function at the top of your file
+function getEmbedUrl(url: string) {
+  if (!url) return "";
+  if (url.includes("youtube.com/watch?v=")) {
+    const id = url.split("v=")[1].split("&")[0];
+    return `https://www.youtube.com/embed/${id}`;
+  }
+  return url;
+}
+
 const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
@@ -137,19 +147,25 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                     animate={{ opacity: 1, transition: { delay: 0.2 } }}
                     className="mb-6 sm:mb-8 relative"
                   >
-                    <div className="relative h-48 sm:h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden border border-cyan-500/20 bg-slate-800/40">
-                      {/* Handle video content */}
-                      {project.videoUrl && activeImageIndex === project.images.length && (
+                    <div className="relative aspect-video rounded-lg overflow-hidden border border-cyan-500/20 bg-slate-800/40">
+                      {/* Show video as first item if available */}
+                      {project.videoUrl && activeImageIndex === 0 ? (
                         <div className="absolute inset-0 flex items-center justify-center">
                           {isVideoPlaying ? (
-                            <iframe 
-                              src={`${project.videoUrl}?autoplay=1`} 
-                              className="w-full h-full"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                              allowFullScreen
-                            />
+                            <div className="w-full h-full cursor-default">
+                              <iframe
+                                src={`${getEmbedUrl(project.videoUrl)}?autoplay=1`}
+                                className="w-full h-full"
+                                style={{ cursor: "default" }}
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                              />
+                            </div>
                           ) : (
-                            <div className="absolute inset-0 flex items-center justify-center cursor-pointer" onClick={() => setIsVideoPlaying(true)}>
+                            <div
+                              className="absolute inset-0 flex items-center justify-center cursor-pointer"
+                              onClick={() => setIsVideoPlaying(true)} // One click triggers play
+                            >
                               <div className="p-4 rounded-full bg-cyan-600/80 backdrop-blur-sm shadow-lg shadow-cyan-500/30">
                                 <Play className="w-12 h-12" />
                               </div>
@@ -157,24 +173,26 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                             </div>
                           )}
                         </div>
-                      )}
-                      
-                      {/* Images */}
-                      {activeImageIndex < project.images.length && (
+                      ) : (
+                        // Show image (if no video, or if not on video index)
                         <img
-                          src={project.images[activeImageIndex]}
-                          alt={`${project.title} screenshot ${activeImageIndex + 1}`}
-                          className="w-full h-full object-cover"
+                          src={
+                            project.videoUrl
+                              ? project.images[activeImageIndex - 1] // images start at index 1 if video exists
+                              : project.images[activeImageIndex]
+                          }
+                          alt={`${project.title} screenshot ${project.videoUrl ? activeImageIndex : activeImageIndex + 1}`}
+                          className="w-full h-full object-contain bg-black"
                         />
                       )}
-                      
-                      {/* Image Navigation Arrows */}
-                      {project.images.length > 1 && (
+
+                      {/* Navigation Arrows */}
+                      {(project.images.length > 1 || project.videoUrl) && (
                         <>
-                          <button 
+                          <button
                             className="absolute top-1/2 left-2 transform -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/70 text-white transition-colors"
                             onClick={() => {
-                              const totalItems = project.videoUrl ? project.images.length + 1 : project.images.length;
+                              const totalItems = project.images.length + (project.videoUrl ? 1 : 0);
                               setActiveImageIndex((prev) => (prev - 1 + totalItems) % totalItems);
                               setIsVideoPlaying(false);
                             }}
@@ -183,10 +201,10 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                             </svg>
                           </button>
-                          <button 
+                          <button
                             className="absolute top-1/2 right-2 transform -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/70 text-white transition-colors"
                             onClick={() => {
-                              const totalItems = project.videoUrl ? project.images.length + 1 : project.images.length;
+                              const totalItems = project.images.length + (project.videoUrl ? 1 : 0);
                               setActiveImageIndex((prev) => (prev + 1) % totalItems);
                               setIsVideoPlaying(false);
                             }}
@@ -199,18 +217,34 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                       )}
                     </div>
                     
-                    {/* Thumbnails - adjusted for mobile */}
+                    {/* Thumbnails */}
                     {(project.images.length > 1 || project.videoUrl) && (
                       <div className="flex gap-1.5 sm:gap-2 mt-2 sm:mt-3 overflow-x-auto pb-2 custom-scrollbar">
+                        {project.videoUrl && (
+                          <motion.div
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className={`h-14 sm:h-16 w-24 flex-shrink-0 rounded-md overflow-hidden border-2 cursor-pointer transition-all
+                              ${activeImageIndex === 0 ? 'border-cyan-500 shadow-md shadow-cyan-500/30' : 'border-slate-700'}`}
+                            onClick={() => {
+                              setActiveImageIndex(0);
+                              setIsVideoPlaying(false);
+                            }}
+                          >
+                            <div className="w-full h-full flex items-center justify-center bg-black">
+                              <Play className="w-8 h-8 text-cyan-400" />
+                            </div>
+                          </motion.div>
+                        )}
                         {project.images.map((img, idx) => (
                           <motion.div
                             key={idx}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className={`h-14 sm:h-16 w-20 sm:w-24 flex-shrink-0 rounded-md overflow-hidden border-2 cursor-pointer transition-all
-                              ${activeImageIndex === idx ? 'border-cyan-500 shadow-md shadow-cyan-500/30' : 'border-slate-700'}`}
+                            className={`h-14 sm:h-16 w-24 flex-shrink-0 rounded-md overflow-hidden border-2 cursor-pointer transition-all
+                              ${activeImageIndex === (project.videoUrl ? idx + 1 : idx) ? 'border-cyan-500 shadow-md shadow-cyan-500/30' : 'border-slate-700'}`}
                             onClick={() => {
-                              setActiveImageIndex(idx);
+                              setActiveImageIndex(project.videoUrl ? idx + 1 : idx);
                               setIsVideoPlaying(false);
                             }}
                           >
