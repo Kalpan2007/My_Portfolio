@@ -24,6 +24,18 @@
   *, body {
     cursor: none !important;
   }
+  
+  /* Force custom cursor on all interactive elements */
+  button, a, input, select, textarea, [role="button"], [tabindex] {
+    cursor: none !important;
+  }
+  
+  /* Specifically target dropdown elements */
+  .dropdown-container *, 
+  .dropdown-container button,
+  .dropdown-container div {
+    cursor: none !important;
+  }
 }
 
 /* Performance optimizations */
@@ -296,7 +308,7 @@ html {
   }
 
   .my-responsive {
-    @apply my-4 sm:my-6 md:my-8;
+    @apply my-4 sm:py-6 md:my-8;
   }
 
   /* Responsive gap utilities */
@@ -524,5 +536,107 @@ html {
   .landscape-mobile-text {
     font-size: 0.875rem;
     line-height: 1.25rem;
+  }
+}
+
+/* Enhanced dropdown animations */
+.dropdown-enter {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.95);
+}
+
+.dropdown-enter-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: all 200ms ease-out;
+}
+
+.dropdown-exit {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.dropdown-exit-active {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.95);
+  transition: all 150ms ease-in;
+}
+
+/* Improved focus states for accessibility */
+@media (min-width: 769px) {
+  button:focus-visible,
+  select:focus-visible,
+  input:focus-visible {
+    outline: 2px solid #06b6d4;
+    outline-offset: 2px;
+    cursor: none !important;
+  }
+}
+
+/* Enhanced gradient animations */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* Improved glass morphism effects */
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Enhanced text shadows for better readability */
+.text-shadow-glow {
+  text-shadow: 0 0 8px rgba(173, 216, 230, 0.9), 0 0 12px rgba(173, 216, 230, 0.7);
+}
+
+.text-shadow-strong {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Improved loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Enhanced button hover effects */
+.button-glow:hover {
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Improved card hover effects */
+.card-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced mobile touch feedback */
+@media (max-width: 768px) {
+  .touch-feedback:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
   }
 }
