@@ -5,6 +5,8 @@ const projectsData: ProjectDetail[] = [
   {
   id: 1,
   title: "JobFusion",
+  type: "development",
+  category: "fullstack",
   description: "A complete job portal with AI-based resume scoring, job filtering, and smart resume builder.",
   longDescription:
     "JobFusion is an end-to-end job portal platform built using the MERN stack. " +
@@ -88,6 +90,41 @@ const projectsData: ProjectDetail[] = [
 },
 {
   id:3,
+  title: "HealthSync – Real-Time Ambulance Booking (Open Source Contribution)",
+  description: "Added real-time ambulance booking and ride status system using Socket.io in a live healthcare platform.",
+  longDescription:
+    "Contributed to the HealthSync open-source healthcare platform by building a real-time ambulance booking and management system. " +
+    "Users can instantly book ambulances, and available drivers receive ride requests on a live dashboard powered by Socket.io. " +
+    "Drivers can accept rides and update booking statuses dynamically (Pending → Running → Completed). The system allows smooth ride transitions, enabling drivers to immediately accept new requests upon completion. " +
+    "This feature reduces response time and enhances emergency efficiency through real-time communication and smart ride handling.",
+  images: [
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750693506/Screenshot_2025-06-23_211209_kfei5f.png",
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750693506/Screenshot_2025-06-23_211236_ukp0jg.png",
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750693507/Screenshot_2025-06-23_211302_sgwhar.png"
+  ],
+  tags: ["Full Stack"],
+  githubUrl: "https://github.com/Kalpan2007/health_sync",
+  liveUrl: "https://www.linkedin.com/posts/3kz_opensource-mern-buildinpublic-activity-7308423486153101312-MZyT?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFK3InMB4lMCoxiEfGzxn3IyfD8t1swZqEI",
+  technologies: [
+    "React",
+    "Node.js",
+    "Express.js",
+    "MongoDB",
+    "Socket.io",
+    "JWT",
+    "Mongoose"
+  ],
+  features: [
+    "Real-time ambulance booking and driver dashboard",
+    "Live ride request broadcasting using Socket.io",
+    "Dynamic status updates: Pending → Running → Completed",
+    "Driver-side ride acceptance and transition management",
+    "Seamless ride queue handling for continuous operations",
+    "Contributed as part of an open-source team project"
+  ]
+},
+{
+  id:4,
   title: "Nike Landing Page Redesign",
   description: "A modern, responsive Nike landing page clone built with React and Tailwind CSS.",
   longDescription:
@@ -119,7 +156,7 @@ const projectsData: ProjectDetail[] = [
   ]
 },
   {
-  id:4,
+  id:5,
   title: "Chrome Task Reminder Extension",
   description: "A productivity-focused Chrome Extension for hourly task reminders.",
   longDescription:
@@ -150,7 +187,7 @@ const projectsData: ProjectDetail[] = [
   ]
 },
 {
-  id:5,
+  id:6,
   title: "YouTube Clone",
   description: "A responsive YouTube clone using the public YouTube API with real-time search, filtering, and video preview.",
   longDescription:
@@ -182,7 +219,7 @@ const projectsData: ProjectDetail[] = [
   ]
 },
 {
-  id:6,
+  id:7,
   title: "React Multi-API Explorer",
   description: "A dynamic web app using 5 different public APIs with filtering, search, and responsive layouts.",
   longDescription:
@@ -217,7 +254,7 @@ const projectsData: ProjectDetail[] = [
   ]
 },
 {
-  id:7,
+  id:8,
   title: "Expense Tracker",
   description: "Expense management app with dark/light mode toggle and categorized tracking.",
   longDescription:
@@ -225,20 +262,16 @@ const projectsData: ProjectDetail[] = [
     "Users can view a summarized table of all expenses, including category-wise breakdowns and total amount spent. Built with React, the app includes a dark/light mode toggle, form validations, and real-time updates. " +
     "Each expense entry can be dynamically added or deleted, and the total updates automatically. The UI is responsive and styled with modern CSS for a clean user experience.",
   images: [
-    "/images/expense-tracker-1.png",
-    "/images/expense-tracker-2.png",
-    "/images/expense-tracker-3.png"
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750689804/Screenshot_2025-06-23_201228_p9a8jq.png",
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750689797/Screenshot_2025-06-23_201242_whoi6o.png",
   ],
   tags: ["HTML5","CSS3","JS"],
-  githubUrl: "https://github.com/Kalpan2007/expense-tracker", // replace with actual repo
-  liveUrl: "https://kalpan-expense-tracker.vercel.app", // replace if deployed
-  videoUrl: "https://www.youtube.com/embed/your-demo-id", // optional
+  githubUrl: "https://github.com/Kalpan2007/Expense-Tracker", 
+  liveUrl: "https://expense-tracker-drab-seven.vercel.app/", 
   technologies: [
-    "React",
+    "HTML5",
+    "CSS3",
     "JavaScript",
-    "useState Hook",
-    "LocalStorage",
-    "CSS3"
   ],
   features: [
     "Add and delete expenses in real-time",
@@ -249,7 +282,102 @@ const projectsData: ProjectDetail[] = [
     "Clean and minimal component structure"
   ]
 },
-
+{
+  id:9,
+  title: "Taskify – React To-Do App",
+  description: "A simple yet powerful to-do list app with edit, delete, and complete task features using React.",
+  longDescription:
+    "Taskify is a responsive task management web application built with React. Users can add, update, mark complete, or delete tasks dynamically. Each task updates in real-time with visual feedback, including checkbox toggling, strike-through styling for completed tasks, and inline editing. " +
+    "Styled with a custom dark-themed UI, this app showcases strong React fundamentals including state handling, controlled components, and conditional rendering. The component-based structure ensures smooth performance and reusability.",
+  images: [
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750694982/Screenshot_2025-06-23_213848_k821o4.png",
+  ],
+  tags: ["React"],
+  githubUrl: "https://github.com/Kalpan2007/TO-Do-React", 
+  liveUrl: "https://to-do-react-lake.vercel.app/", 
+  technologies: [
+    "React",
+    "JavaScript",
+    "CSS3",
+    "useState Hook",
+    "Conditional Rendering"
+  ],
+  features: [
+    "Add new tasks with input validation",
+    "Mark tasks as completed with checkbox & strikethrough",
+    "Edit tasks inline with update mode",
+    "Delete tasks instantly",
+    "Dark-themed UI for better experience",
+    "Responsive design for mobile and desktop"
+  ]
+},
+{
+  id :10,
+  title: "LinkedIn Clone Backend – CRUD API",
+  description: "A backend-only Node.js project simulating LinkedIn-like features using RESTful APIs with MongoDB.",
+  longDescription:
+    "This project provides a set of RESTful APIs built using Node.js, Express.js, and MongoDB that simulate key backend features of a LinkedIn-style platform. " +
+    "It includes full CRUD operations for user profiles, connections, posts, and direct messages. Each endpoint is designed following RESTful standards and supports JSON-based request handling. " +
+    "This backend application is ideal for learning how to build scalable APIs, structure Express routes, connect to MongoDB with Mongoose, and apply HTTP methods correctly in a real-world use case.",
+  images: [
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750695604/Screenshot_2025-06-23_214829_pd2qro.png"
+  ],
+  tags: ["Node.js","Backend"],
+  githubUrl: "https://github.com/Kalpan2007/linkedin-backend-api", // Replace with actual
+  liveUrl: "https://documenter.getpostman.com/view/39216913/2sAYQUptiS", 
+    technologies: [
+    "Node.js",
+    "Express.js",
+    "MongoDB",
+    "Mongoose",
+    "REST API",
+    "Postman"
+  ],
+  features: [
+    "Create, Read, Update, Delete (CRUD) for user profiles",
+    "Add and remove connections between users",
+    "CRUD operations for posts and feed items",
+    "Send and retrieve direct messages between users",
+    "RESTful architecture with clean route structure",
+    "Used Postman for API testing and validation",
+    "Built entirely using backend technologies (no frontend)"
+  ]
+},
+{
+  id: 11,
+  title: "UI/UX Portfolio Website",
+  type: "uiux",
+  category: "uiux",
+  description: "A personal portfolio website to showcase UI/UX design projects and skills.",
+  longDescription:
+    "This is a portfolio website designed to showcase my skills, work experience, and projects in the field of UI/UX design. " +
+    "The website features a clean, modern design with smooth scrolling, animated transitions, and interactive elements to engage visitors. " +
+    "It is fully responsive and optimized for all devices, ensuring a seamless user experience on mobile, tablet, and desktop. " +
+    "The portfolio includes detailed case studies of my design projects, highlighting the problem-solving process, design iterations, and final outcomes. " +
+    "Built with a focus on performance and usability, this website serves as a powerful tool to present my professional brand and attract potential clients or employers.",
+  images: [
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750695604/Screenshot_2025-06-23_214829_pd2qro.png"
+  ],
+  tags: ["UI/UX", "Design", "Portfolio"],
+  githubUrl: "https://github.com/Kalpan2007/uiux-portfolio",
+  liveUrl: "https://uiux-portfolio-kalpan2007.vercel.app/",
+  technologies: [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "React",
+    "Responsive Design",
+    "Vercel"
+  ],
+  features: [
+    "Showcase of UI/UX design projects",
+    "Detailed case studies with process documentation",
+    "Responsive and interactive design",
+    "Smooth scrolling and animated transitions",
+    "Contact form for inquiries",
+    "Optimized for performance and SEO"
+  ]
+},
 ];
 
 export default projectsData;
