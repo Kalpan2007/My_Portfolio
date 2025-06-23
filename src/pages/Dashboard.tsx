@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Github, Twitter, Linkedin, ArrowRight, Download, Code, Mail, Award, Globe, Briefcase, Laptop, Terminal, Home, FileCode, MessagesSquare, } from 'lucide-react';
 import { FloatingDock } from '../components/FloatingDock';
-import ProjectImageScroll from '../components/ProjectImageScroll'; // Import the new component
+import ProjectImageScroll from '../components/ProjectImageScroll'; 
 import ExperienceGlowCard from '../components/ExperienceGlowCard';
 import FloatingCertificates from '../components/FloatingCertificates';
 import TextFadeIn from '../components/TextFadeIn';
@@ -39,15 +39,14 @@ const Dashboard = () => {
     </div>
   );
 
-  // Add this state for controlling animation
+// Use sessionStorage for per-session animation
   const [showFadeIn, setShowFadeIn] = useState(false);
 
   useEffect(() => {
-    // Check if animation has already played
-    const hasAnimated = localStorage.getItem('dashboardTextFadeIn');
+    const hasAnimated = sessionStorage.getItem('dashboardTextFadeIn');
     if (!hasAnimated) {
       setShowFadeIn(true);
-      localStorage.setItem('dashboardTextFadeIn', 'true');
+      sessionStorage.setItem('dashboardTextFadeIn', 'true');
     }
   }, []);
 
@@ -271,7 +270,7 @@ const Dashboard = () => {
         </Card>
 
         <Card
-      className="col-span-1 md:row-span-2 md:col-start-5 md:row-start-3 p-6 bg-gradient-to-br from-[#0e1726] to-[#1e293b] border border-blue-500/30 shadow-md hover:shadow-blue-500/30 hover:scale-[1.02] transition-transform duration-300"
+      className="col-span-1 md:row-span-2 md:col-start-5 md:row-start-3 p-6"
       onClick={() => navigate('/My_Other_Side')}
     >
       <div className="flex items-center justify-between mb-4">
@@ -293,9 +292,15 @@ const Dashboard = () => {
           />
         ) : (
           <>
-            <p className="text-sm text-slate-300">Life beyond code?</p>
-            <p className="text-sm text-blue-400 font-bold">Absolutely.</p>
-            <p className="text-sm text-blue-200">That’s where the real energy and perspective come from.</p>
+            <p className="text-sm text-slate-300 font-medium tracking-wide text-shadow-glow">
+              Life beyond code?
+            </p>
+            <p className="text-sm text-blue-400 font-bold font-medium tracking-wide text-shadow-glow">
+              Absolutely.
+            </p>
+            <p className="text-sm text-blue-200 font-medium tracking-wide text-shadow-glow">
+              That’s where the real energy and perspective come from.
+            </p>
           </>
         )}
       </div>
