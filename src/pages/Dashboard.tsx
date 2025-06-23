@@ -1,11 +1,12 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Github , Twitter , Linkedin ,ArrowRight ,Download , Code , Mail , Award , Globe , Briefcase , Laptop , Terminal , Home ,FileCode , MessagesSquare ,  } from 'lucide-react';
+import { Github, Twitter, Linkedin, ArrowRight, Download, Code, Mail, Award, Globe, Briefcase, Laptop, Terminal, Home, FileCode, MessagesSquare, } from 'lucide-react';
 import { FloatingDock } from '../components/FloatingDock';
 import ProjectImageScroll from '../components/ProjectImageScroll'; // Import the new component
 import ExperienceGlowCard from '../components/ExperienceGlowCard';
 import FloatingCertificates from '../components/FloatingCertificates';
+import TextFadeIn from '../components/TextFadeIn';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -15,9 +16,9 @@ const Dashboard = () => {
   // Simplified variants - no animation on mobile
   const pageVariants = !isMobile
     ? {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-      }
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+    }
     : {};
 
   // Optimized card container component
@@ -26,7 +27,10 @@ const Dashboard = () => {
       className={`
         relative rounded-xl
         ${isMobile ? 'bg-white/5' : 'bg-white/5 backdrop-blur-sm'}
-        border border-white/10
+        bg-gradient-to-br from-[#0e1726] to-[#1e293b]
+        border border-blue-500/30 shadow-md
+        hover:shadow-blue-500/30 hover:scale-[1.02]
+        transition-transform duration-300
         ${className}
       `}
       onClick={onClick}
@@ -34,6 +38,18 @@ const Dashboard = () => {
       {children}
     </div>
   );
+
+  // Add this state for controlling animation
+  const [showFadeIn, setShowFadeIn] = useState(false);
+
+  useEffect(() => {
+    // Check if animation has already played
+    const hasAnimated = localStorage.getItem('dashboardTextFadeIn');
+    if (!hasAnimated) {
+      setShowFadeIn(true);
+      localStorage.setItem('dashboardTextFadeIn', 'true');
+    }
+  }, []);
 
   return (
     <motion.div
@@ -69,9 +85,9 @@ const Dashboard = () => {
             </div>
 
             {/* Download Resume Button */}
-        
+
             <a
-              href="/resume.pdf"
+              href="../../Kalpan_Resume.pdf"
               download
               className="group relative px-10 py-5 rounded-xl overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 transition-all duration-300 shadow-lg"
             >
@@ -96,7 +112,7 @@ const Dashboard = () => {
                       viewBox="0 0 24 24"
                       className="w-6 h-6 text-blue-300 group-hover:text-blue-400 fill-current"
                     >
-                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                     </svg>
                   ),
                 },
@@ -131,11 +147,11 @@ const Dashboard = () => {
               </div>
               <ArrowRight className="w-5 h-5 text-blue-400" />
             </div>
-            
+
             {/* Project tags */}
             <div className="flex flex-wrap gap-2">
               <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">
-                Full Stack 
+                Full Stack
               </span>
               <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">
                 UI/UX Design
@@ -144,10 +160,10 @@ const Dashboard = () => {
                 Extention
               </span>
               <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">
-                Frontend 
+                Frontend
               </span>
               <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">
-                Backend 
+                Backend
               </span>
             </div>
 
@@ -159,7 +175,7 @@ const Dashboard = () => {
         </Card>
 
         {/* Experience Card */}
-        <Card 
+        <Card
           className="col-span-1 md:col-span-2 md:row-span-2 p-6"
           onClick={() => navigate('/experience')}
         >
@@ -173,7 +189,7 @@ const Dashboard = () => {
             </div>
 
             <p className="text-sm text-gray-400 mb-4">Leading UI/UX design at Eduztrik</p>
-            
+
             {/* Experience Glow Card */}
             <ExperienceGlowCard />
           </div>
@@ -254,23 +270,36 @@ const Dashboard = () => {
           </div>
         </Card>
 
-        {/* Other Side Card */}
         <Card
-          className="col-span-1 md:row-span-2 md:col-start-5 md:row-start-3 p-6"
-          onClick={() => navigate('/My_Other_Side')}
-        >
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-4">
-              <Globe className="w-8 h-8 text-blue-400" />
-              <h2 className="text-xl font-bold">Other Side</h2>
-            </div>
-            <ArrowRight className="w-5 h-5 text-blue-400" />
-          </div>
-          <div className="space-y-2">
-            <p className="text-sm text-gray-300">Cricket Enthusiast</p>
-            <p className="text-sm text-gray-300">Mobile Gaming</p>
-          </div>
-        </Card>
+      className="col-span-1 md:row-span-2 md:col-start-5 md:row-start-3 p-6 bg-gradient-to-br from-[#0e1726] to-[#1e293b] border border-blue-500/30 shadow-md hover:shadow-blue-500/30 hover:scale-[1.02] transition-transform duration-300"
+      onClick={() => navigate('/My_Other_Side')}
+    >
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center space-x-4">
+          <Globe className="w-8 h-8 text-blue-400 drop-shadow-lg" />
+          <h2 className="text-xl font-bold text-white">Other Side</h2>
+        </div>
+        <ArrowRight className="w-5 h-5 text-blue-400" />
+      </div>
+      <div className="space-y-2 py-6">
+        {showFadeIn ? (
+          <TextFadeIn
+            lines={[
+              { text: "Life beyond code?", className: "text-sm text-slate-300" },
+              { text: "Absolutely.", className: "text-sm text-blue-400 font-bold" },
+              { text: "That’s where the real energy and perspective come from.", className: "text-sm text-blue-200" },
+            ]}
+            delay={700}
+          />
+        ) : (
+          <>
+            <p className="text-sm text-slate-300">Life beyond code?</p>
+            <p className="text-sm text-blue-400 font-bold">Absolutely.</p>
+            <p className="text-sm text-blue-200">That’s where the real energy and perspective come from.</p>
+          </>
+        )}
+      </div>
+    </Card>
 
         {/* Contact Card */}
         <Card
@@ -290,7 +319,7 @@ const Dashboard = () => {
         </Card>
       </div>
 
-      
+
     </motion.div>
   );
 };
