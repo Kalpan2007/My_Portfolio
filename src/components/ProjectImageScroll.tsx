@@ -2,16 +2,16 @@ import { motion } from 'framer-motion';
 
 const ProjectImageScroll: React.FC = () => {
   const projectImages = [
-    'https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&w=600', 
-    'https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=600',
-    'https://images.pexels.com/photos/270637/pexels-photo-270637.jpeg?auto=compress&cs=tinysrgb&w=600',
-    'https://images.pexels.com/photos/326514/pexels-photo-326514.jpeg?auto=compress&cs=tinysrgb&w=600',
-    'https://images.pexels.com/photos/577585/pexels-photo-577585.jpeg?auto=compress&cs=tinysrgb&w=600',
-    'https://images.pexels.com/photos/18105/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600',
-    'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=600',
-    'https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=600',
-    'https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=600',
-    'https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=600',
+    'https://res.cloudinary.com/dxdrzit6x/image/upload/v1750666584/Screenshot_2025-06-23_134609_gltegu.png', 
+    'https://res.cloudinary.com/dxdrzit6x/image/upload/v1750681853/Screenshot_2025-06-23_175924_dd0l0j.png',
+    'https://res.cloudinary.com/dxdrzit6x/image/upload/v1750685452/Screenshot_2025-06-23_185919_tybcvb.png',
+    'https://res.cloudinary.com/dxdrzit6x/image/upload/v1750688528/Screenshot_2025-06-23_195029_lmn5ij.png',
+    'https://res.cloudinary.com/dxdrzit6x/image/upload/v1750689804/Screenshot_2025-06-23_201228_p9a8jq.png',
+    'https://res.cloudinary.com/dxdrzit6x/image/upload/v1750751815/Screenshot_2025-06-24_132636_ycedei.png',
+    'https://res.cloudinary.com/dxdrzit6x/image/upload/v1750754155/Screenshot_2025-06-24_140351_vfpegp.png',
+    'https://res.cloudinary.com/dxdrzit6x/image/upload/v1750755073/Screenshot_2025-06-24_142058_zfc5rk.png',
+    'https://res.cloudinary.com/dxdrzit6x/image/upload/v1750755316/Screenshot_2025-06-24_142500_lc22wl.png',
+    'https://res.cloudinary.com/dxdrzit6x/image/upload/v1750694982/Screenshot_2025-06-23_213848_k821o4.png',
   ];
 
   return (

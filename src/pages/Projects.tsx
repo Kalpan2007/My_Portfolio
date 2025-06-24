@@ -6,6 +6,7 @@ import ProjectModal, { ProjectDetail } from "../components/ProjectModel";
 import { BottomNav } from "../components/BottomNav";
 import PageTransition from "../components/PageTransition";
 import ProjectsData from "../Project_Data/Data";
+import { debounce } from 'lodash'; // Modified: Ensure lodash is imported for debounce
 
 const categoryOptions = [
   { label: "All Projects", value: "all" },
@@ -23,14 +24,23 @@ const Projects: React.FC = () => {
   const [category, setCategory] = useState("all");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // Check for mobile device
+  // Modified: Debounced mobile check to prevent rapid updates
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
+    const checkMobile = debounce(() => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      console.log('Mobile check:', mobile); // Modified: Debug log
+    }, 100);
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener('orientationchange', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('orientationchange', checkMobile);
+      checkMobile.cancel();
+    };
   }, []);
 
   // Close dropdown when clicking outside
@@ -55,9 +65,14 @@ const Projects: React.FC = () => {
         (project.category && project.category === category))
   );
 
+  // Modified: Synchronized state updates for mobile
   const openProjectModal = (project: ProjectDetail) => {
     setSelectedProject(project);
-    setIsModalOpen(true);
+    setIsModalOpen(false); // Ensure modal closes briefly to reset
+    setTimeout(() => {
+      setIsModalOpen(true);
+      console.log('Opening modal for project:', project.id); // Debug log
+    }, 0);
   };
 
   const closeProjectModal = () => {
@@ -106,7 +121,7 @@ const Projects: React.FC = () => {
         </motion.div>
 
         {/* Filter Bar */}
-        <div className="max-w-7xl mx-auto mb-12 relative z-50"> {/* Added relative z-50 to establish a new stacking context */}
+        <div className="max-w-7xl mx-auto mb-12 relative z-50">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 rounded-2xl bg-gradient-to-r from-slate-900/50 to-slate-800/30 border border-cyan-500/20 backdrop-blur-sm">
             {/* Project Type Toggle - Left side */}
             <div className="flex items-center gap-3">
@@ -157,7 +172,7 @@ const Projects: React.FC = () => {
 
             {/* Category Dropdown - Right side */}
             {type === "development" && (
-              <div className="dropdown-container relative z-[150]"> {/* Increased z-index to 150 */}
+              <div className="dropdown-container relative z-[150]">
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -182,7 +197,7 @@ const Projects: React.FC = () => {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -10, scale: 0.95 }}
                       transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="absolute top-full right-0 mt-2 bg-slate-900/95 backdrop-blur-md border border-cyan-500/30 rounded-xl shadow-2xl shadow-black/50 overflow-hidden z-[150]" // Match z-index with parent
+                      className="absolute top-full right-0 mt-2 bg-slate-900/95 backdrop-blur-md border border-cyan-500/30 rounded-xl shadow-2xl shadow-black/50 overflow-hidden z-[150]"
                       style={{ minWidth: "200px" }}
                     >
                       <div className="p-2">
@@ -214,7 +229,7 @@ const Projects: React.FC = () => {
         {/* Projects Grid */}
         <motion.div
           layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto z-40" // Added z-40 to keep it below dropdown
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto z-40"
         >
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, index) => (
@@ -307,6 +322,7 @@ const Projects: React.FC = () => {
 
         {/* Project Modal */}
         <ProjectModal
+          key={selectedProject?.id} // Ensure new instance per project
           isOpen={isModalOpen}
           onClose={closeProjectModal}
           project={selectedProject}

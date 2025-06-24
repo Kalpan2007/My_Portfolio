@@ -16,40 +16,40 @@ const FloatingCertificates: React.FC = () => {
 
   const desktopCertificates = [
     {
-      src: 'https://img.freepik.com/free-vector/flat-certificate-template_52683-61537.jpg?ga=GA1.1.1203808723.1750003632&semt=ais_hybrid&w=740',
+      src: 'https://res.cloudinary.com/dxdrzit6x/image/upload/v1750758634/Github-Copilot-Fundamental_xmazsw.jpg',
       position: { left: '0%', top: '15%' },
       rotate: -4
     },
     {
-      src: 'https://img.freepik.com/free-vector/flat-certificate-template_52683-61537.jpg?ga=GA1.1.1203808723.1750003632&semt=ais_hybrid&w=740',
-      position: { left: '35%', top: '40%' },
+      src: 'https://res.cloudinary.com/dxdrzit6x/image/upload/v1750758487/AWS_DOCUMENTDB_page-0001_k1qcob.jpg',
+      position: { left: '35%', top: '25%' },
       rotate: 3
     }
   ];
 
   const mobileCertificates = [
     {
-      src: '/certificates/certificate1.jpg',
+      src: 'https://res.cloudinary.com/dxdrzit6x/image/upload/v1750758634/Github-Copilot-Fundamental_xmazsw.jpg',
       position: { left: '5%', top: '10%' },
       rotate: -2
     },
     {
-      src: '/certificates/certificate2.jpg',
+      src: 'https://res.cloudinary.com/dxdrzit6x/image/upload/v1750758487/AWS_DOCUMENTDB_page-0001_k1qcob.jpg',
       position: { left: '35%', top: '5%' },
       rotate: 1
     },
     {
-      src: '/certificates/certificate3.jpg',
+      src: 'https://res.cloudinary.com/dxdrzit6x/image/upload/v1750757944/Microsoft_Azure_Fundametal_Simplilearn_page-0001_shgail.jpg',
       position: { left: '65%', top: '15%' },
       rotate: -1
     },
     {
-      src: '/certificates/certificate4.jpg',
+      src: 'https://res.cloudinary.com/dxdrzit6x/image/upload/v1750759693/Microsoft_Adzure_Fundamental_trainnig_page-0001_otxcv5.jpg',
       position: { left: '20%', top: '40%' },
       rotate: 2
     },
     {
-      src: '/certificates/certificate5.jpg',
+      src: 'https://res.cloudinary.com/dxdrzit6x/image/upload/v1750759706/Microsoft_power_bi_Training_page-0001_pahbgj.jpg',
       position: { left: '50%', top: '35%' },
       rotate: -2
     }

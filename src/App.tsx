@@ -61,6 +61,7 @@ function App() {
 
   return (
     <BrowserRouter>
+     <ScrollToTop />
       <div
         className={`min-h-screen bg-gradient-to-br from-[#0a0f1c] via-[#0f172a] to-[#1a1f35] text-gray-100 ${
           isMobileOrTablet ? 'mobile-optimized' : ''

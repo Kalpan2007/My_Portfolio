@@ -24,7 +24,7 @@ export interface ProjectDetail {
   type?: string;
 }
 
-// Add this helper function at the top of your file
+// Helper function to get YouTube embed URL
 function getEmbedUrl(url: string) {
   if (!url) return "";
   if (url.includes("youtube.com/watch?v=")) {
@@ -37,25 +37,40 @@ function getEmbedUrl(url: string) {
 const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Reset state when modal opens with new project
+  // Modified: Detect mobile for modal-specific behavior
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Modified: Enhanced state reset with mobile consideration
+  useEffect(() => {
+    console.log('Modal state:', { isOpen, projectId: project?.id, activeImageIndex, isMobile }); // Debug log
     if (isOpen) {
       setActiveImageIndex(0);
       setIsVideoPlaying(false);
+    } else {
+      setActiveImageIndex(0);
+      setIsVideoPlaying(false);
     }
-  }, [isOpen, project?.id]);
-  
+  }, [isOpen, project?.id, isMobile]);
+
   // Handle ESC key press to close modal
   useEffect(() => {
     const handleEscKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
-    
+
     if (isOpen) {
       document.addEventListener("keydown", handleEscKey);
     }
-    
+
     return () => {
       document.removeEventListener("keydown", handleEscKey);
     };
@@ -68,7 +83,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
     } else {
       document.body.style.overflow = "auto";
     }
-    
+
     return () => {
       document.body.style.overflow = "auto";
     };
@@ -76,52 +91,69 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
 
   if (!project) return null;
 
+  // Modified: Simplified animations for mobile
+  const modalVariants = {
+    initial: { opacity: 0, scale: isMobile ? 1 : 0.9, y: isMobile ? 50 : 20 },
+    animate: { 
+      opacity: 1, 
+      scale: 1, 
+      y: 0,
+      transition: { 
+        type: isMobile ? "tween" : "spring", 
+        damping: isMobile ? undefined : 25, 
+        stiffness: isMobile ? undefined : 300,
+        duration: isMobile ? 0.3 : undefined
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      scale: isMobile ? 1 : 0.95, 
+      y: isMobile ? 50 : 10,
+      transition: { duration: isMobile ? 0.2 : 0.2 }
+    }
+  };
+
   return (
-    <AnimatePresence>
+    // Modified: Added key to AnimatePresence and exitBeforeEnter
+    <AnimatePresence 
+      key={`modal-${project.id}-${isMobile}`} // Ensure new instance per project and mobile state
+      mode="wait" // Replaces exitBeforeEnter in newer framer-motion versions
+    >
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* Backdrop - Modified: Increased z-index */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40"
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[90]" // Increased z-index
             onClick={onClose}
+            onTouchStart={onClose} // Modified: Added touch event for mobile
           />
-          
+
           {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ 
-              opacity: 1, 
-              scale: 1, 
-              y: 0,
-              transition: { 
-                type: "spring", 
-                damping: 25, 
-                stiffness: 300 
-              }
-            }}
-            exit={{ 
-              opacity: 0, 
-              scale: 0.95, 
-              y: 10,
-              transition: { duration: 0.2 }
-            }}
-            className="fixed inset-0 sm:inset-10 md:inset-20 z-50 overflow-hidden"
+            key={project.id} // Ensure new instance per project
+            variants={modalVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="fixed inset-0 sm:inset-10 md:inset-20 z-[100]" // Increased z-index
             onClick={(e) => e.stopPropagation()}
+            onTouchStart={(e) => e.stopPropagation()} // Modified: Added touch event
           >
             <div className="bg-gradient-to-br from-slate-900 to-slate-950 h-full overflow-hidden border border-cyan-500/20 shadow-2xl shadow-cyan-500/10 rounded-none sm:rounded-xl">
-              {/* Close button - moved for better mobile access */}
+              {/* Close button */}
               <motion.button
                 whileHover={{ scale: 1.1, rotate: 90 }}
                 whileTap={{ scale: 0.9 }}
-                className="fixed top-4 right-4 p-2 rounded-full bg-slate-800/90 border border-slate-700 z-50 text-gray-400 hover:text-white"
+                className="fixed top-4 right-4 p-2 rounded-full bg-slate-800/90 border border-slate-700 z-[110] text-gray-400 hover:text-white" // Increased z-index
                 onClick={onClose}
+                onTouchStart={onClose} // Modified: Added touch event
               >
                 <X className="w-5 h-5 sm:w-6 sm:h-6" />
               </motion.button>
-              
+
               <div className="h-full overflow-y-auto custom-scrollbar">
                 <div className="p-4 sm:p-6 md:p-8">
                   {/* Header */}
@@ -142,8 +174,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                       ))}
                     </div>
                   </motion.div>
-                  
-                  {/* Media Section - adjusted heights */}
+
+                  {/* Media Section */}
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1, transition: { delay: 0.2 } }}
@@ -167,6 +199,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                             <div
                               className="absolute inset-0 flex items-center justify-center cursor-pointer"
                               onClick={() => setIsVideoPlaying(true)}
+                              onTouchStart={() => setIsVideoPlaying(true)} // Modified: Added touch event
                             >
                               <div className="p-4 rounded-full bg-cyan-600/80 backdrop-blur-sm shadow-lg shadow-cyan-500/30">
                                 <Play className="w-12 h-12" />
@@ -197,6 +230,11 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                               setActiveImageIndex((prev) => (prev - 1 + totalItems) % totalItems);
                               setIsVideoPlaying(false);
                             }}
+                            onTouchStart={() => {
+                              const totalItems = project.images.length + (project.videoUrl ? 1 : 0);
+                              setActiveImageIndex((prev) => (prev - 1 + totalItems) % totalItems);
+                              setIsVideoPlaying(false);
+                            }} // Modified: Added touch event
                           >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -209,6 +247,11 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                               setActiveImageIndex((prev) => (prev + 1) % totalItems);
                               setIsVideoPlaying(false);
                             }}
+                            onTouchStart={() => {
+                              const totalItems = project.images.length + (project.videoUrl ? 1 : 0);
+                              setActiveImageIndex((prev) => (prev + 1) % totalItems);
+                              setIsVideoPlaying(false);
+                            }} // Modified: Added touch event
                           >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -217,7 +260,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                         </>
                       )}
                     </div>
-                    
+
                     {/* Thumbnails */}
                     {(project.images.length > 1 || project.videoUrl) && (
                       <div className="flex gap-1.5 sm:gap-2 mt-2 sm:mt-3 overflow-x-auto pb-2 custom-scrollbar">
@@ -231,6 +274,10 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                               setActiveImageIndex(0);
                               setIsVideoPlaying(false);
                             }}
+                            onTouchStart={() => {
+                              setActiveImageIndex(0);
+                              setIsVideoPlaying(false);
+                            }} // Modified: Added touch event
                           >
                             <div className="w-full h-full flex items-center justify-center bg-black">
                               <Play className="w-8 h-8 text-cyan-400" />
@@ -248,6 +295,10 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                               setActiveImageIndex(project.videoUrl ? idx + 1 : idx);
                               setIsVideoPlaying(false);
                             }}
+                            onTouchStart={() => {
+                              setActiveImageIndex(project.videoUrl ? idx + 1 : idx);
+                              setIsVideoPlaying(false);
+                            }} // Modified: Added touch event
                           >
                             <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
                           </motion.div>
@@ -255,8 +306,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                       </div>
                     )}
                   </motion.div>
-                  
-                  {/* Project Information - adjusted grid for mobile */}
+
+                  {/* Project Information */}
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
                     {/* Left Column - Description */}
                     <motion.div 
@@ -267,8 +318,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                       <h3 className="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4">Project Overview</h3>
                       <div className="prose prose-sm prose-invert max-w-none">
                         <p className="text-sm sm:text-base text-gray-300">{project.longDescription || project.description}</p>
-                        
-                        {/* Features with adjusted spacing */}
+
                         {project.features && project.features.length > 0 && (
                           <div className="mt-4 sm:mt-6">
                             <h4 className="text-base sm:text-lg font-medium text-white mb-2">Key Features</h4>
@@ -281,14 +331,13 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                         )}
                       </div>
                     </motion.div>
-                    
+
                     {/* Right Column - Technical Details & Links */}
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0, transition: { delay: 0.4 } }}
                       className="space-y-6"
                     >
-                      {/* Tech Stack */}
                       {project.technologies && project.technologies.length > 0 && (
                         <div>
                           <h3 className="text-lg font-semibold text-white mb-3">Technologies</h3>
@@ -304,7 +353,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                           </div>
                         </div>
                       )}
-                      
+
                       {/* Links Section */}
                       <div className="flex flex-wrap gap-3 mt-6">
                         {project.type === "uiux" ? (

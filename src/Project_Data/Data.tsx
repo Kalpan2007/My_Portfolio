@@ -376,7 +376,7 @@ const projectsData: ProjectDetail[] = [
     "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750751814/Screenshot_2025-06-24_132610_clnwpu.png"
   ],
   tags: ["Figma", "UI/UX", "Job Portal"],
-  figmaUrl: "https://www.figma.com/file/yourfigmalink", 
+  figmaUrl: "https://www.figma.com/design/JKSVgQ6t0zfMdbniBUAsEy/JobFusion?node-id=0-1&t=FzVbwQKklg3XruXb-1", 
   technologies: [
     "Figma",
     "Wireframing",
@@ -392,6 +392,144 @@ const projectsData: ProjectDetail[] = [
     "Built using design best practices and grid systems"
   ]
 },
+{
+  id: 12,
+  title: "Eduztrik – UI/UX Design for Document Scanning & Comparison Platform",
+  type: "uiux",
+  category: "uiux",
+  description: "A clean and professional UI/UX design for Eduztrik – a platform to scan, compare, and manage documents.",
+  longDescription:
+    "Eduztrik is a smart document management platform designed with a modern, professional UI. The Figma-based design focuses on simplicity, clarity, and productivity. Users can scan documents, compare versions visually, store them in folders, and manage access easily. " +
+    "The design system features well-balanced typography, a consistent color palette, and illustrations that support the user flow. It includes dashboard screens, scanning views, comparison overlays, upload modules, and dark/light mode options. The layout ensures smooth usability and fast onboarding.",
+  images: [
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750754155/Screenshot_2025-06-24_140351_vfpegp.png" ,
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750754154/Screenshot_2025-06-24_140439_noj7ay.png",
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750754154/Screenshot_2025-06-24_140450_xzeaiy.png"
+  ],
+  tags: ["Figma", "UI/UX", "Document Scanner"],
+  githubUrl: "",
+  figmaUrl: "https://www.figma.com/design/lYkWNFfz7KwzHdVqVxgwR4/Eduztrik?node-id=2-6&t=WhnP5YekxN6XKtnf-1", 
+  technologies: [
+    "Figma",
+    "Illustrations",
+    "Typography",
+    "Component-Based Design",
+    "Responsive Layouts",
+    "Color Theory",
+    "Prototyping"
+  ],
+  features: [
+    "Clean and intuitive dashboard for managing documents",
+    "Document scanning & side-by-side visual comparison UI",
+    "Modern color palette with accessible contrast",
+    "Custom illustrations and icon sets for better guidance",
+    "Modular layout using components and auto-layouts",
+    "Mobile and desktop responsive views",
+    "Built with professional UI/UX design best practices"
+  ]
+},
+{
+  id: 13,
+  title: "ElectroMart – Responsive UI/UX Design for Electronics Store",
+  type: "uiux",
+  category: "uiux",
+  description: "A professional UI/UX design for an electronics eCommerce website, optimized for desktop, tablet, and mobile screens.",
+  longDescription:
+    "ElectroMart is a fully responsive eCommerce website design tailored for an electronics store. Built in Figma, it includes three complete screen sizes: desktop, tablet, and mobile. The design system uses consistent spacing, bold product imagery, and clean typography for an intuitive shopping experience. " +
+    "Pages include a product listing grid, filters, detailed product view, cart system, and responsive header/footer navigation. Designed to reflect modern online store UI patterns, the layout offers smooth adaptability across all devices while maintaining a consistent brand tone and excellent usability.",
+  images: [
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750755073/Screenshot_2025-06-24_142058_zfc5rk.png" 
+  ],
+  tags: ["Figma", "eCommerce", "Responsive Design"],
+  githubUrl: "",
+  figmaUrl: "https://www.figma.com/design/6I6QMcQJmxf7uNJmY8TBlJ/EcoomerceFor-Practies?node-id=0-1&t=Yp0YL3h11yrwrgJA-1", 
+  technologies: [
+    "Figma",
+    "Responsive Grids",
+    "Design Tokens",
+    "Typography",
+    "Component Design",
+    "Product UI",
+    "Mobile-First UX"
+  ],
+  features: [
+    "Designed for desktop, tablet, and mobile views",
+    "Modern product listing with filters and quick view",
+    "Detailed product pages with specs and pricing",
+    "Clean and consistent layout with visual hierarchy",
+    "Responsive header, footer, and navigation menus",
+    "Cart page with product management UI",
+    "Color-consistent and brand-focused visual identity"
+  ]
+},
+{
+  id: 14,
+  title: "FruitEase – Mobile UI/UX Design for Fruit Delivery App",
+  type: "uiux",
+  category: "uiux",
+  description: "A clean and colorful mobile-first UI/UX design for a fruit delivery app built in Figma.",
+  longDescription:
+    "FruitEase is a mobile-first UI/UX design for a fruit delivery application. Designed in Figma, it focuses on simplicity, soft color tones, and intuitive navigation tailored for small screens. " +
+    "The app design includes user flows for browsing fruits, viewing item details, adding to cart, and smooth checkout — all optimized for mobile ergonomics. It uses consistent spacing, clear CTA buttons, and visual balance, making it ideal for learning and demonstrating mobile design principles. " +
+    "The overall experience is clean, minimal, and user-friendly, helping users complete purchases with ease.",
+  images: [
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750754763/Screenshot_2025-06-24_140855_afwidu.png",
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750754762/Screenshot_2025-06-24_140907_qhfqou.png",
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750754763/Screenshot_2025-06-24_140942_n9m5md.png" 
+  ],
+  tags: ["Mobile Design", "Figma", "UI/UX"],
+  githubUrl: "",
+  figmaUrl: "https://www.figma.com/design/SJ0Ki4luOi3ix6h17krbs0/Fruits-Mobile-App?node-id=0-1&t=cgX0lUNtm0SKkcQl-1", 
+  technologies: [
+    "Figma",
+    "Mobile UI/UX",
+    "Typography",
+    "Color Theory",
+    "Component Design",
+    "Auto Layout",
+    "Responsive Grids"
+  ],
+  features: [
+    "Mobile-first UI/UX layout",
+    "Simple and soft color palette for fresh feel",
+    "Clear CTA buttons and card-based item display",
+    "User flow from browsing to checkout",
+    "Clean spacing and alignment throughout",
+    "Designed for performance and ease of use",
+    "Great practice in mobile app design fundamentals"
+  ]
+},
+{
+  id: 15,
+  title: "Instagram UI/UX Clone – Figma Prototype",
+  type: "uiux",
+  category: "uiux",
+  description: "A mini UI/UX clone of Instagram created in Figma with full user flow and interactive prototyping.",
+  longDescription:
+    "This project is a UI/UX mobile app clone of Instagram built in Figma. It includes essential screens such as login, main feed, stories view, search, reels, profile, messages, and upload. Each screen follows Instagram’s original design closely while being structured for educational and layout practice purposes. " +
+    "The entire user flow is connected via clickable prototype links, allowing full interaction simulation. The layout is pixel-aligned with mobile spacing standards, and iconography, fonts, and color usage mimic the real app. This design exercise helped reinforce concepts in interaction design, consistency, and mobile navigation best practices.",
+  images: [
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750755316/Screenshot_2025-06-24_142500_lc22wl.png"
+  ],
+  tags: ["Mobile UI", "Prototyping", "Clone Design"],
+  githubUrl: "",
+  figmaUrl: "https://www.figma.com/design/sY3Zxf1IHMmCclGKiuTA3w/INSTAGRAM-CLONE?node-id=0-1&t=32y28ESJWUtpdZLn-1", 
+  technologies: [
+    "Figma",
+    "Prototyping",
+    "Mobile Design",
+    "Interaction Flow",
+    "Component Design"
+  ],
+  features: [
+    "Login, feed, profile, messaging, upload, and story screens",
+    "Fully linked prototype with user flow simulation",
+    "Pixel-perfect spacing and mobile grid alignment",
+    "Replicates Instagram’s core UI behaviors",
+    "Designed for mobile-first experience",
+    "Focus on consistency, icon use, and UX standards"
+  ]
+}
 ];
 
 export default projectsData;
