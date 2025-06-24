@@ -19,7 +19,7 @@ const projectsData: ProjectDetail[] = [
     "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750666582/Screenshot_2025-06-23_134549_p96eib.png",
     "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750679784/Screenshot_2025-06-23_172347_qwxxgw.png"
   ],
-  tags: ["Full Stack"],
+  tags: ["Full Stack","MERN","Job Portal"],
   githubUrl: "https://github.com/Kalpan2007/jobfusion",
   liveUrl: "https://jobfusionofficial.netlify.app/",
   videoUrl: "https://www.youtube.com/embed/q2cRGliiPNk", 
@@ -49,6 +49,8 @@ const projectsData: ProjectDetail[] = [
   {
   id:2,
   title: "WorkNest",
+  type: "development",
+  category: "fullstack",
   description: "A gig-based freelance platform built during a 48-hour hackathon using the MERN stack.",
   longDescription:
     "WorkNest is a gig marketplace platform developed in just 48 hours during a hackathon. It allows users to register as sellers or buyers, post gigs, manage orders, and make secure payments through Stripe. " +
@@ -60,7 +62,7 @@ const projectsData: ProjectDetail[] = [
     "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750681856/Screenshot_2025-06-23_175948_xospsy.png",
     "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750681852/Screenshot_2025-06-23_180027_ucz85m.png"
   ],
-  tags: ["Hackathon", "Full Stack"],
+  tags: ["Hackathon", "Full Stack","Gig Marketplace"],
   githubUrl: "https://github.com/Kalpan2007/WorkNest-hackwithGujarat",
   liveUrl: "https://work-nest-hackwith-gujarat.vercel.app",
   videoUrl: "https://www.youtube.com/embed/gvADEsOXH28", // Replace with your real demo video ID
@@ -90,6 +92,8 @@ const projectsData: ProjectDetail[] = [
 },
 {
   id:3,
+  type: "development",
+  category: "fullstack",
   title: "HealthSync – Real-Time Ambulance Booking (Open Source Contribution)",
   description: "Added real-time ambulance booking and ride status system using Socket.io in a live healthcare platform.",
   longDescription:
@@ -102,7 +106,7 @@ const projectsData: ProjectDetail[] = [
     "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750693506/Screenshot_2025-06-23_211236_ukp0jg.png",
     "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750693507/Screenshot_2025-06-23_211302_sgwhar.png"
   ],
-  tags: ["Full Stack"],
+  tags: ["Full Stack", "Open Source Contribution"],
   githubUrl: "https://github.com/Kalpan2007/health_sync",
   liveUrl: "https://www.linkedin.com/posts/3kz_opensource-mern-buildinpublic-activity-7308423486153101312-MZyT?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFK3InMB4lMCoxiEfGzxn3IyfD8t1swZqEI",
   technologies: [
@@ -126,6 +130,8 @@ const projectsData: ProjectDetail[] = [
 {
   id:4,
   title: "Nike Landing Page Redesign",
+  type: "development",
+  category: "frontend",
   description: "A modern, responsive Nike landing page clone built with React and Tailwind CSS.",
   longDescription:
     "This project is a clean and responsive Website With Great Design, built using React.js and Tailwind CSS to sharpen frontend development and UI/UX design skills. " +
@@ -158,6 +164,8 @@ const projectsData: ProjectDetail[] = [
   {
   id:5,
   title: "Chrome Task Reminder Extension",
+  type: "development",
+  category: "extension",
   description: "A productivity-focused Chrome Extension for hourly task reminders.",
   longDescription:
     "This Chrome Extension helps users stay productive by allowing them to create task lists and receive hourly reminders. Users can add tasks, get notified every hour, and mark them as complete. " +
@@ -167,7 +175,7 @@ const projectsData: ProjectDetail[] = [
     "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750684563/Screenshot_2025-01-02_190656_fiw6mo.png",
     "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750684563/Screenshot_2025-01-02_173619_dbdfh1.png"
   ],
-  tags: ["Chrome Extension"],
+  tags: ["Chrome Extension","JS","Productivity"],
   githubUrl: "https://github.com/Kalpan2007/Extention-To-Do",
   technologies: [
     "JavaScript",
@@ -189,6 +197,8 @@ const projectsData: ProjectDetail[] = [
 {
   id:6,
   title: "YouTube Clone",
+  type: "development",
+  category: "frontend",
   description: "A responsive YouTube clone using the public YouTube API with real-time search, filtering, and video preview.",
   longDescription:
     "This YouTube clone replicates key features of the original platform using the YouTube Data API. Built entirely with React.js and styled using modern CSS, the app supports real-time search functionality, sidebar category filtering, and dynamic video rendering. " +
@@ -221,6 +231,8 @@ const projectsData: ProjectDetail[] = [
 {
   id:7,
   title: "React Multi-API Explorer",
+  type: "development",
+  category: "frontend",
   description: "A dynamic web app using 5 different public APIs with filtering, search, and responsive layouts.",
   longDescription:
     "This React-based project integrates five different public APIs, each showcased through a dedicated component and clean UI. " +
@@ -231,7 +243,7 @@ const projectsData: ProjectDetail[] = [
     "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750688527/Screenshot_2025-06-23_195045_t6vstr.png",
     "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750688518/Screenshot_2025-06-23_195135_qxerww.png"
   ],
-  tags: ["React", "Frontend",],
+  tags: ["React", "Frontend","APIs"],
   githubUrl: "https://github.com/Kalpan2007/React-Api-Project",
   liveUrl: "https://react-api-project-1lql.vercel.app", 
   technologies: [
@@ -256,6 +268,8 @@ const projectsData: ProjectDetail[] = [
 {
   id:8,
   title: "Expense Tracker",
+  type: "development",
+  category: "frontend",
   description: "Expense management app with dark/light mode toggle and categorized tracking.",
   longDescription:
     "This Expense Tracker application allows users to manage their daily spending by adding expenses with descriptions, categories, and amounts. " +
@@ -285,6 +299,8 @@ const projectsData: ProjectDetail[] = [
 {
   id:9,
   title: "Taskify – React To-Do App",
+  type: "development",
+  category: "frontend",
   description: "A simple yet powerful to-do list app with edit, delete, and complete task features using React.",
   longDescription:
     "Taskify is a responsive task management web application built with React. Users can add, update, mark complete, or delete tasks dynamically. Each task updates in real-time with visual feedback, including checkbox toggling, strike-through styling for completed tasks, and inline editing. " +
@@ -292,7 +308,7 @@ const projectsData: ProjectDetail[] = [
   images: [
     "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750694982/Screenshot_2025-06-23_213848_k821o4.png",
   ],
-  tags: ["React"],
+  tags: ["React","Frontend","To-Do App"],
   githubUrl: "https://github.com/Kalpan2007/TO-Do-React", 
   liveUrl: "https://to-do-react-lake.vercel.app/", 
   technologies: [
@@ -314,6 +330,8 @@ const projectsData: ProjectDetail[] = [
 {
   id :10,
   title: "LinkedIn Clone Backend – CRUD API",
+  type: "development",
+  category: "backend",
   description: "A backend-only Node.js project simulating LinkedIn-like features using RESTful APIs with MongoDB.",
   longDescription:
     "This project provides a set of RESTful APIs built using Node.js, Express.js, and MongoDB that simulate key backend features of a LinkedIn-style platform. " +
@@ -322,7 +340,7 @@ const projectsData: ProjectDetail[] = [
   images: [
     "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750695604/Screenshot_2025-06-23_214829_pd2qro.png"
   ],
-  tags: ["Node.js","Backend"],
+  tags: ["Node.js","Backend","MongoDB"],
   githubUrl: "https://github.com/Kalpan2007/linkedin-backend-api", // Replace with actual
   liveUrl: "https://documenter.getpostman.com/view/39216913/2sAYQUptiS", 
     technologies: [
@@ -345,37 +363,33 @@ const projectsData: ProjectDetail[] = [
 },
 {
   id: 11,
-  title: "UI/UX Portfolio Website",
+  title: "JobFusion – UI/UX Design",
   type: "uiux",
   category: "uiux",
-  description: "A personal portfolio website to showcase UI/UX design projects and skills.",
+  description: "A complete UI/UX design system for the JobFusion job portal, built using Figma.",
   longDescription:
-    "This is a portfolio website designed to showcase my skills, work experience, and projects in the field of UI/UX design. " +
-    "The website features a clean, modern design with smooth scrolling, animated transitions, and interactive elements to engage visitors. " +
-    "It is fully responsive and optimized for all devices, ensuring a seamless user experience on mobile, tablet, and desktop. " +
-    "The portfolio includes detailed case studies of my design projects, highlighting the problem-solving process, design iterations, and final outcomes. " +
-    "Built with a focus on performance and usability, this website serves as a powerful tool to present my professional brand and attract potential clients or employers.",
+    "This project is a full-scale UI/UX design of the JobFusion platform, focused on job seekers and recruiters. Designed in Figma, the system includes wireframes, high-fidelity mockups, and responsive layouts for desktop and mobile. " +
+    "The design covers all essential pages including onboarding, resume builder, job filtering, AI-based resume score results, and journey-sharing features. It reflects modern UI practices with clean layouts, proper spacing, and user-centric UX flows.",
   images: [
-    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750695604/Screenshot_2025-06-23_214829_pd2qro.png"
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750751815/Screenshot_2025-06-24_132636_ycedei.png",
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750751814/Screenshot_2025-06-24_132542_x4l6x9.png",
+    "https://res.cloudinary.com/dxdrzit6x/image/upload/v1750751814/Screenshot_2025-06-24_132610_clnwpu.png"
   ],
-  tags: ["UI/UX", "Design", "Portfolio"],
-  githubUrl: "https://github.com/Kalpan2007/uiux-portfolio",
-  liveUrl: "https://uiux-portfolio-kalpan2007.vercel.app/",
+  tags: ["Figma", "UI/UX", "Job Portal"],
+  figmaUrl: "https://www.figma.com/file/yourfigmalink", 
   technologies: [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React",
-    "Responsive Design",
-    "Vercel"
+    "Figma",
+    "Wireframing",
+    "Prototyping",
+    "User-Centered Design"
   ],
   features: [
-    "Showcase of UI/UX design projects",
-    "Detailed case studies with process documentation",
-    "Responsive and interactive design",
-    "Smooth scrolling and animated transitions",
-    "Contact form for inquiries",
-    "Optimized for performance and SEO"
+    "Full UI/UX flow for a job portal platform",
+    "Resume builder and ATS score result UI",
+    "Job filtering and role-based dashboard design",
+    "Journey-sharing feature layout",
+    "Clean, accessible, and mobile-responsive UI",
+    "Built using design best practices and grid systems"
   ]
 },
 ];

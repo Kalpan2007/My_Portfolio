@@ -20,6 +20,8 @@ export interface ProjectDetail {
   videoUrl?: string;
   technologies?: string[];
   features?: string[];
+  figmaUrl?: string;
+  type?: string;
 }
 
 // Add this helper function at the top of your file
@@ -106,10 +108,10 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               y: 10,
               transition: { duration: 0.2 }
             }}
-            className="fixed inset-0 sm:inset-10 md:inset-20 z-50 overflow-hidden" // Updated insets
+            className="fixed inset-0 sm:inset-10 md:inset-20 z-50 overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="bg-gradient-to-br from-slate-900 to-slate-950 h-full overflow-hidden border border-cyan-500/20 shadow-2xl shadow-cyan-500/10 rounded-none sm:rounded-xl"> {/* Removed rounded corners on mobile */}
+            <div className="bg-gradient-to-br from-slate-900 to-slate-950 h-full overflow-hidden border border-cyan-500/20 shadow-2xl shadow-cyan-500/10 rounded-none sm:rounded-xl">
               {/* Close button - moved for better mobile access */}
               <motion.button
                 whileHover={{ scale: 1.1, rotate: 90 }}
@@ -121,12 +123,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               </motion.button>
               
               <div className="h-full overflow-y-auto custom-scrollbar">
-                <div className="p-4 sm:p-6 md:p-8"> {/* Adjusted padding for mobile */}
+                <div className="p-4 sm:p-6 md:p-8">
                   {/* Header */}
                   <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0, transition: { delay: 0.1 } }}
-                    className="mt-8 sm:mt-0" // Added top margin on mobile for close button
+                    className="mt-8 sm:mt-0"
                   >
                     <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2">{project.title}</h2>
                     <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4">
@@ -164,7 +166,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                           ) : (
                             <div
                               className="absolute inset-0 flex items-center justify-center cursor-pointer"
-                              onClick={() => setIsVideoPlaying(true)} // One click triggers play
+                              onClick={() => setIsVideoPlaying(true)}
                             >
                               <div className="p-4 rounded-full bg-cyan-600/80 backdrop-blur-sm shadow-lg shadow-cyan-500/30">
                                 <Play className="w-12 h-12" />
@@ -174,11 +176,10 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                           )}
                         </div>
                       ) : (
-                        // Show image (if no video, or if not on video index)
                         <img
                           src={
                             project.videoUrl
-                              ? project.images[activeImageIndex - 1] // images start at index 1 if video exists
+                              ? project.images[activeImageIndex - 1]
                               : project.images[activeImageIndex]
                           }
                           alt={`${project.title} screenshot ${project.videoUrl ? activeImageIndex : activeImageIndex + 1}`}
@@ -304,34 +305,71 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                         </div>
                       )}
                       
-                      {/* Links */}
-                      <div>
-                        <h3 className="text-lg font-semibold text-white mb-3">Links</h3>
-                        <div className="space-y-2">
-                          {project.githubUrl && (
-                            <a 
-                              href={project.githubUrl}
+                      {/* Links Section */}
+                      <div className="flex flex-wrap gap-3 mt-6">
+                        {project.type === "uiux" ? (
+                          project.figmaUrl && (
+                            <a
+                              href={project.figmaUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-700 transition-colors text-white"
+                              className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-gray-900 border-2 border-cyan-400 text-cyan-400 font-bold shadow-lg hover:shadow-cyan-400/50 hover:bg-cyan-400 hover:text-gray-900 transition-all duration-300"
                             >
-                              <Github className="w-5 h-5" />
-                              <span>View Source Code</span>
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <rect x="4" y="2" width="6" height="6" rx="3" fill="#ff7262"/>
+                                <rect x="4" y="8" width="6" height="6" rx="3" fill="#a259ff"/>
+                                <rect x="4" y="14" width="6" height="6" rx="3" fill="#1abcfe"/>
+                                <rect x="10" y="2" width="6" height="6" rx="3" fill="#0acf83"/>
+                                <circle cx="13" cy="11" r="3" fill="#f24e1e"/>
+                              </svg>
+                              <span>View on Figma</span>
+                              <div className="group-hover:translate-x-1 transition-transform duration-200">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                  <path d="M7 17L17 7"/>
+                                  <path d="M7 7h10v10"/>
+                                </svg>
+                              </div>
                             </a>
-                          )}
-                          
-                          {project.liveUrl && (
-                            <a 
-                              href={project.liveUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center gap-2 px-4 py-2 bg-cyan-800 hover:bg-cyan-700 rounded-lg border border-cyan-700 transition-colors text-white"
-                            >
-                              <ExternalLink className="w-5 h-5" />
-                              <span>Live Demo</span>
-                            </a>
-                          )}
-                        </div>
+                          )
+                        ) : (
+                          <>
+                            {project.githubUrl && (
+                              <a
+                                href={project.githubUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-gray-900 border-2 border-gray-500 text-gray-300 font-bold shadow-lg hover:shadow-gray-500/50 hover:bg-gray-500 hover:text-gray-900 transition-all duration-300"
+                              >
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                  <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                                </svg>
+                                <span>GitHub Repo</span>
+                                <div className="group-hover:translate-x-1 transition-transform duration-200">
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M7 17L17 7"/>
+                                    <path d="M7 7h10v10"/>
+                                  </svg>
+                                </div>
+                              </a>
+                            )}
+                            {project.liveUrl && (
+                              <a
+                                href={project.liveUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-gray-900 border-2 border-blue-500 text-blue-300 font-bold shadow-lg hover:shadow-blue-500/50 hover:bg-blue-500 hover:text-gray-900 transition-all duration-300"
+                              >
+                                <span>Live Demo</span>
+                                <div className="group-hover:translate-x-1 transition-transform duration-200">
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M7 17L17 7"/>
+                                    <path d="M7 7h10v10"/>
+                                  </svg>
+                                </div>
+                              </a>
+                            )}
+                          </>
+                        )}
                       </div>
                     </motion.div>
                   </div>
