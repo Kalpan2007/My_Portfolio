@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Code2, Filter, ChevronDown } from "lucide-react";
-import ProjectCard from '../components/Projectcard';
-import ProjectModal, { ProjectDetail } from "../components/ProjectModel";
+import ProjectCard from "../components/ProjectCard"; // 
+import ProjectModal, { ProjectDetail } from "../components/ProjectModel"; // ✅ Make sure it's "ProjectModel", not "ProjectModal"
 import { BottomNav } from "../components/BottomNav";
 import PageTransition from "../components/PageTransition";
 import ProjectsData from "../Project_Data/Data";
-import { debounce } from 'lodash'; // Modified: Ensure lodash is imported for debounce
+import { debounce } from "lodash"; // ✅ Use double quotes for consistency
 
 const categoryOptions = [
   { label: "All Projects", value: "all" },
