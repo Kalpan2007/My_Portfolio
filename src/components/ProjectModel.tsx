@@ -49,12 +49,24 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Modified: Enhanced state reset with mobile consideration
+  // Modified: Enhanced state reset with mobile consideration and scroll reset
   useEffect(() => {
     console.log('Modal state:', { isOpen, projectId: project?.id, activeImageIndex, isMobile }); // Debug log
     if (isOpen) {
       setActiveImageIndex(0);
       setIsVideoPlaying(false);
+      
+      // CRITICAL FIX: Reset scroll position when modal opens
+      setTimeout(() => {
+        const modalContent = document.querySelector('.modal-scrollable-content');
+        if (modalContent) {
+          modalContent.scrollTop = 0;
+        }
+        // Also reset window scroll on mobile as backup
+        if (isMobile) {
+          window.scrollTo(0, 0);
+        }
+      }, 50); // Small delay to ensure DOM is ready
     } else {
       setActiveImageIndex(0);
       setIsVideoPlaying(false);
@@ -80,14 +92,29 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      // Additional mobile fix
+      if (isMobile) {
+        document.body.style.position = "fixed";
+        document.body.style.width = "100%";
+        document.body.style.top = "0";
+      }
     } else {
       document.body.style.overflow = "auto";
+      // Reset mobile fixes
+      if (isMobile) {
+        document.body.style.position = "";
+        document.body.style.width = "";
+        document.body.style.top = "";
+      }
     }
 
     return () => {
       document.body.style.overflow = "auto";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
     };
-  }, [isOpen]);
+  }, [isOpen, isMobile]);
 
   if (!project) return null;
 
@@ -154,7 +181,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                 <X className="w-5 h-5 sm:w-6 sm:h-6" />
               </motion.button>
 
-              <div className="h-full overflow-y-auto custom-scrollbar">
+              {/* CRITICAL FIX: Added class and ref for scroll reset */}
+              <div className="modal-scrollable-content h-full overflow-y-auto custom-scrollbar">
                 <div className="p-4 sm:p-6 md:p-8">
                   {/* Header */}
                   <motion.div
