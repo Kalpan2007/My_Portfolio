@@ -39,7 +39,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Modified: Detect mobile for modal-specific behavior
+  // Detect mobile for modal-specific behavior
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -49,29 +49,21 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Modified: Enhanced state reset with mobile consideration and scroll reset
+  // Enhanced state reset with scroll position reset
   useEffect(() => {
-    console.log('Modal state:', { isOpen, projectId: project?.id, activeImageIndex, isMobile }); // Debug log
     if (isOpen) {
       setActiveImageIndex(0);
       setIsVideoPlaying(false);
       
-      // CRITICAL FIX: Reset scroll position when modal opens
+      // Reset scroll position when modal opens
       setTimeout(() => {
         const modalContent = document.querySelector('.modal-scrollable-content');
         if (modalContent) {
           modalContent.scrollTop = 0;
         }
-        // Also reset window scroll on mobile as backup
-        if (isMobile) {
-          window.scrollTo(0, 0);
-        }
-      }, 50); // Small delay to ensure DOM is ready
-    } else {
-      setActiveImageIndex(0);
-      setIsVideoPlaying(false);
+      }, 100);
     }
-  }, [isOpen, project?.id, isMobile]);
+  }, [isOpen, project?.id]);
 
   // Handle ESC key press to close modal
   useEffect(() => {
@@ -88,37 +80,32 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
     };
   }, [isOpen, onClose]);
 
-  // Prevent body scroll when modal is open
+  // Prevent body scroll when modal is open and ensure modal can scroll
   useEffect(() => {
     if (isOpen) {
+      // Prevent body scroll
       document.body.style.overflow = "hidden";
-      // Additional mobile fix
-      if (isMobile) {
-        document.body.style.position = "fixed";
-        document.body.style.width = "100%";
-        document.body.style.top = "0";
-      }
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+      document.body.style.top = "0";
     } else {
-      document.body.style.overflow = "auto";
-      // Reset mobile fixes
-      if (isMobile) {
-        document.body.style.position = "";
-        document.body.style.width = "";
-        document.body.style.top = "";
-      }
+      // Restore body scroll
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
     }
 
     return () => {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = "";
       document.body.style.position = "";
       document.body.style.width = "";
       document.body.style.top = "";
     };
-  }, [isOpen, isMobile]);
+  }, [isOpen]);
 
   if (!project) return null;
 
-  // Modified: Simplified animations for mobile
   const modalVariants = {
     initial: { opacity: 0, scale: isMobile ? 1 : 0.9, y: isMobile ? 50 : 20 },
     animate: { 
@@ -141,54 +128,47 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
   };
 
   return (
-    // Modified: Added key to AnimatePresence and exitBeforeEnter
-    <AnimatePresence 
-      key={`modal-${project.id}-${isMobile}`} // Ensure new instance per project and mobile state
-      mode="wait" // Replaces exitBeforeEnter in newer framer-motion versions
-    >
+    <AnimatePresence mode="wait">
       {isOpen && (
         <>
-          {/* Backdrop - Modified: Increased z-index */}
+          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[90]" // Increased z-index
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[90]"
             onClick={onClose}
-            onTouchStart={onClose} // Modified: Added touch event for mobile
           />
 
-          {/* Modal */}
-          <motion.div
-            key={project.id} // Ensure new instance per project
-            variants={modalVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className="fixed inset-0 sm:inset-10 md:inset-20 z-[100]" // Increased z-index
-            onClick={(e) => e.stopPropagation()}
-            onTouchStart={(e) => e.stopPropagation()} // Modified: Added touch event
-          >
-            <div className="bg-gradient-to-br from-slate-900 to-slate-950 h-full overflow-hidden border border-cyan-500/20 shadow-2xl shadow-cyan-500/10 rounded-none sm:rounded-xl">
-              {/* Close button */}
+          {/* Modal Container - Fixed positioning with proper overflow */}
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4">
+            <motion.div
+              key={project.id}
+              variants={modalVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="relative w-full h-full max-w-6xl max-h-full bg-gradient-to-br from-slate-900 to-slate-950 rounded-none sm:rounded-xl border border-cyan-500/20 shadow-2xl shadow-cyan-500/10 overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close button - Fixed position */}
               <motion.button
                 whileHover={{ scale: 1.1, rotate: 90 }}
                 whileTap={{ scale: 0.9 }}
-                className="fixed top-4 right-4 p-2 rounded-full bg-slate-800/90 border border-slate-700 z-[110] text-gray-400 hover:text-white" // Increased z-index
+                className="absolute top-4 right-4 p-2 rounded-full bg-slate-800/90 border border-slate-700 z-[110] text-gray-400 hover:text-white"
                 onClick={onClose}
-                onTouchStart={onClose} // Modified: Added touch event
               >
                 <X className="w-5 h-5 sm:w-6 sm:h-6" />
               </motion.button>
 
-              {/* CRITICAL FIX: Added class and ref for scroll reset */}
-              <div className="modal-scrollable-content h-full overflow-y-auto custom-scrollbar">
-                <div className="p-4 sm:p-6 md:p-8">
+              {/* Scrollable Content Container */}
+              <div className="modal-scrollable-content h-full overflow-y-auto overflow-x-hidden">
+                <div className="p-4 sm:p-6 md:p-8 min-h-full">
                   {/* Header */}
                   <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0, transition: { delay: 0.1 } }}
-                    className="mt-8 sm:mt-0"
+                    className="mt-8 sm:mt-0 mb-6"
                   >
                     <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2">{project.title}</h2>
                     <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4">
@@ -214,11 +194,10 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                       {project.videoUrl && activeImageIndex === 0 ? (
                         <div className="absolute inset-0 flex items-center justify-center">
                           {isVideoPlaying ? (
-                            <div className="w-full h-full cursor-default">
+                            <div className="w-full h-full">
                               <iframe
                                 src={`${getEmbedUrl(project.videoUrl)}?autoplay=1`}
                                 className="w-full h-full"
-                                style={{ cursor: "default" }}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
                               />
@@ -227,7 +206,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                             <div
                               className="absolute inset-0 flex items-center justify-center cursor-pointer"
                               onClick={() => setIsVideoPlaying(true)}
-                              onTouchStart={() => setIsVideoPlaying(true)} // Modified: Added touch event
                             >
                               <div className="p-4 rounded-full bg-cyan-600/80 backdrop-blur-sm shadow-lg shadow-cyan-500/30">
                                 <Play className="w-12 h-12" />
@@ -258,11 +236,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                               setActiveImageIndex((prev) => (prev - 1 + totalItems) % totalItems);
                               setIsVideoPlaying(false);
                             }}
-                            onTouchStart={() => {
-                              const totalItems = project.images.length + (project.videoUrl ? 1 : 0);
-                              setActiveImageIndex((prev) => (prev - 1 + totalItems) % totalItems);
-                              setIsVideoPlaying(false);
-                            }} // Modified: Added touch event
                           >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -275,11 +248,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                               setActiveImageIndex((prev) => (prev + 1) % totalItems);
                               setIsVideoPlaying(false);
                             }}
-                            onTouchStart={() => {
-                              const totalItems = project.images.length + (project.videoUrl ? 1 : 0);
-                              setActiveImageIndex((prev) => (prev + 1) % totalItems);
-                              setIsVideoPlaying(false);
-                            }} // Modified: Added touch event
                           >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -291,7 +259,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
 
                     {/* Thumbnails */}
                     {(project.images.length > 1 || project.videoUrl) && (
-                      <div className="flex gap-1.5 sm:gap-2 mt-2 sm:mt-3 overflow-x-auto pb-2 custom-scrollbar">
+                      <div className="flex gap-1.5 sm:gap-2 mt-2 sm:mt-3 overflow-x-auto pb-2">
                         {project.videoUrl && (
                           <motion.div
                             whileHover={{ scale: 1.05 }}
@@ -302,10 +270,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                               setActiveImageIndex(0);
                               setIsVideoPlaying(false);
                             }}
-                            onTouchStart={() => {
-                              setActiveImageIndex(0);
-                              setIsVideoPlaying(false);
-                            }} // Modified: Added touch event
                           >
                             <div className="w-full h-full flex items-center justify-center bg-black">
                               <Play className="w-8 h-8 text-cyan-400" />
@@ -323,10 +287,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                               setActiveImageIndex(project.videoUrl ? idx + 1 : idx);
                               setIsVideoPlaying(false);
                             }}
-                            onTouchStart={() => {
-                              setActiveImageIndex(project.videoUrl ? idx + 1 : idx);
-                              setIsVideoPlaying(false);
-                            }} // Modified: Added touch event
                           >
                             <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
                           </motion.div>
@@ -345,7 +305,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                     >
                       <h3 className="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4">Project Overview</h3>
                       <div className="prose prose-sm prose-invert max-w-none">
-                        <p className="text-sm sm:text-base text-gray-300">{project.longDescription || project.description}</p>
+                        <p className="text-sm sm:text-base text-gray-300 leading-relaxed">{project.longDescription || project.description}</p>
 
                         {project.features && project.features.length > 0 && (
                           <div className="mt-4 sm:mt-6">
@@ -450,10 +410,13 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                       </div>
                     </motion.div>
                   </div>
+
+                  {/* Add some bottom padding to ensure content doesn't get cut off */}
+                  <div className="h-8"></div>
                 </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>
