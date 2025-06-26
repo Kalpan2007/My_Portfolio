@@ -86,7 +86,7 @@ const Dashboard = () => {
             {/* Download Resume Button */}
 
             <a
-              href="../../Kalpan_Resume.pdf"
+              href="/Kalpan_Resume.pdf"
               download
               className="group relative px-10 py-5 rounded-xl overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 transition-all duration-300 shadow-lg"
             >
