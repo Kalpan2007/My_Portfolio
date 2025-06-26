@@ -79,8 +79,8 @@ html {
   scrollbar-color: rgba(6, 182, 212, 0.5) rgba(30, 41, 59, 0.3);
 }
 
-.modal-scrollable-content::-webkit-scrollbar {
-  width: 8px;
+.modal-scrollable-content {
+  -webkit-overflow-scrolling: touch;
 }
 
 .modal-scrollable-content::-webkit-scrollbar-track {
